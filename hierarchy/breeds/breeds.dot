@@ -1,0 +1,2659 @@
+strict digraph imagenet_breeds {
+//node
+"n00001740 entity -1family entity -2" [label="entity"]
+"n00021939 non-living thing -1family non-living thing -2" [label="non-living thing"]
+"n03051540 apparel, toiletries -1family apparel, toiletries -2" [label="apparel"]
+"dummy32 garment -1" [label="garment"]
+"n03419014 garment -1" [label="garment"]
+"n04230808 skirt -1" [label="skirt"]
+"n03534580 hoopskirt, crinoline 601" [label="hoopskirt"]
+"n03770439 miniskirt, mini 655" [label="miniskirt"]
+"n03866082 overskirt 689" [label="overskirt"]
+"n04136333 sarong 775" [label="sarong"]
+"n04489008 trouser, pant -1" [label="trouser"]
+"n03594734 jean, blue jean, denim 608" [label="jean"]
+"n04508163 undergarment, unmentionable -1" [label="undergarment"]
+"n02892767 brassiere, bra, bandeau 459" [label="brassiere"]
+"n03188531 diaper, nappy, napkin 529" [label="diaper"]
+"n04197391 shirt -1" [label="shirt"]
+"n03595614 jersey, T-shirt, tee shirt 610" [label="jersey"]
+"n04370048 sweater, jumper -1" [label="sweater"]
+"n02963159 cardigan 474" [label="cardigan"]
+"n04021028 pullover, slipover -1" [label="pullover"]
+"n04370456 sweatshirt 841" [label="sweatshirt"]
+"n04371563 swimsuit, swimwear, bathing suit, swimming costume, bathing costume -1" [label="swimsuit"]
+"n02837789 bikini, two-piece 445" [label="bikini"]
+"n03710721 maillot, tank suit 639" [label="maillot"]
+"n04371430 swimming trunks, bathing trunks 842" [label="swimming trunks"]
+"n03236735 dress, frock -1" [label="dress"]
+"n03450230 gown 578" [label="gown"]
+"n03825080 nightwear, sleepwear, nightclothes -1" [label="nightwear"]
+"n03877472 pajama, pyjama, pj's, jammies 697" [label="pajama"]
+"n02730930 apron 411" [label="apron"]
+"n04350905 suit, suit of clothes 834" [label="suit"]
+"n03763968 military uniform 652" [label="military uniform"]
+"n03057021 coat -1" [label="coat"]
+"n03404251 fur coat 568" [label="fur coat"]
+"n03630383 lab coat, laboratory coat 617" [label="lab coat"]
+"n04049405 raincoat, waterproof -1" [label="raincoat"]
+"n04479046 trench coat 869" [label="trench coat"]
+"n02669723 academic gown, academic robe, judge's robe 400" [label="academic gown"]
+"n04532106 vestment 887" [label="vestment"]
+"n03980874 poncho 735" [label="poncho"]
+"n03045698 cloak 501" [label="cloak"]
+"n02667093 abaya 399" [label="abaya"]
+"n03617480 kimono 614" [label="kimono"]
+"n02671780 accessory, accoutrement, accouterment -1" [label="accessory"]
+"dummy34 facial accessories -1" [label="facial accessories"]
+"n03314378 face mask -1" [label="face mask"]
+"n04229816 ski mask 796" [label="ski mask"]
+"n03724870 mask 643" [label="mask"]
+"n03424325 gasmask, respirator, gas helmet 570" [label="gasmask"]
+"n04272054 spectacles, specs, eyeglasses, glasses -1" [label="spectacles"]
+"n04356056 sunglasses, dark glasses, shades 837" [label="sunglasses"]
+"dummy35 armor -1" [label="armor"]
+"n02862048 body armor, body armour, suit of armor, suit of armour, coat of mail, cataphract -1" [label="body armor"]
+"n02916936 bulletproof vest 465" [label="bulletproof vest"]
+"n03000247 chain mail, ring mail, mail, chain armor, chain armour, ring armor, ring armour 490" [label="chain mail"]
+"n03146219 cuirass 524" [label="cuirass"]
+"n02895154 breastplate, aegis, egis 461" [label="breastplate"]
+"n03816005 neckwear -1" [label="neckwear"]
+"n03815615 necktie, tie -1" [label="necktie"]
+"n02865351 bolo tie, bolo, bola tie, bola 451" [label="bolo tie"]
+"n02883205 bow tie, bow-tie, bowtie 457" [label="bow tie"]
+"n04591157 Windsor tie 906" [label="Windsor tie"]
+"n04143897 scarf -1" [label="scarf"]
+"n03325584 feather boa, boa 552" [label="feather boa"]
+"n04325704 stole 824" [label="stole"]
+"n03597469 jewelry, jewellery -1" [label="jewelry"]
+"n03814906 necklace 679" [label="necklace"]
+"n02834397 bib 443" [label="bib"]
+"n02887209 brace -1" [label="brace"]
+"n03814639 neck brace 678" [label="neck brace"]
+"n03381126 footwear, legwear -1" [label="footwear"]
+"n03623198 knee pad 615" [label="knee pad"]
+"n04254777 sock 806" [label="sock"]
+"n04323819 stocking -1" [label="stocking"]
+"n03026506 Christmas stocking 496" [label="Christmas stocking"]
+"n04434932 tights, leotards -1" [label="tights"]
+"n03710637 maillot 638" [label="maillot"]
+"n03047690 clog, geta, patten, sabot 502" [label="clog"]
+"n04199027 shoe -1" [label="shoe"]
+"n03680355 Loafer 630" [label="Loafer"]
+"n04120489 running shoe 770" [label="running shoe"]
+"n04133789 sandal 774" [label="sandal"]
+"n02872752 boot -1" [label="boot"]
+"n03124043 cowboy boot 514" [label="cowboy boot"]
+"n03502509 headdress, headgear -1" [label="headdress"]
+"n03513137 helmet -1" [label="helmet"]
+"n03127747 crash helmet 518" [label="crash helmet"]
+"n03379051 football helmet 560" [label="football helmet"]
+"n03929855 pickelhaube 715" [label="pickelhaube"]
+"n03497657 hat, chapeau, lid -1" [label="hat"]
+"n02817516 bearskin, busby, shako 439" [label="bearskin"]
+"n02869837 bonnet, poke bonnet 452" [label="bonnet"]
+"n03124170 cowboy hat, ten-gallon hat 515" [label="cowboy hat"]
+"n04259630 sombrero 808" [label="sombrero"]
+"n02954340 cap -1" [label="cap"]
+"n02807133 bathing cap, swimming cap 433" [label="bathing cap"]
+"n03787032 mortarboard 667" [label="mortarboard"]
+"n04209133 shower cap 793" [label="shower cap"]
+"n03476083 hairpiece, false hair, postiche -1" [label="hairpiece"]
+"n04584207 wig 903" [label="wig"]
+"n03043958 clip -1" [label="clip"]
+"n03476684 hair slide 584" [label="hair slide"]
+"dummy39 dummy39 -1" [label="dummy39"]
+"n04187061 sheath -1" [label="sheath"]
+"n03527444 holster 597" [label="holster"]
+"n04141327 scabbard 777" [label="scabbard"]
+"dummy50 dummy50 -1" [label="dummy50"]
+"n03485794 handkerchief, hankie, hanky, hankey 591" [label="handkerchief"]
+"dummy51 dummy51 -1" [label="dummy51"]
+"n03141823 crutch 523" [label="crutch"]
+"dummy52 bag -1" [label="bag"]
+"n02773037 bag -1" [label="bag"]
+"n02769748 backpack, back pack, knapsack, packsack, rucksack, haversack 414" [label="backpack"]
+"n03709823 mailbag, postbag 636" [label="mailbag"]
+"n03958227 plastic bag 728" [label="plastic bag"]
+"n04026417 purse 748" [label="purse"]
+"dummy53 dummy53 -1" [label="dummy53"]
+"n02910353 buckle 464" [label="buckle"]
+"dummy57 dummy57 -1" [label="dummy57"]
+"n04507155 umbrella 879" [label="umbrella"]
+"n03490324 handwear, hand wear -1" [label="handwear"]
+"n03441112 glove -1" [label="glove"]
+"n03775071 mitten 658" [label="mitten"]
+"n04447443 toiletry, toilet articles -1" [label="toiletry"]
+"n03113152 cosmetic -1" [label="cosmetic"]
+"n03714235 makeup, make-up, war paint -1" [label="makeup"]
+"n03314780 face powder 551" [label="face powder"]
+"n03676483 lipstick, lip rouge 629" [label="lipstick"]
+"n03128519 cream, ointment, emollient -1" [label="cream"]
+"n04357314 sunscreen, sunblock, sun blocker 838" [label="sunscreen"]
+"n03690938 lotion 631" [label="lotion"]
+"n03916031 perfume, essence 711" [label="perfume"]
+"n03476991 hair spray 585" [label="hair spray"]
+"n02785648 bandage, patch -1" [label="bandage"]
+"n02680110 adhesive bandage -1" [label="adhesive bandage"]
+"n02786058 Band Aid 419" [label="Band Aid"]
+"n03100490 conveyance, transport -1family conveyance, transport -2" [label="conveyance"]
+"n04576211 wheeled vehicle -1" [label="wheeled vehicle"]
+"n03791235 motor vehicle, automotive vehicle -1" [label="motor vehicle"]
+"n02958343 car, auto, automobile, machine, motorcar -1" [label="car"]
+"n02701002 ambulance 407" [label="ambulance"]
+"n02814533 beach wagon, station wagon, wagon, estate car, beach waggon, station waggon, waggon 436" [label="beach wagon"]
+"n02930766 cab, hack, taxi, taxicab 468" [label="cab"]
+"n03100240 convertible 511" [label="convertible"]
+"n03594945 jeep, landrover 609" [label="jeep"]
+"n03670208 limousine, limo 627" [label="limousine"]
+"n03770679 minivan 656" [label="minivan"]
+"n03777568 Model T 661" [label="Model T"]
+"n04037443 racer, race car, racing car 751" [label="racer"]
+"n04285008 sports car, sport car 817" [label="sports car"]
+"n03444034 go-kart 573" [label="go-kart"]
+"n03445924 golfcart, golf cart 575" [label="golfcart"]
+"n03977966 police van, police wagon, paddy wagon, patrol wagon, wagon, black Maria 734" [label="police van"]
+"n04490091 truck, motortruck -1" [label="truck"]
+"n03345487 fire engine, fire truck 555" [label="fire engine"]
+"n03417042 garbage truck, dustcart 569" [label="garbage truck"]
+"n03930630 pickup, pickup truck 717" [label="pickup"]
+"n04461696 tow truck, tow car, wrecker 864" [label="tow truck"]
+"n04467665 trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi 867" [label="trailer truck"]
+"n04465501 tractor 866" [label="tractor"]
+"n04252225 snowplow, snowplough 803" [label="snowplow"]
+"n03796401 moving van 675" [label="moving van"]
+"n03384352 forklift 561" [label="forklift"]
+"n03790512 motorcycle, bike -1" [label="motorcycle"]
+"n03769722 minibike, motorbike -1" [label="minibike"]
+"n03785016 moped 665" [label="moped"]
+"n03791053 motor scooter, scooter 670" [label="motor scooter"]
+"n02924116 bus, autobus, coach, charabanc, double-decker, jitney, motorbus, motorcoach, omnibus, passenger vehicle -1" [label="bus"]
+"n03769881 minibus 654" [label="minibus"]
+"n04146614 school bus 779" [label="school bus"]
+"n04487081 trolleybus, trolley coach, trackless trolley 874" [label="trolleybus"]
+"n04065272 recreational vehicle, RV, R.V. 757" [label="recreational vehicle"]
+"n04464852 tracked vehicle -1" [label="tracked vehicle"]
+"n03478589 half track 586" [label="half track"]
+"n04252077 snowmobile 802" [label="snowmobile"]
+"n04389033 tank, army tank, armored combat vehicle, armoured combat vehicle 847" [label="tank"]
+"n02704792 amphibian, amphibious vehicle 408" [label="amphibian"]
+"n04468005 train, railroad train -1" [label="train"]
+"n03896233 passenger train -1" [label="passenger train"]
+"n02917067 bullet train, bullet 466" [label="bullet train"]
+"n03684823 locomotive, engine, locomotive engine, railway locomotive -1" [label="locomotive"]
+"n03272562 electric locomotive 547" [label="electric locomotive"]
+"n04310018 steam locomotive 820" [label="steam locomotive"]
+"n04335435 streetcar, tram, tramcar, trolley, trolley car 829" [label="streetcar"]
+"n02959942 car, railcar, railway car, railroad car -1" [label="car"]
+"n03393912 freight car 565" [label="freight car"]
+"n03895866 passenger car, coach, carriage 705" [label="passenger car"]
+"n02970849 cart -1" [label="cart"]
+"n03538406 horse cart, horse-cart 603" [label="horse cart"]
+"n03599486 jinrikisha, ricksha, rickshaw 612" [label="jinrikisha"]
+"n03868242 oxcart 690" [label="oxcart"]
+"n03484083 handcart, pushcart, cart, go-cart -1" [label="handcart"]
+"n02797295 barrow, garden cart, lawn cart, wheelbarrow 428" [label="barrow"]
+"n04204347 shopping cart 791" [label="shopping cart"]
+"dummy30 cycles -1" [label="cycles"]
+"n02834778 bicycle, bike, wheel, cycle -1" [label="bicycle"]
+"n02835271 bicycle-built-for-two, tandem bicycle, tandem 444" [label="bicycle-built-for-two"]
+"n03792782 mountain bike, all-terrain bike, off-roader 671" [label="mountain bike"]
+"n04482393 tricycle, trike, velocipede 870" [label="tricycle"]
+"n04509417 unicycle, monocycle 880" [label="unicycle"]
+"n03125870 craft -1" [label="craft"]
+"n04264914 spacecraft, ballistic capsule, space vehicle -1" [label="spacecraft"]
+"n04266014 space shuttle 812" [label="space shuttle"]
+"n02686568 aircraft -1" [label="aircraft"]
+"n04552348 warplane, military plane 895" [label="warplane"]
+"n02691156 airplane, aeroplane, plane -1" [label="airplane"]
+"n02690373 airliner 404" [label="airliner"]
+"n02692877 airship, dirigible 405" [label="airship"]
+"n02782093 balloon 417" [label="balloon"]
+"n04530566 vessel, watercraft -1" [label="vessel"]
+"n02858304 boat -1" [label="boat"]
+"n03344393 fireboat 554" [label="fireboat"]
+"n03447447 gondola 576" [label="gondola"]
+"n04128499 sailboat, sailing boat -1" [label="sailboat"]
+"n02981792 catamaran 484" [label="catamaran"]
+"n04483307 trimaran 871" [label="trimaran"]
+"n03662601 lifeboat 625" [label="lifeboat"]
+"n04273569 speedboat 814" [label="speedboat"]
+"n02951358 canoe 472" [label="canoe"]
+"n04612504 yawl 914" [label="yawl"]
+"n04194289 ship -1" [label="ship"]
+"n03947888 pirate, pirate ship 724" [label="pirate"]
+"n04606251 wreck 913" [label="wreck"]
+"n02965300 cargo ship, cargo vessel -1" [label="cargo ship"]
+"n03095699 container ship, containership, container vessel 510" [label="container ship"]
+"n04552696 warship, war vessel, combat ship -1" [label="warship"]
+"n02687172 aircraft carrier, carrier, flattop, attack aircraft carrier 403" [label="aircraft carrier"]
+"n03896103 passenger ship -1" [label="passenger ship"]
+"n03673027 liner, ocean liner 628" [label="liner"]
+"n04147183 schooner 780" [label="schooner"]
+"n04347754 submarine, pigboat, sub, U-boat 833" [label="submarine"]
+"dummy54 sled, sledge, sleigh -1" [label="sled"]
+"n04235291 sled, sledge, sleigh -1" [label="sled"]
+"n02860847 bobsled, bobsleigh, bob 450" [label="bobsled"]
+"n03218198 dogsled, dog sled, dog sleigh 537" [label="dogsled"]
+"n03405265 furnishing -1" [label="furnishing"]
+"n03405725 furniture, piece of furniture, article of furniture -1" [label="furniture"]
+"n04379243 table -1" [label="table"]
+"n03179701 desk 526" [label="desk"]
+"n03982430 pool table, billiard table, snooker table 736" [label="pool table"]
+"n03201208 dining table, board 532" [label="dining table"]
+"n04549122 wall unit -1" [label="wall unit"]
+"n03290653 entertainment center 548" [label="entertainment center"]
+"n02870880 bookcase 453" [label="bookcase"]
+"n04550184 wardrobe, closet, press 894" [label="wardrobe"]
+"n02933112 cabinet -1" [label="cabinet"]
+"n03018349 china cabinet, china closet 495" [label="china cabinet"]
+"n03742115 medicine chest, medicine cabinet 648" [label="medicine chest"]
+"n03337140 file, file cabinet, filing cabinet 553" [label="file"]
+"n03015254 chest of drawers, chest, bureau, dresser -1" [label="chest of drawers"]
+"n03016953 chiffonier, commode 493" [label="chiffonier"]
+"n04161981 seat -1" [label="seat"]
+"n04447861 toilet seat 861" [label="toilet seat"]
+"n03001627 chair -1" [label="chair"]
+"n02791124 barber chair 423" [label="barber chair"]
+"n03376595 folding chair 559" [label="folding chair"]
+"n04099969 rocking chair, rocker 765" [label="rocking chair"]
+"n03002210 chair of state -1" [label="chair of state"]
+"n04429376 throne 857" [label="throne"]
+"n04256520 sofa, couch, lounge -1" [label="sofa"]
+"n03100346 convertible, sofa bed -1" [label="convertible"]
+"n04344873 studio couch, day bed 831" [label="studio couch"]
+"n02828884 bench -1" [label="bench"]
+"n03891251 park bench 703" [label="park bench"]
+"n02821943 bedroom furniture -1" [label="bedroom furniture"]
+"n02818832 bed -1" [label="bed"]
+"n03388549 four-poster 564" [label="four-poster"]
+"n02766320 baby bed, baby's bed -1" [label="baby bed"]
+"n02804414 bassinet 431" [label="bassinet"]
+"n03125729 cradle 516" [label="cradle"]
+"n03131574 crib, cot 520" [label="crib"]
+"n04151581 screen -1" [label="screen"]
+"n03347037 fire screen, fireguard 556" [label="fire screen"]
+"n03788365 mosquito net 669" [label="mosquito net"]
+"n04589890 window screen 904" [label="window screen"]
+"n04201297 shoji 789" [label="shoji"]
+"n04590129 window shade 905" [label="window shade"]
+"dummy79 dummy79 -1" [label="dummy79"]
+"n03014705 chest 492" [label="chest"]
+"n03221720 door -1" [label="door"]
+"n04239074 sliding door 799" [label="sliding door"]
+"dummy38 soft furnishings, accessories -1" [label="soft furnishings"]
+"n03873064 padding, cushioning -1" [label="padding"]
+"n03151500 cushion -1" [label="cushion"]
+"n03938244 pillow 721" [label="pillow"]
+"n03366823 floor cover, floor covering -1" [label="floor cover"]
+"n04118021 rug, carpet, carpeting -1" [label="rug"]
+"n03998194 prayer rug, prayer mat 741" [label="prayer rug"]
+"n03727837 mat -1" [label="mat"]
+"n03223299 doormat, welcome mat 539" [label="doormat"]
+"n02820210 bedclothes, bed clothing, bedding -1" [label="bedclothes"]
+"n04033995 quilt, comforter, comfort, puff 750" [label="quilt"]
+"n03636649 lamp -1" [label="lamp"]
+"n04380533 table lamp 846" [label="table lamp"]
+"n03637318 lampshade, lamp shade 619" [label="lampshade"]
+"n03932670 piece of cloth, piece of material -1" [label="piece of cloth"]
+"n03207743 dishrag, dishcloth 533" [label="dishrag"]
+"n04459362 towel -1" [label="towel"]
+"n02808304 bath towel 434" [label="bath towel"]
+"n03887697 paper towel 700" [label="paper towel"]
+"dummy56 dummy56 -1" [label="dummy56"]
+"n03151077 curtain, drape, drapery, mantle, pall -1" [label="curtain"]
+"n04209239 shower curtain 794" [label="shower curtain"]
+"n04418357 theater curtain, theatre curtain 854" [label="theater curtain"]
+"n00021265 food, nutrient -1" [label="food"]
+"n07570720 cooked food, prepared food -1" [label="cooked food"]
+"n07622061 baked goods -1" [label="baked goods"]
+"n07680932 bun, roll -1" [label="bun"]
+"n07693725 bagel, beigel 931" [label="bagel"]
+"n07681926 cracker -1" [label="cracker"]
+"n07695742 pretzel 932" [label="pretzel"]
+"n07683786 loaf of bread, loaf -1" [label="loaf of bread"]
+"n07684084 French loaf 930" [label="French loaf"]
+"n07557434 dish -1" [label="dish"]
+"n07871810 meat loaf, meatloaf 962" [label="meat loaf"]
+"n07873807 pizza, pizza pie 963" [label="pizza"]
+"n07875152 potpie 964" [label="potpie"]
+"n07880968 burrito 965" [label="burrito"]
+"n07583197 soup -1" [label="soup"]
+"n07584110 consomme 925" [label="consomme"]
+"n07588947 stew -1" [label="stew"]
+"n07590611 hot pot, hotpot 926" [label="hot pot"]
+"n07710616 potato, white potato, Irish potato, murphy, spud, tater -1" [label="potato"]
+"n07711569 mashed potato 935" [label="mashed potato"]
+"n07695965 sandwich -1" [label="sandwich"]
+"n07697537 hotdog, hot dog, red hot 934" [label="hotdog"]
+"n07697100 hamburger, beefburger, burger -1" [label="hamburger"]
+"n07697313 cheeseburger 933" [label="cheeseburger"]
+"n07609840 dessert, sweet, afters -1" [label="dessert"]
+"n07611358 frozen dessert -1" [label="frozen dessert"]
+"n07614500 ice cream, icecream 928" [label="ice cream"]
+"n07615774 ice lolly, lolly, lollipop, popsicle 929" [label="ice lolly"]
+"n07612996 pudding, pud -1" [label="pudding"]
+"n07613480 trifle 927" [label="trifle"]
+"n07810907 condiment -1" [label="condiment"]
+"n07829412 sauce -1" [label="sauce"]
+"n07836838 chocolate sauce, chocolate syrup 960" [label="chocolate sauce"]
+"n07838233 spaghetti sauce, pasta sauce -1" [label="spaghetti sauce"]
+"n07831146 carbonara 959" [label="carbonara"]
+"n07582609 dip -1" [label="dip"]
+"n07583066 guacamole 924" [label="guacamole"]
+"n07705711 produce, green goods, green groceries, garden truck -1" [label="produce"]
+"n07707451 vegetable, veggie, veg -1" [label="vegetable"]
+"n07718472 cucumber, cuke 943" [label="cucumber"]
+"n07718747 artichoke, globe artichoke 944" [label="artichoke"]
+"n07730033 cardoon 946" [label="cardoon"]
+"n07734744 mushroom 947" [label="mushroom"]
+"n07715561 squash -1" [label="squash"]
+"n07717070 winter squash -1" [label="winter squash"]
+"n07717410 acorn squash 941" [label="acorn squash"]
+"n07717556 butternut squash 942" [label="butternut squash"]
+"n07715721 summer squash -1" [label="summer squash"]
+"n07716358 zucchini, courgette 939" [label="zucchini"]
+"n07716906 spaghetti squash 940" [label="spaghetti squash"]
+"n07720442 pepper -1" [label="pepper"]
+"n07720615 sweet pepper -1" [label="sweet pepper"]
+"n07720875 bell pepper 945" [label="bell pepper"]
+"n07714990 broccoli 937" [label="broccoli"]
+"n07715103 cauliflower 938" [label="cauliflower"]
+"n07713895 cabbage, chou -1" [label="cabbage"]
+"n07714571 head cabbage 936" [label="head cabbage"]
+"n13134947 fruit -1" [label="fruit"]
+"n12267677 acorn 988" [label="acorn"]
+"n12620546 hip, rose hip, rosehip 989" [label="hip"]
+"n13133613 ear, spike, capitulum 998" [label="ear"]
+"n07753113 fig 952" [label="fig"]
+"n07753275 pineapple, ananas 953" [label="pineapple"]
+"n07753592 banana 954" [label="banana"]
+"n07754684 jackfruit, jak, jack 955" [label="jackfruit"]
+"n07760859 custard apple 956" [label="custard apple"]
+"n07768694 pomegranate 957" [label="pomegranate"]
+"n07739125 apple -1" [label="apple"]
+"n07739506 eating apple, dessert apple -1" [label="eating apple"]
+"n07742313 Granny Smith 948" [label="Granny Smith"]
+"n07745940 strawberry 949" [label="strawberry"]
+"n07747607 orange 950" [label="orange"]
+"n07749582 lemon 951" [label="lemon"]
+"n12768682 buckeye, horse chestnut, conker 990" [label="buckeye"]
+"n11879895 rapeseed 984" [label="rapeseed"]
+"n12144580 corn 987" [label="corn"]
+"n07881800 beverage, drink, drinkable, potable -1" [label="beverage"]
+"n07929519 coffee, java -1" [label="coffee"]
+"n07920052 espresso 967" [label="espresso"]
+"n07884567 alcohol, alcoholic drink, alcoholic beverage, intoxicant, inebriant -1" [label="alcohol"]
+"n07891726 wine, vino -1" [label="wine"]
+"n07892512 red wine 966" [label="red wine"]
+"n07930554 punch -1" [label="punch"]
+"n07930864 cup 968" [label="cup"]
+"n07932039 eggnog 969" [label="eggnog"]
+"dummy44 structure, place -1family structure, place -2" [label="structure"]
+"n04341686 man-made structure, construction -1family man-made structure, construction -2" [label="man-made structure"]
+"n02913152 building, edifice -1" [label="building"]
+"n03953416 place of worship, house of prayer, house of God, house of worship -1" [label="place of worship"]
+"n03028079 church, church building 497" [label="church"]
+"n03788195 mosque 668" [label="mosque"]
+"n04210390 shrine -1" [label="shrine"]
+"n04346328 stupa, tope 832" [label="stupa"]
+"n04417809 theater, theatre, house -1" [label="theater"]
+"n03032252 cinema, movie theater, movie theatre, movie house, picture palace 498" [label="cinema"]
+"n03859280 outbuilding -1" [label="outbuilding"]
+"n04187547 shed -1" [label="shed"]
+"n02727426 apiary, bee house 410" [label="apiary"]
+"n02859443 boathouse 449" [label="boathouse"]
+"n02793495 barn 425" [label="barn"]
+"n03457902 greenhouse, nursery, glasshouse 580" [label="greenhouse"]
+"n03316406 factory, mill, manufacturing plant, manufactory -1" [label="factory"]
+"n03697007 lumbermill, sawmill 634" [label="lumbermill"]
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" [label="mercantile establishment"]
+"n03461385 grocery store, grocery, food market, market 582" [label="grocery store"]
+"n02776631 bakery, bakeshop, bakehouse 415" [label="bakery"]
+"n02791270 barbershop 424" [label="barbershop"]
+"n02871525 bookshop, bookstore, bookstall 454" [label="bookshop"]
+"n02927161 butcher shop, meat market 467" [label="butcher shop"]
+"n03089624 confectionery, confectionary, candy store 509" [label="confectionery"]
+"n04200800 shoe shop, shoe-shop, shoe store 788" [label="shoe shop"]
+"n04443257 tobacco shop, tobacconist shop, tobacconist 860" [label="tobacco shop"]
+"n04462240 toyshop 865" [label="toyshop"]
+"dummy45 dummy45 -1" [label="dummy45"]
+"n03661043 library 624" [label="library"]
+"dummy46 dummy46 -1" [label="dummy46"]
+"n03956157 planetarium 727" [label="planetarium"]
+"dummy47 dummy47 -1" [label="dummy47"]
+"n04005630 prison, prison house 743" [label="prison"]
+"dummy49 dummy49 -1" [label="dummy49"]
+"n04081281 restaurant, eating house, eating place, eatery 762" [label="restaurant"]
+"n04460130 tower -1" [label="tower"]
+"n02814860 beacon, lighthouse, beacon light, pharos 437" [label="beacon"]
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" [label="dwelling"]
+"n03042490 cliff dwelling 500" [label="cliff dwelling"]
+"n04613696 yurt 915" [label="yurt"]
+"n03776460 mobile home, manufactured home 660" [label="mobile home"]
+"n02980441 castle 483" [label="castle"]
+"n02843684 birdhouse 448" [label="birdhouse"]
+"n03877845 palace 698" [label="palace"]
+"n03781244 monastery 663" [label="monastery"]
+"n03638321 landing, landing place -1" [label="landing"]
+"n03216828 dock, dockage, docking facility 536" [label="dock"]
+"n02735688 area -1" [label="area"]
+"n03899768 patio, terrace 706" [label="patio"]
+"n02825657 bell cote, bell cot 442" [label="bell cote"]
+"n04105068 roof -1" [label="roof"]
+"n03220513 dome 538" [label="dome"]
+"n04417672 thatch, thatched roof 853" [label="thatch"]
+"n04435653 tile roof 858" [label="tile roof"]
+"n04523525 vault 884" [label="vault"]
+"n04296562 stage 819" [label="stage"]
+"n04388743 tank, storage tank -1" [label="tank"]
+"n04078574 reservoir -1" [label="reservoir"]
+"n04562935 water tower 900" [label="water tower"]
+"n04091097 rig -1" [label="rig"]
+"n03240683 drilling platform, offshore rig 540" [label="drilling platform"]
+"dummy67 dummy67 -1" [label="dummy67"]
+"n03388043 fountain 562" [label="fountain"]
+"dummy72 dummy72 -1" [label="dummy72"]
+"n04217882 signboard, sign -1" [label="signboard"]
+"n04149813 scoreboard 781" [label="scoreboard"]
+"n06794110 street sign 919" [label="street sign"]
+"n06874185 traffic light, traffic signal, stoplight 920" [label="traffic light"]
+"dummy73 dummy73 -1" [label="dummy73"]
+"n02898711 bridge, span -1" [label="bridge"]
+"n04311004 steel arch bridge 821" [label="steel arch bridge"]
+"n04366367 suspension bridge 839" [label="suspension bridge"]
+"n04532670 viaduct 888" [label="viaduct"]
+"dummy74 dummy74 -1" [label="dummy74"]
+"n03733281 maze, labyrinth 646" [label="maze"]
+"dummy77 dummy77 -1" [label="dummy77"]
+"n03743902 memorial, monument -1" [label="memorial"]
+"n02892201 brass, memorial tablet, plaque 458" [label="brass"]
+"n03743016 megalith, megalithic structure 649" [label="megalith"]
+"n04486054 triumphal arch 873" [label="triumphal arch"]
+"dummy78 dummy78 -1" [label="dummy78"]
+"n03074380 column, pillar -1" [label="column"]
+"n03837869 obelisk 682" [label="obelisk"]
+"n04458633 totem pole 863" [label="totem pole"]
+"n03903868 pedestal, plinth, footstall 708" [label="pedestal"]
+"n02796623 barrier -1" [label="barrier"]
+"n02788148 bannister, banister, balustrade, balusters, handrail 421" [label="bannister"]
+"n02894605 breakwater, groin, groyne, mole, bulwark, seawall, jetty 460" [label="breakwater"]
+"n03160309 dam, dike, dyke 525" [label="dam"]
+"n03327234 fence, fencing -1" [label="fence"]
+"n03000134 chainlink fence 489" [label="chainlink fence"]
+"n03930313 picket fence, paling 716" [label="picket fence"]
+"n04326547 stone wall 825" [label="stone wall"]
+"n04046974 rail fence -1" [label="rail fence"]
+"n04604644 worm fence, snake fence, snake-rail fence, Virginia fence 912" [label="worm fence"]
+"n03427296 gate -1" [label="gate"]
+"n04501370 turnstile 877" [label="turnstile"]
+"n09287968 geological formation, formation -1" [label="geological formation"]
+"n09433442 shore -1" [label="shore"]
+"n09332890 lakeside, lakeshore 975" [label="lakeside"]
+"n09428293 seashore, coast, seacoast, sea-coast 978" [label="seashore"]
+"n09443453 spring, fountain, outflow, outpouring, natural spring -1" [label="spring"]
+"n09288635 geyser 974" [label="geyser"]
+"dummy68 dummy68 -1" [label="dummy68"]
+"n09246464 cliff, drop, drop-off 972" [label="cliff"]
+"n09214060 bar -1" [label="bar"]
+"n09421951 sandbar, sand bar 977" [label="sandbar"]
+"n09359803 mountain, mount -1" [label="mountain"]
+"n09193705 alp 970" [label="alp"]
+"n09472597 volcano 980" [label="volcano"]
+"dummy69 dummy69 -1" [label="dummy69"]
+"n09399592 promontory, headland, head, foreland 976" [label="promontory"]
+"n09406793 reef -1" [label="reef"]
+"n09256479 coral reef 973" [label="coral reef"]
+"dummy71 dummy71 -1" [label="dummy71"]
+"n09468604 valley, vale 979" [label="valley"]
+"dummy63 paraphernalia -1family paraphernalia -2" [label="paraphernalia"]
+"n02729837 appliance -1" [label="appliance"]
+"n03251766 dryer, drier -1" [label="dryer"]
+"n03483316 hand blower, blow dryer, blow drier, hair dryer, hair drier 589" [label="hand blower"]
+"n03528263 home appliance, household appliance -1" [label="home appliance"]
+"n03584829 iron, smoothing iron 606" [label="iron"]
+"n04179913 sewing machine 786" [label="sewing machine"]
+"n04517823 vacuum, vacuum cleaner 882" [label="vacuum"]
+"n03320046 fan -1" [label="fan"]
+"n03271574 electric fan, blower 545" [label="electric fan"]
+"n04265275 space heater 811" [label="space heater"]
+"n04330267 stove 827" [label="stove"]
+"n03649909 lawn mower, mower 621" [label="lawn mower"]
+"n03101156 cooker -1" [label="cooker"]
+"n03133878 Crock Pot 521" [label="Crock Pot"]
+"n03207941 dishwasher, dish washer, dishwashing machine 534" [label="dishwasher"]
+"n04070727 refrigerator, icebox 760" [label="refrigerator"]
+"n04554684 washer, automatic washer, washing machine 897" [label="washer"]
+"n03761084 microwave, microwave oven 651" [label="microwave"]
+"n04442312 toaster 859" [label="toaster"]
+"n04542943 waffle iron 891" [label="waffle iron"]
+"n03063338 coffee maker -1" [label="coffee maker"]
+"n03297495 espresso maker 550" [label="espresso maker"]
+"n04111531 rotisserie 766" [label="rotisserie"]
+"n03294048 equipment -1" [label="equipment"]
+"n03278248 electronic equipment -1" [label="electronic equipment"]
+"n02979186 cassette player 482" [label="cassette player"]
+"n02988304 CD player 485" [label="CD player"]
+"n03777754 modem 662" [label="modem"]
+"n03782006 monitor 664" [label="monitor"]
+"n03857828 oscilloscope, scope, cathode-ray oscilloscope, CRO 688" [label="oscilloscope"]
+"n04392985 tape player 848" [label="tape player"]
+"n04401088 telephone, phone, telephone set -1" [label="telephone"]
+"n03187595 dial telephone, dial phone 528" [label="dial telephone"]
+"n03902125 pay-phone, pay-station 707" [label="pay-phone"]
+"n02992529 cellular telephone, cellular phone, cellphone, cell, mobile phone 487" [label="cellular telephone"]
+"n02757462 audio system, sound system -1" [label="audio system"]
+"n03584254 iPod 605" [label="iPod"]
+"n03691459 loudspeaker, speaker, speaker unit, loudspeaker system, speaker system 632" [label="loudspeaker"]
+"n04404412 television, television system 851" [label="television"]
+"n04041544 radio, wireless 754" [label="radio"]
+"n03759954 microphone, mike 650" [label="microphone"]
+"n03924679 photocopier 713" [label="photocopier"]
+"n04009552 projector 745" [label="projector"]
+"n03529860 home theater, home theatre 598" [label="home theater"]
+"n03196324 digital computer -1" [label="digital computer"]
+"n03180011 desktop computer 527" [label="desktop computer"]
+"n03485407 hand-held computer, hand-held microcomputer 590" [label="hand-held computer"]
+"n03642806 laptop, laptop computer 620" [label="laptop"]
+"n03832673 notebook, notebook computer 681" [label="notebook"]
+"n04004767 printer 742" [label="printer"]
+"n03211117 display, video display -1" [label="display"]
+"n04152593 screen, CRT screen 782" [label="screen"]
+"n03085013 computer keyboard, keypad 508" [label="computer keyboard"]
+"n03602883 joystick 613" [label="joystick"]
+"n03793489 mouse, computer mouse 673" [label="mouse"]
+"n04074963 remote control, remote 761" [label="remote control"]
+"n04285146 sports equipment -1" [label="sports equipment"]
+"n04571292 weight, free weight, exercising weight -1" [label="weight"]
+"n02790996 barbell 422" [label="barbell"]
+"n03255030 dumbbell 543" [label="dumbbell"]
+"n03472232 gymnastic apparatus, exerciser -1" [label="gymnastic apparatus"]
+"n02777292 balance beam, beam 416" [label="balance beam"]
+"n03535780 horizontal bar, high bar 602" [label="horizontal bar"]
+"n03888605 parallel bars, bars 702" [label="parallel bars"]
+"n02778669 ball -1" [label="ball"]
+"n02799071 baseball 429" [label="baseball"]
+"n02802426 basketball 430" [label="basketball"]
+"n03134739 croquet ball 522" [label="croquet ball"]
+"n03445777 golf ball 574" [label="golf ball"]
+"n03942813 ping-pong ball 722" [label="ping-pong ball"]
+"n04023962 punching bag, punch bag, punching ball, punchball 747" [label="punching bag"]
+"n04118538 rugby ball 768" [label="rugby ball"]
+"n04254680 soccer ball 805" [label="soccer ball"]
+"n04409515 tennis ball 852" [label="tennis ball"]
+"n04540053 volleyball 890" [label="volleyball"]
+"n04039381 racket, racquet 752" [label="racket"]
+"n04228054 ski 795" [label="ski"]
+"n04251144 snorkel 801" [label="snorkel"]
+"n03926148 photographic equipment -1" [label="photographic equipment"]
+"n02942699 camera, photographic camera -1" [label="camera"]
+"n03976467 Polaroid camera, Polaroid Land camera 732" [label="Polaroid camera"]
+"n04069434 reflex camera 759" [label="reflex camera"]
+"n04485082 tripod 872" [label="tripod"]
+"n03657121 lens cap, lens cover 622" [label="lens cap"]
+"n03574816 instrument -1family instrument -2" [label="instrument"]
+"n03733925 measuring instrument, measuring system, measuring device -1" [label="measuring instrument"]
+"n03735637 measuring stick, measure, measuring rod -1" [label="measuring stick"]
+"n04118776 rule, ruler 769" [label="rule"]
+"n03753077 meter -1" [label="meter"]
+"n03841143 odometer, hodometer, mileometer, milometer 685" [label="odometer"]
+"n04437953 timepiece, timekeeper, horologe -1" [label="timepiece"]
+"n04355338 sundial 835" [label="sundial"]
+"n04438304 timer -1" [label="timer"]
+"n03891332 parking meter 704" [label="parking meter"]
+"n04328186 stopwatch, stop watch 826" [label="stopwatch"]
+"n03046257 clock -1" [label="clock"]
+"n02708093 analog clock 409" [label="analog clock"]
+"n03196217 digital clock 530" [label="digital clock"]
+"n04548280 wall clock 892" [label="wall clock"]
+"n04555897 watch, ticker -1" [label="watch"]
+"n03197337 digital watch 531" [label="digital watch"]
+"n04134632 sandglass -1" [label="sandglass"]
+"n03544143 hourglass 604" [label="hourglass"]
+"n02794156 barometer 426" [label="barometer"]
+"n04141975 scale, weighing machine 778" [label="scale"]
+"n03080497 compass -1" [label="compass"]
+"n03706229 magnetic compass 635" [label="magnetic compass"]
+"n04147495 scientific instrument -1" [label="scientific instrument"]
+"n02666196 abacus 398" [label="abacus"]
+"n04403638 telescope, scope -1" [label="telescope"]
+"n04044716 radio telescope, radio reflector 755" [label="radio telescope"]
+"n03760671 microscope -1" [label="microscope"]
+"n03484931 hand glass, simple microscope, magnifying glass -1" [label="hand glass"]
+"n03692522 loupe, jeweler's loupe 633" [label="loupe"]
+"n02841315 binoculars, field glasses, opera glasses 447" [label="binoculars"]
+"n03800933 musical instrument, instrument -1" [label="musical instrument"]
+"n03614532 keyboard instrument -1" [label="keyboard instrument"]
+"n02672831 accordion, piano accordion, squeeze box 401" [label="accordion"]
+"n03854065 organ, pipe organ 687" [label="organ"]
+"n03928116 piano, pianoforte, forte-piano -1" [label="piano"]
+"n03452741 grand piano, grand 579" [label="grand piano"]
+"n04515003 upright, upright piano 881" [label="upright"]
+"n03915437 percussion instrument, percussive instrument -1" [label="percussion instrument"]
+"n03017168 chime, bell, gong 494" [label="chime"]
+"n03249569 drum, membranophone, tympan 541" [label="drum"]
+"n03447721 gong, tam-tam 577" [label="gong"]
+"n03720891 maraca 641" [label="maraca"]
+"n03721384 marimba, xylophone 642" [label="marimba"]
+"n04311174 steel drum 822" [label="steel drum"]
+"n04338517 stringed instrument -1" [label="stringed instrument"]
+"n02787622 banjo 420" [label="banjo"]
+"n03467517 guitar -1" [label="guitar"]
+"n02676566 acoustic guitar 402" [label="acoustic guitar"]
+"n03272010 electric guitar 546" [label="electric guitar"]
+"n03495258 harp 594" [label="harp"]
+"n02992211 cello, violoncello 486" [label="cello"]
+"n04536866 violin, fiddle 889" [label="violin"]
+"n04586932 wind instrument, wind -1" [label="wind instrument"]
+"n03840681 ocarina, sweet potato 684" [label="ocarina"]
+"n03945615 pipe -1" [label="pipe"]
+"n03884397 panpipe, pandean pipe, syrinx 699" [label="panpipe"]
+"n03494278 harmonica, mouth organ, harp, mouth harp 593" [label="harmonica"]
+"n03372029 flute, transverse flute 558" [label="flute"]
+"n02804610 bassoon 432" [label="bassoon"]
+"n03838899 oboe, hautboy, hautbois 683" [label="oboe"]
+"n04141076 sax, saxophone 776" [label="sax"]
+"n03110669 cornet, horn, trumpet, trump 513" [label="cornet"]
+"n03394916 French horn, horn 566" [label="French horn"]
+"n04487394 trombone 875" [label="trombone"]
+"n04451818 tool -1" [label="tool"]
+"n03967562 plow, plough 730" [label="plow"]
+"n03876231 paintbrush 696" [label="paintbrush"]
+"n03906997 pen -1" [label="pen"]
+"n02783161 ballpoint, ballpoint pen, ballpen, Biro 418" [label="ballpoint"]
+"n03388183 fountain pen 563" [label="fountain pen"]
+"n04033901 quill, quill pen 749" [label="quill"]
+"n03294833 eraser -1" [label="eraser"]
+"n04116512 rubber eraser, rubber, pencil eraser 767" [label="rubber eraser"]
+"n04185071 sharpener -1" [label="sharpener"]
+"n03908714 pencil sharpener 710" [label="pencil sharpener"]
+"n04153751 screw 783" [label="screw"]
+"n03804744 nail 677" [label="nail"]
+"n03940256 pin -1" [label="pin"]
+"n04127249 safety pin 772" [label="safety pin"]
+"n03682487 lock -1" [label="lock"]
+"n03075370 combination lock 507" [label="combination lock"]
+"n03874599 padlock 695" [label="padlock"]
+"n04067472 reel 758" [label="reel"]
+"n03666591 lighter, light, igniter, ignitor 626" [label="lighter"]
+"n04456115 torch 862" [label="torch"]
+"n03481172 hammer 587" [label="hammer"]
+"n03970156 plunger, plumber's helper 731" [label="plunger"]
+"n04154565 screwdriver 784" [label="screwdriver"]
+"n04208210 shovel 792" [label="shovel"]
+"n02966687 carpenter's kit, tool kit 477" [label="carpenter's kit"]
+"n03995372 power drill 740" [label="power drill"]
+"n03000684 chain saw, chainsaw 491" [label="chain saw"]
+"n03739693 medical instrument -1" [label="medical instrument"]
+"n04317175 stethoscope 823" [label="stethoscope"]
+"n04376876 syringe 845" [label="syringe"]
+"n04565375 weapon, arm, weapon system -1" [label="weapon"]
+"n02879718 bow 456" [label="bow"]
+"n03773504 missile 657" [label="missile"]
+"n04008634 projectile, missile 744" [label="projectile"]
+"n02950826 cannon 471" [label="cannon"]
+"n03343853 firearm, piece, small-arm -1" [label="firearm"]
+"n04090263 rifle 764" [label="rifle"]
+"n03948459 pistol, handgun, side arm, shooting iron -1" [label="pistol"]
+"n04086273 revolver, six-gun, six-shooter 763" [label="revolver"]
+"n02760429 automatic firearm, automatic gun, automatic weapon -1" [label="automatic firearm"]
+"n02749479 assault rifle, assault gun 413" [label="assault rifle"]
+"n03621049 kitchen utensil -1" [label="kitchen utensil"]
+"n03848348 opener -1" [label="opener"]
+"n02951585 can opener, tin opener 473" [label="can opener"]
+"n02877962 bottle opener -1" [label="bottle opener"]
+"n03109150 corkscrew, bottle screw 512" [label="corkscrew"]
+"n03961711 plate rack 729" [label="plate rack"]
+"n04476259 tray 868" [label="tray"]
+"n03062245 cocktail shaker 503" [label="cocktail shaker"]
+"n04131690 saltshaker, salt shaker 773" [label="saltshaker"]
+"n03990474 pot -1" [label="pot"]
+"n02939185 caldron, cauldron 469" [label="caldron"]
+"n03063689 coffeepot 505" [label="coffeepot"]
+"n04398044 teapot 849" [label="teapot"]
+"n03259280 Dutch oven 544" [label="Dutch oven"]
+"n03880531 pan, cooking pan -1" [label="pan"]
+"n03400231 frying pan, frypan, skillet 567" [label="frying pan"]
+"n04596742 wok 909" [label="wok"]
+"n04270147 spatula 813" [label="spatula"]
+"n03633091 ladle 618" [label="ladle"]
+"n03623556 knife -1" [label="knife"]
+"n03041632 cleaver, meat cleaver, chopper 499" [label="cleaver"]
+"n03733805 measuring cup 647" [label="measuring cup"]
+"n04381994 tableware -1" [label="tableware"]
+"n02880940 bowl -1" [label="bowl"]
+"n03775546 mixing bowl 659" [label="mixing bowl"]
+"n04263257 soup bowl 809" [label="soup bowl"]
+"n07579787 plate 923" [label="plate"]
+"n04284002 spoon -1" [label="spoon"]
+"n04597913 wooden spoon 910" [label="wooden spoon"]
+"n03797390 mug -1" [label="mug"]
+"n03063599 coffee mug 504" [label="coffee mug"]
+"n03438257 glass, drinking glass -1" [label="glass"]
+"n02823750 beer glass 441" [label="beer glass"]
+"n03443371 goblet 572" [label="goblet"]
+"n02876657 bottle -1" [label="bottle"]
+"n02823428 beer bottle 440" [label="beer bottle"]
+"n03983396 pop bottle, soda bottle 737" [label="pop bottle"]
+"n04557648 water bottle 898" [label="water bottle"]
+"n04591713 wine bottle 907" [label="wine bottle"]
+"n03603722 jug -1" [label="jug"]
+"n04560804 water jug 899" [label="water jug"]
+"n04579145 whiskey jug 901" [label="whiskey jug"]
+"n00004258 living thing, animate thing -1family living thing, animate thing -2" [label="living thing"]
+"n00015388 animal, animate being, beast, brute, creature, fauna -1family animal, animate being, beast, brute, creature, fauna -2" [label="animal"]
+"n01767661 arthropod -1" [label="arthropod"]
+"n01768244 trilobite 69" [label="trilobite"]
+"n01784675 centipede 79" [label="centipede"]
+"n01769347 arachnid, arachnoid -1" [label="arachnid"]
+"n01770081 harvestman, daddy longlegs, Phalangium opilio 70" [label="harvestman"]
+"n01770393 scorpion 71" [label="scorpion"]
+"n01776192 acarine -1" [label="acarine"]
+"n01776313 tick 78" [label="tick"]
+"n01772222 spider -1" [label="spider"]
+"n01773157 black and gold garden spider, Argiope aurantia 72" [label="black and gold garden spider"]
+"n01773549 barn spider, Araneus cavaticus 73" [label="barn spider"]
+"n01773797 garden spider, Aranea diademata 74" [label="garden spider"]
+"n01774384 black widow, Latrodectus mactans 75" [label="black widow"]
+"n01774750 tarantula 76" [label="tarantula"]
+"n01775062 wolf spider, hunting spider 77" [label="wolf spider"]
+"n01974773 crustacean -1" [label="crustacean"]
+"n01985128 crayfish, crawfish, crawdad, crawdaddy 124" [label="crayfish"]
+"n01986214 hermit crab 125" [label="hermit crab"]
+"n01982650 lobster -1" [label="lobster"]
+"n01984695 spiny lobster, langouste, rock lobster, crawfish, crayfish, sea crawfish 123" [label="spiny lobster"]
+"n01983048 true lobster -1" [label="true lobster"]
+"n01983481 American lobster, Northern lobster, Maine lobster, Homarus americanus 122" [label="American lobster"]
+"n01976957 crab -1" [label="crab"]
+"n01978287 Dungeness crab, Cancer magister 118" [label="Dungeness crab"]
+"n01978455 rock crab, Cancer irroratus 119" [label="rock crab"]
+"n01980166 fiddler crab 120" [label="fiddler crab"]
+"n01981276 king crab, Alaska crab, Alaskan king crab, Alaska king crab, Paralithodes camtschatica 121" [label="king crab"]
+"n01990800 isopod 126" [label="isopod"]
+"n02159955 insect -1" [label="insect"]
+"n02164464 beetle -1" [label="beetle"]
+"n02165105 tiger beetle 300" [label="tiger beetle"]
+"n02165456 ladybug, ladybeetle, lady beetle, ladybird, ladybird beetle 301" [label="ladybug"]
+"n02167151 ground beetle, carabid beetle 302" [label="ground beetle"]
+"n02168699 long-horned beetle, longicorn, longicorn beetle 303" [label="long-horned beetle"]
+"n02169497 leaf beetle, chrysomelid 304" [label="leaf beetle"]
+"n02177972 weevil 307" [label="weevil"]
+"n02171869 scarabaeid beetle, scarabaeid, scarabaean -1" [label="scarabaeid beetle"]
+"n02172182 dung beetle 305" [label="dung beetle"]
+"n02174001 rhinoceros beetle 306" [label="rhinoceros beetle"]
+"n02256656 cicada, cicala 316" [label="cicada"]
+"n02259212 leafhopper 317" [label="leafhopper"]
+"n02226429 grasshopper, hopper 311" [label="grasshopper"]
+"n02229544 cricket 312" [label="cricket"]
+"n02274259 butterfly -1" [label="butterfly"]
+"n02277742 ringlet, ringlet butterfly 322" [label="ringlet"]
+"n02281406 sulphur butterfly, sulfur butterfly 325" [label="sulphur butterfly"]
+"n02281787 lycaenid, lycaenid butterfly 326" [label="lycaenid"]
+"n02280458 pierid, pierid butterfly -1" [label="pierid"]
+"n02280649 cabbage butterfly 324" [label="cabbage butterfly"]
+"n02274822 nymphalid, nymphalid butterfly, brush-footed butterfly, four-footed butterfly -1" [label="nymphalid"]
+"n02276258 admiral 321" [label="admiral"]
+"n02279637 danaid, danaid butterfly -1" [label="danaid"]
+"n02279972 monarch, monarch butterfly, milkweed butterfly, Danaus plexippus 323" [label="monarch"]
+"n02233338 cockroach, roach 314" [label="cockroach"]
+"n02236044 mantis, mantid 315" [label="mantis"]
+"n02206856 bee 309" [label="bee"]
+"n02219486 ant, emmet, pismire 310" [label="ant"]
+"n02264363 lacewing, lacewing fly 318" [label="lacewing"]
+"n02190166 fly 308" [label="fly"]
+"n02231487 walking stick, walkingstick, stick insect 313" [label="walking stick"]
+"n02268443 dragonfly, darning needle, devil's darning needle, sewing needle, snake feeder, snake doctor, mosquito hawk, skeeter hawk 319" [label="dragonfly"]
+"n02268853 damselfly 320" [label="damselfly"]
+"n02316707 echinoderm -1" [label="echinoderm"]
+"dummy11 dummy11 -1" [label="dummy11"]
+"n02317335 starfish, sea star 327" [label="starfish"]
+"dummy12 dummy12 -1" [label="dummy12"]
+"n02321529 sea cucumber, holothurian 329" [label="sea cucumber"]
+"dummy13 dummy13 -1" [label="dummy13"]
+"n02319095 sea urchin 328" [label="sea urchin"]
+"n01940736 mollusk, mollusc, shellfish -1" [label="mollusk"]
+"n01955084 chiton, coat-of-mail shell, sea cradle, polyplacophore 116" [label="chiton"]
+"n01942177 gastropod, univalve -1" [label="gastropod"]
+"n01943899 conch 112" [label="conch"]
+"n01944390 snail 113" [label="snail"]
+"n01945685 slug 114" [label="slug"]
+"n01950731 sea slug, nudibranch 115" [label="sea slug"]
+"n01968315 cephalopod, cephalopod mollusk -1" [label="cephalopod"]
+"n01968897 chambered nautilus, pearly nautilus, nautilus 117" [label="chambered nautilus"]
+"n01909422 coelenterate, cnidarian -1" [label="coelenterate"]
+"n01914163 anthozoan, actinozoan -1" [label="anthozoan"]
+"n01914609 sea anemone, anemone 108" [label="sea anemone"]
+"n01915811 coral -1" [label="coral"]
+"n01917289 brain coral 109" [label="brain coral"]
+"dummy10 dummy10 -1" [label="dummy10"]
+"n01910747 jellyfish 107" [label="jellyfish"]
+"n01922303 worm -1" [label="worm"]
+"dummy14 dummy14 -1" [label="dummy14"]
+"n01924916 flatworm, platyhelminth 110" [label="flatworm"]
+"dummy15 dummy15 -1" [label="dummy15"]
+"n01930112 nematode, nematode worm, roundworm 111" [label="nematode"]
+"n01861778 mammal, mammalian -1family mammal, mammalian -2" [label="mammal"]
+"n01871875 monotreme, egg-laying mammal -1" [label="monotreme"]
+"n01872401 echidna, spiny anteater, anteater 102" [label="echidna"]
+"n01873310 platypus, duckbill, duckbilled platypus, duck-billed platypus, Ornithorhynchus anatinus 103" [label="platypus"]
+"n02453611 edentate -1" [label="edentate"]
+"n02454379 armadillo 363" [label="armadillo"]
+"n02456962 sloth, tree sloth -1" [label="sloth"]
+"n02457408 three-toed sloth, ai, Bradypus tridactylus 364" [label="three-toed sloth"]
+"n02329401 rodent, gnawer -1" [label="rodent"]
+"n02342885 hamster 333" [label="hamster"]
+"n02346627 porcupine, hedgehog 334" [label="porcupine"]
+"n02361337 marmot 336" [label="marmot"]
+"n02363005 beaver 337" [label="beaver"]
+"n02355227 squirrel -1" [label="squirrel"]
+"n02356798 fox squirrel, eastern fox squirrel, Sciurus niger 335" [label="fox squirrel"]
+"n02364673 guinea pig, Cavia cobaya 338" [label="guinea pig"]
+"n02062017 aquatic mammal -1" [label="aquatic mammal"]
+"n02073250 sea cow, sirenian mammal, sirenian -1" [label="sea cow"]
+"n02074367 dugong, Dugong dugon 149" [label="dugong"]
+"n02062744 whale -1" [label="whale"]
+"n02066245 grey whale, gray whale, devilfish, Eschrichtius gibbosus, Eschrichtius robustus 147" [label="grey whale"]
+"n02071294 killer whale, killer, orca, grampus, sea wolf, Orcinus orca 148" [label="killer whale"]
+"n02076196 seal -1" [label="seal"]
+"n02077923 sea lion 150" [label="sea lion"]
+"n02503127 proboscidean, proboscidian -1" [label="proboscidean"]
+"n02503517 elephant -1" [label="elephant"]
+"n02504013 Indian elephant, Elephas maximus 385" [label="Indian elephant"]
+"n02504458 African elephant, Loxodonta africana 386" [label="African elephant"]
+"n02469914 primate -1" [label="primate"]
+"n02496913 lemur -1" [label="lemur"]
+"n02497673 Madagascar cat, ring-tailed lemur, Lemur catta 383" [label="Madagascar cat"]
+"n02500267 indri, indris, Indri indri, Indri brevicaudatus 384" [label="indri"]
+"n02484322 monkey -1" [label="monkey"]
+"n02490219 marmoset 377" [label="marmoset"]
+"n02492035 capuchin, ringtail, Cebus capucinus 378" [label="capuchin"]
+"n02492660 howler monkey, howler 379" [label="howler monkey"]
+"n02493509 titi, titi monkey 380" [label="titi"]
+"n02493793 spider monkey, Ateles geoffroyi 381" [label="spider monkey"]
+"n02494079 squirrel monkey, Saimiri sciureus 382" [label="squirrel monkey"]
+"n02484975 guenon, guenon monkey 370" [label="guenon"]
+"n02486261 patas, hussar monkey, Erythrocebus patas 371" [label="patas"]
+"n02486410 baboon 372" [label="baboon"]
+"n02487347 macaque 373" [label="macaque"]
+"n02488291 langur 374" [label="langur"]
+"n02488702 colobus, colobus monkey 375" [label="colobus"]
+"n02489166 proboscis monkey, Nasalis larvatus 376" [label="proboscis monkey"]
+"n02470325 ape -1" [label="ape"]
+"n02480495 orangutan, orang, orangutang, Pongo pygmaeus 365" [label="orangutan"]
+"n02480855 gorilla, Gorilla gorilla 366" [label="gorilla"]
+"n02481823 chimpanzee, chimp, Pan troglodytes 367" [label="chimpanzee"]
+"n02483362 gibbon, Hylobates lar 368" [label="gibbon"]
+"n02483708 siamang, Hylobates syndactylus, Symphalangus syndactylus 369" [label="siamang"]
+"n02323449 lagomorph, gnawing mammal -1" [label="lagomorph"]
+"n02326432 hare 331" [label="hare"]
+"n02324045 rabbit, coney, cony -1" [label="rabbit"]
+"n02325366 wood rabbit, cottontail, cottontail rabbit 330" [label="wood rabbit"]
+"n02328150 Angora, Angora rabbit 332" [label="Angora"]
+"n02370806 ungulate, hoofed mammal -1" [label="ungulate"]
+"n02398521 hippopotamus, hippo, river horse, Hippopotamus amphibius 344" [label="hippopotamus"]
+"n02437616 llama 355" [label="llama"]
+"n02437136 camel -1" [label="camel"]
+"n02437312 Arabian camel, dromedary, Camelus dromedarius 354" [label="Arabian camel"]
+"n02395406 hog, pig, grunter, squealer, Sus scrofa 341" [label="hog"]
+"n02396427 wild boar, boar, Sus scrofa 342" [label="wild boar"]
+"n02397096 warthog 343" [label="warthog"]
+"n02391049 zebra 340" [label="zebra"]
+"n02374451 horse, Equus caballus -1" [label="horse"]
+"n02389026 sorrel 339" [label="sorrel"]
+"n02410509 bison 347" [label="bison"]
+"n02419796 antelope -1" [label="antelope"]
+"n02422106 hartebeest 351" [label="hartebeest"]
+"n02422699 impala, Aepyceros melampus 352" [label="impala"]
+"n02423022 gazelle 353" [label="gazelle"]
+"n02411705 sheep -1" [label="sheep"]
+"n02412080 ram, tup 348" [label="ram"]
+"n02407959 Old World buffalo, buffalo -1" [label="Old World buffalo"]
+"n02408429 water buffalo, water ox, Asiatic buffalo, Bubalus bubalis 346" [label="water buffalo"]
+"n02414578 wild sheep -1" [label="wild sheep"]
+"n02415435 mountain sheep -1" [label="mountain sheep"]
+"n02415577 bighorn, bighorn sheep, cimarron, Rocky Mountain bighorn, Rocky Mountain sheep, Ovis canadensis 349" [label="bighorn"]
+"n02416519 goat, caprine animal -1" [label="goat"]
+"n02417914 ibex, Capra ibex 350" [label="ibex"]
+"n02402425 cattle, cows, kine, oxen, Bos taurus -1" [label="cattle"]
+"n02403003 ox 345" [label="ox"]
+"n02075296 carnivore -1family carnivore -2" [label="carnivore"]
+"n02131653 bear -1" [label="bear"]
+"n02132136 brown bear, bruin, Ursus arctos 294" [label="brown bear"]
+"n02133161 American black bear, black bear, Ursus americanus, Euarctos americanus 295" [label="American black bear"]
+"n02134084 ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus 296" [label="ice bear"]
+"n02134418 sloth bear, Melursus ursinus, Ursus ursinus 297" [label="sloth bear"]
+"n02128385 leopard, Panthera pardus 288" [label="leopard"]
+"n02128757 snow leopard, ounce, Panthera uncia 289" [label="snow leopard"]
+"n02128925 jaguar, panther, Panthera onca, Felis onca 290" [label="jaguar"]
+"n02129165 lion, king of beasts, Panthera leo 291" [label="lion"]
+"n02129604 tiger, Panthera tigris 292" [label="tiger"]
+"n02130308 cheetah, chetah, Acinonyx jubatus 293" [label="cheetah"]
+"n02441942 weasel 356" [label="weasel"]
+"n02442845 mink 357" [label="mink"]
+"n02443114 polecat, fitch, foulmart, foumart, Mustela putorius 358" [label="polecat"]
+"n02443484 black-footed ferret, ferret, Mustela nigripes 359" [label="black-footed ferret"]
+"n02444819 otter 360" [label="otter"]
+"n02445715 skunk, polecat, wood pussy 361" [label="skunk"]
+"n02447366 badger 362" [label="badger"]
+"n02137549 mongoose 298" [label="mongoose"]
+"n02138441 meerkat, mierkat 299" [label="meerkat"]
+"n02509815 lesser panda, red panda, panda, bear cat, cat bear, Ailurus fulgens 387" [label="lesser panda"]
+"n02510455 giant panda, panda, panda bear, coon bear, Ailuropoda melanoleuca 388" [label="giant panda"]
+"n02121808 domestic cat, house cat, Felis domesticus, Felis catus -1" [label="domestic cat"]
+"n02123045 tabby, tabby cat 281" [label="tabby"]
+"n02123159 tiger cat 282" [label="tiger cat"]
+"n02123394 Persian cat 283" [label="Persian cat"]
+"n02123597 Siamese cat, Siamese 284" [label="Siamese cat"]
+"n02124075 Egyptian cat 285" [label="Egyptian cat"]
+"n02125311 cougar, puma, catamount, mountain lion, painter, panther, Felis concolor 286" [label="cougar"]
+"n02127052 lynx, catamount 287" [label="lynx"]
+"n02117135 hyena, hyaena 276" [label="hyena"]
+"n02114100 wolf -1" [label="wolf"]
+"n02114367 timber wolf, grey wolf, gray wolf, Canis lupus 269" [label="timber wolf"]
+"n02114548 white wolf, Arctic wolf, Canis lupus tundrarum 270" [label="white wolf"]
+"n02114712 red wolf, maned wolf, Canis rufus, Canis niger 271" [label="red wolf"]
+"n02114855 coyote, prairie wolf, brush wolf, Canis latrans 272" [label="coyote"]
+"n02118333 fox -1" [label="fox"]
+"n02119022 red fox, Vulpes vulpes 277" [label="red fox"]
+"n02119789 kit fox, Vulpes macrotis 278" [label="kit fox"]
+"n02120079 Arctic fox, white fox, Alopex lagopus 279" [label="Arctic fox"]
+"n02120505 grey fox, gray fox, Urocyon cinereoargenteus 280" [label="grey fox"]
+"n02084071 dog, domestic dog, Canis familiaris -1family dog, domestic dog, Canis familiaris -2" [label="dog"]
+"n02110341 dalmatian, coach dog, carriage dog 251" [label="dalmatian"]
+"n02110806 basenji 253" [label="basenji"]
+"n02110958 pug, pug-dog 254" [label="pug"]
+"n02111129 Leonberg 255" [label="Leonberg"]
+"n02111277 Newfoundland, Newfoundland dog 256" [label="Newfoundland"]
+"n02111500 Great Pyrenees 257" [label="Great Pyrenees"]
+"n02113978 Mexican hairless 268" [label="Mexican hairless"]
+"n02113335 poodle, poodle dog -1" [label="poodle"]
+"n02113624 toy poodle 265" [label="toy poodle"]
+"n02113712 miniature poodle 266" [label="miniature poodle"]
+"n02113799 standard poodle 267" [label="standard poodle"]
+"n02112826 corgi, Welsh corgi -1" [label="corgi"]
+"n02113023 Pembroke, Pembroke Welsh corgi 263" [label="Pembroke"]
+"n02113186 Cardigan, Cardigan Welsh corgi 264" [label="Cardigan"]
+"n02112497 griffon, Brussels griffon, Belgian griffon -1" [label="griffon"]
+"n02112706 Brabancon griffon 262" [label="Brabancon griffon"]
+"n02111889 Samoyed, Samoyede 258" [label="Samoyed"]
+"n02112018 Pomeranian 259" [label="Pomeranian"]
+"n02112137 chow, chow chow 260" [label="chow"]
+"n02112350 keeshond 261" [label="keeshond"]
+"n02108089 boxer 242" [label="boxer"]
+"n02108422 bull mastiff 243" [label="bull mastiff"]
+"n02109047 Great Dane 246" [label="Great Dane"]
+"n02109525 Saint Bernard, St Bernard 247" [label="Saint Bernard"]
+"n02109961 Eskimo dog, husky 248" [label="Eskimo dog"]
+"n02108672 bulldog, English bulldog -1" [label="bulldog"]
+"n02108915 French bulldog 245" [label="French bulldog"]
+"n02108254 mastiff -1" [label="mastiff"]
+"n02108551 Tibetan mastiff 244" [label="Tibetan mastiff"]
+"n02110063 malamute, malemute, Alaskan malamute 249" [label="malamute"]
+"n02110185 Siberian husky 250" [label="Siberian husky"]
+"n02105251 briard 226" [label="briard"]
+"n02105412 kelpie 227" [label="kelpie"]
+"n02105505 komondor 228" [label="komondor"]
+"n02105641 Old English sheepdog, bobtail 229" [label="Old English sheepdog"]
+"n02105855 Shetland sheepdog, Shetland sheep dog, Shetland 230" [label="Shetland sheepdog"]
+"n02106030 collie 231" [label="collie"]
+"n02106166 Border collie 232" [label="Border collie"]
+"n02106382 Bouvier des Flandres, Bouviers des Flandres 233" [label="Bouvier des Flandres"]
+"n02106550 Rottweiler 234" [label="Rottweiler"]
+"n02106662 German shepherd, German shepherd dog, German police dog, alsatian 235" [label="German shepherd"]
+"n02104882 Belgian sheepdog, Belgian shepherd -1" [label="Belgian sheepdog"]
+"n02105056 groenendael 224" [label="groenendael"]
+"n02105162 malinois 225" [label="malinois"]
+"n02085620 Chihuahua 151" [label="Chihuahua"]
+"n02085782 Japanese spaniel 152" [label="Japanese spaniel"]
+"n02085936 Maltese dog, Maltese terrier, Maltese 153" [label="Maltese dog"]
+"n02086079 Pekinese, Pekingese, Peke 154" [label="Pekinese"]
+"n02086240 Shih-Tzu 155" [label="Shih-Tzu"]
+"n02087046 toy terrier 158" [label="toy terrier"]
+"n02086346 toy spaniel -1" [label="toy spaniel"]
+"n02086910 papillon 157" [label="papillon"]
+"n02086646 Blenheim spaniel 156" [label="Blenheim spaniel"]
+"n02107574 Greater Swiss Mountain dog 238" [label="Greater Swiss Mountain dog"]
+"n02107683 Bernese mountain dog 239" [label="Bernese mountain dog"]
+"n02107908 Appenzeller 240" [label="Appenzeller"]
+"n02108000 EntleBucher 241" [label="EntleBucher"]
+"n02087394 Rhodesian ridgeback 159" [label="Rhodesian ridgeback"]
+"n02093647 Bedlington terrier 181" [label="Bedlington terrier"]
+"n02093754 Border terrier 182" [label="Border terrier"]
+"n02093859 Kerry blue terrier 183" [label="Kerry blue terrier"]
+"n02093991 Irish terrier 184" [label="Irish terrier"]
+"n02094114 Norfolk terrier 185" [label="Norfolk terrier"]
+"n02094258 Norwich terrier 186" [label="Norwich terrier"]
+"n02094433 Yorkshire terrier 187" [label="Yorkshire terrier"]
+"n02096051 Airedale, Airedale terrier 191" [label="Airedale"]
+"n02096177 cairn, cairn terrier 192" [label="cairn"]
+"n02096294 Australian terrier 193" [label="Australian terrier"]
+"n02096437 Dandie Dinmont, Dandie Dinmont terrier 194" [label="Dandie Dinmont"]
+"n02096585 Boston bull, Boston terrier 195" [label="Boston bull"]
+"n02097298 Scotch terrier, Scottish terrier, Scottie 199" [label="Scotch terrier"]
+"n02097474 Tibetan terrier, chrysanthemum dog 200" [label="Tibetan terrier"]
+"n02097658 silky terrier, Sydney silky 201" [label="silky terrier"]
+"n02098105 soft-coated wheaten terrier 202" [label="soft-coated wheaten terrier"]
+"n02098286 West Highland white terrier 203" [label="West Highland white terrier"]
+"n02098413 Lhasa, Lhasa apso 204" [label="Lhasa"]
+"n02095412 wirehair, wirehaired terrier, wire-haired terrier -1" [label="wirehair"]
+"n02095570 Lakeland terrier 189" [label="Lakeland terrier"]
+"n02095727 Welsh terrier -1" [label="Welsh terrier"]
+"n02095889 Sealyham terrier, Sealyham 190" [label="Sealyham terrier"]
+"n02095050 fox terrier -1" [label="fox terrier"]
+"n02095314 wire-haired fox terrier 188" [label="wire-haired fox terrier"]
+"n02093056 bullterrier, bull terrier -1" [label="bullterrier"]
+"n02093256 Staffordshire bullterrier, Staffordshire bull terrier 179" [label="Staffordshire bullterrier"]
+"n02093428 American Staffordshire terrier, Staffordshire terrier, American pit bull terrier, pit bull terrier 180" [label="American Staffordshire terrier"]
+"n02096756 schnauzer -1" [label="schnauzer"]
+"n02097047 miniature schnauzer 196" [label="miniature schnauzer"]
+"n02097130 giant schnauzer 197" [label="giant schnauzer"]
+"n02097209 standard schnauzer 198" [label="standard schnauzer"]
+"n02099267 flat-coated retriever 205" [label="flat-coated retriever"]
+"n02099429 curly-coated retriever 206" [label="curly-coated retriever"]
+"n02099601 golden retriever 207" [label="golden retriever"]
+"n02099712 Labrador retriever 208" [label="Labrador retriever"]
+"n02099849 Chesapeake Bay retriever 209" [label="Chesapeake Bay retriever"]
+"n02100236 German short-haired pointer 210" [label="German short-haired pointer"]
+"n02100583 vizsla, Hungarian pointer 211" [label="vizsla"]
+"n02101388 Brittany spaniel 215" [label="Brittany spaniel"]
+"n02101556 clumber, clumber spaniel 216" [label="clumber"]
+"n02102318 cocker spaniel, English cocker spaniel, cocker 219" [label="cocker spaniel"]
+"n02102480 Sussex spaniel 220" [label="Sussex spaniel"]
+"n02101861 springer spaniel, springer -1" [label="springer spaniel"]
+"n02102040 English springer, English springer spaniel 217" [label="English springer"]
+"n02102177 Welsh springer spaniel 218" [label="Welsh springer spaniel"]
+"n02102605 water spaniel -1" [label="water spaniel"]
+"n02102973 Irish water spaniel 221" [label="Irish water spaniel"]
+"n02100735 English setter 212" [label="English setter"]
+"n02100877 Irish setter, red setter 213" [label="Irish setter"]
+"n02101006 Gordon setter 214" [label="Gordon setter"]
+"n02104029 kuvasz 222" [label="kuvasz"]
+"n02104365 schipperke 223" [label="schipperke"]
+"n02107142 Doberman, Doberman pinscher 236" [label="Doberman"]
+"n02107312 miniature pinscher 237" [label="miniature pinscher"]
+"n02110627 affenpinscher, monkey pinscher, monkey dog 252" [label="affenpinscher"]
+"n02088094 Afghan hound, Afghan 160" [label="Afghan hound"]
+"n02088238 basset, basset hound 161" [label="basset"]
+"n02088364 beagle 162" [label="beagle"]
+"n02088466 bloodhound, sleuthhound 163" [label="bloodhound"]
+"n02088632 bluetick 164" [label="bluetick"]
+"n02090379 redbone 168" [label="redbone"]
+"n02091244 Ibizan hound, Ibizan Podenco 173" [label="Ibizan hound"]
+"n02091467 Norwegian elkhound, elkhound 174" [label="Norwegian elkhound"]
+"n02091635 otterhound, otter hound 175" [label="otterhound"]
+"n02091831 Saluki, gazelle hound 176" [label="Saluki"]
+"n02092002 Scottish deerhound, deerhound 177" [label="Scottish deerhound"]
+"n02092339 Weimaraner 178" [label="Weimaraner"]
+"n02091032 Italian greyhound 171" [label="Italian greyhound"]
+"n02091134 whippet 172" [label="whippet"]
+"n02090622 borzoi, Russian wolfhound 169" [label="borzoi"]
+"n02090721 Irish wolfhound 170" [label="Irish wolfhound"]
+"n02089867 Walker hound, Walker foxhound 166" [label="Walker hound"]
+"n02089973 English foxhound 167" [label="English foxhound"]
+"n02089078 black-and-tan coonhound 165" [label="black-and-tan coonhound"]
+"n02115335 wild dog -1" [label="wild dog"]
+"n02115641 dingo, warrigal, warragal, Canis dingo 273" [label="dingo"]
+"n02115913 dhole, Cuon alpinus 274" [label="dhole"]
+"n02116738 African hunting dog, hyena dog, Cape hunting dog, Lycaon pictus 275" [label="African hunting dog"]
+"n01874434 marsupial, pouched mammal -1" [label="marsupial"]
+"n01883070 wombat 106" [label="wombat"]
+"n01881171 phalanger, opossum, possum -1" [label="phalanger"]
+"n01882714 koala, koala bear, kangaroo bear, native bear, Phascolarctos cinereus 105" [label="koala"]
+"n01877134 kangaroo -1" [label="kangaroo"]
+"n01877812 wallaby, brush kangaroo 104" [label="wallaby"]
+"n01503061 bird -1family bird -2" [label="bird"]
+"n01604330 bird of prey, raptor, raptorial bird -1" [label="bird of prey"]
+"n01616318 vulture 23" [label="vulture"]
+"n01613294 eagle, bird of Jove -1" [label="eagle"]
+"n01614925 bald eagle, American eagle, Haliaeetus leucocephalus 22" [label="bald eagle"]
+"n01621127 owl, bird of Minerva, bird of night, hooter -1" [label="owl"]
+"n01622779 great grey owl, great gray owl, Strix nebulosa 24" [label="great grey owl"]
+"n01605630 hawk -1" [label="hawk"]
+"n01608432 kite 21" [label="kite"]
+"n01838038 piciform bird -1" [label="piciform bird"]
+"n01843065 jacamar 95" [label="jacamar"]
+"n01843383 toucan 96" [label="toucan"]
+"n01517565 ratite, ratite bird, flightless bird -1" [label="ratite"]
+"n01518878 ostrich, Struthio camelus 9" [label="ostrich"]
+"n01825930 coraciiform bird -1" [label="coraciiform bird"]
+"n01828970 bee eater 92" [label="bee eater"]
+"n01829413 hornbill 93" [label="hornbill"]
+"n01831712 apodiform bird -1" [label="apodiform bird"]
+"n01833805 hummingbird 94" [label="hummingbird"]
+"n01822602 cuculiform bird -1" [label="cuculiform bird"]
+"n01823013 cuckoo -1" [label="cuckoo"]
+"n01824575 coucal 91" [label="coucal"]
+"n01844917 aquatic bird -1" [label="aquatic bird"]
+"n01858441 swan -1" [label="swan"]
+"n01860187 black swan, Cygnus atratus 100" [label="black swan"]
+"n02016358 gallinule, marsh hen, water hen, swamphen -1" [label="gallinule"]
+"n02016956 purple gallinule -1" [label="purple gallinule"]
+"n02017213 European gallinule, Porphyrio porphyrio 136" [label="European gallinule"]
+"n02051845 pelican 144" [label="pelican"]
+"n02058221 albatross, mollymawk 146" [label="albatross"]
+"n01855672 goose 99" [label="goose"]
+"n01846331 duck -1" [label="duck"]
+"n01847000 drake 97" [label="drake"]
+"n01854415 merganser, fish duck, sawbill, sheldrake -1" [label="merganser"]
+"n01855032 red-breasted merganser, Mergus serrator 98" [label="red-breasted merganser"]
+"n02006656 spoonbill 129" [label="spoonbill"]
+"n02007558 flamingo 130" [label="flamingo"]
+"n02012849 crane 134" [label="crane"]
+"n02013706 limpkin, Aramus pictus 135" [label="limpkin"]
+"n02018795 bustard 138" [label="bustard"]
+"n02008041 heron -1" [label="heron"]
+"n02009229 little blue heron, Egretta caerulea 131" [label="little blue heron"]
+"n02011460 bittern 133" [label="bittern"]
+"n02008796 egret -1" [label="egret"]
+"n02009912 American egret, great white heron, Egretta albus 132" [label="American egret"]
+"n02002075 stork -1" [label="stork"]
+"n02002556 white stork, Ciconia ciconia 127" [label="white stork"]
+"n02002724 black stork, Ciconia nigra 128" [label="black stork"]
+"n02014941 rail -1" [label="rail"]
+"n02018027 coot -1" [label="coot"]
+"n02018207 American coot, marsh hen, mud hen, water hen, Fulica americana 137" [label="American coot"]
+"n02037110 oystercatcher, oyster catcher 143" [label="oystercatcher"]
+"n02026059 sandpiper -1" [label="sandpiper"]
+"n02027492 red-backed sandpiper, dunlin, Erolia alpina 140" [label="red-backed sandpiper"]
+"n02028035 redshank, Tringa totanus 141" [label="redshank"]
+"n02031934 snipe -1" [label="snipe"]
+"n02033041 dowitcher 142" [label="dowitcher"]
+"n02023341 plover -1" [label="plover"]
+"n02025239 ruddy turnstone, Arenaria interpres 139" [label="ruddy turnstone"]
+"n02055803 penguin -1" [label="penguin"]
+"n02056570 king penguin, Aptenodytes patagonica 145" [label="king penguin"]
+"n01524359 passerine, passeriform bird -1" [label="passerine"]
+"n01601694 water ouzel, dipper 20" [label="water ouzel"]
+"n01591697 titmouse, tit -1" [label="titmouse"]
+"n01592084 chickadee 19" [label="chickadee"]
+"n01558993 robin, American robin, Turdus migratorius 15" [label="robin"]
+"n01560105 nightingale, Luscinia megarhynchos -1" [label="nightingale"]
+"n01560419 bulbul 16" [label="bulbul"]
+"n01530575 brambling, Fringilla montifringilla 10" [label="brambling"]
+"n01531178 goldfinch, Carduelis carduelis 11" [label="goldfinch"]
+"n01532829 house finch, linnet, Carpodacus mexicanus 12" [label="house finch"]
+"n01534433 junco, snowbird 13" [label="junco"]
+"n01537544 indigo bunting, indigo finch, indigo bird, Passerina cyanea 14" [label="indigo bunting"]
+"n01580077 jay 17" [label="jay"]
+"n01582220 magpie 18" [label="magpie"]
+"n01789386 gallinaceous bird, gallinacean -1" [label="gallinaceous bird"]
+"n01802721 phasianid -1" [label="phasianid"]
+"n01806567 quail 85" [label="quail"]
+"n01807496 partridge 86" [label="partridge"]
+"n01806143 peacock 84" [label="peacock"]
+"n01795088 grouse -1" [label="grouse"]
+"n01795545 black grouse 80" [label="black grouse"]
+"n01796340 ptarmigan 81" [label="ptarmigan"]
+"n01797886 ruffed grouse, partridge, Bonasa umbellus 82" [label="ruffed grouse"]
+"n01798484 prairie chicken, prairie grouse, prairie fowl 83" [label="prairie chicken"]
+"dummy0 dummy0 -1" [label="dummy0"]
+"n01514668 cock 7" [label="cock"]
+"dummy1 dummy1 -1" [label="dummy1"]
+"n01514859 hen 8" [label="hen"]
+"dummy6 dummy6 -1" [label="dummy6"]
+"n01816887 parrot -1" [label="parrot"]
+"n01817953 African grey, African gray, Psittacus erithacus 87" [label="African grey"]
+"n01818515 macaw 88" [label="macaw"]
+"n01819115 cockatoo -1" [label="cockatoo"]
+"n01819313 sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita 89" [label="sulphur-crested cockatoo"]
+"n01820348 lory -1" [label="lory"]
+"n01820546 lorikeet 90" [label="lorikeet"]
+"n01661091 reptile, reptilian -1" [label="reptile"]
+"n01696633 crocodilian reptile, crocodilian -1" [label="crocodilian reptile"]
+"n01698434 alligator, gator -1" [label="alligator"]
+"n01698640 American alligator, Alligator mississipiensis 50" [label="American alligator"]
+"n01697178 crocodile -1" [label="crocodile"]
+"n01697457 African crocodile, Nile crocodile, Crocodylus niloticus 49" [label="African crocodile"]
+"n01674216 saurian -1" [label="saurian"]
+"n01674464 lizard -1" [label="lizard"]
+"n01687665 agamid, agamid lizard -1" [label="agamid"]
+"n01687978 agama 42" [label="agama"]
+"n01688243 frilled lizard, Chlamydosaurus kingi 43" [label="frilled lizard"]
+"n01689411 anguid lizard -1" [label="anguid lizard"]
+"n01689811 alligator lizard 44" [label="alligator lizard"]
+"n01676755 iguanid, iguanid lizard -1" [label="iguanid"]
+"n01677366 common iguana, iguana, Iguana iguana 39" [label="common iguana"]
+"n01682714 American chameleon, anole, Anolis carolinensis 40" [label="American chameleon"]
+"n01693783 chameleon, chamaeleon -1" [label="chameleon"]
+"n01694178 African chameleon, Chamaeleo chamaeleon 47" [label="African chameleon"]
+"n01692864 lacertid lizard, lacertid -1" [label="lacertid lizard"]
+"n01693334 green lizard, Lacerta viridis 46" [label="green lizard"]
+"n01691951 venomous lizard -1" [label="venomous lizard"]
+"n01692333 Gila monster, Heloderma suspectum 45" [label="Gila monster"]
+"n01674990 gecko -1" [label="gecko"]
+"n01675722 banded gecko 38" [label="banded gecko"]
+"n01685439 teiid lizard, teiid -1" [label="teiid lizard"]
+"n01685808 whiptail, whiptail lizard 41" [label="whiptail"]
+"n01694709 monitor, monitor lizard, varan -1" [label="monitor"]
+"n01695060 Komodo dragon, Komodo lizard, dragon lizard, giant lizard, Varanus komodoensis 48" [label="Komodo dragon"]
+"n01695681 archosaur, archosaurian, archosaurian reptile -1" [label="archosaur"]
+"n01699831 dinosaur -1" [label="dinosaur"]
+"n01700470 ornithischian, ornithischian dinosaur -1" [label="ornithischian"]
+"n01703569 ceratopsian, horned dinosaur -1" [label="ceratopsian"]
+"n01704323 triceratops 51" [label="triceratops"]
+"dummy9 serpentes -1" [label="serpentes"]
+"n01726692 snake, serpent, ophidian -1" [label="snake"]
+"n01751748 sea snake 65" [label="sea snake"]
+"n01728572 thunder snake, worm snake, Carphophis amoenus 52" [label="thunder snake"]
+"n01728920 ringneck snake, ring-necked snake, ring snake 53" [label="ringneck snake"]
+"n01729322 hognose snake, puff adder, sand viper 54" [label="hognose snake"]
+"n01729977 green snake, grass snake 55" [label="green snake"]
+"n01734418 king snake, kingsnake 56" [label="king snake"]
+"n01735189 garter snake, grass snake 57" [label="garter snake"]
+"n01737021 water snake 58" [label="water snake"]
+"n01739381 vine snake 59" [label="vine snake"]
+"n01740131 night snake, Hypsiglena torquata 60" [label="night snake"]
+"n01753488 horned viper, cerastes, sand viper, horned asp, Cerastes cornutus 66" [label="horned viper"]
+"n01747885 cobra -1" [label="cobra"]
+"n01748264 Indian cobra, Naja naja 63" [label="Indian cobra"]
+"n01749582 mamba -1" [label="mamba"]
+"n01749742 black mamba, Dendroaspis augusticeps -1" [label="black mamba"]
+"n01749939 green mamba 64" [label="green mamba"]
+"n01754876 rattlesnake, rattler -1" [label="rattlesnake"]
+"n01755581 diamondback, diamondback rattlesnake, Crotalus adamanteus 67" [label="diamondback"]
+"n01756291 sidewinder, horned rattlesnake, Crotalus cerastes 68" [label="sidewinder"]
+"n01742172 boa constrictor, Constrictor constrictor 61" [label="boa constrictor"]
+"n01743605 python -1" [label="python"]
+"n01744401 rock python, rock snake, Python sebae 62" [label="rock python"]
+"n01662622 chelonian, chelonian reptile -1" [label="chelonian"]
+"n01662784 turtle -1" [label="turtle"]
+"n01667114 mud turtle 35" [label="mud turtle"]
+"n01667778 terrapin 36" [label="terrapin"]
+"n01669191 box turtle, box tortoise 37" [label="box turtle"]
+"n01663401 sea turtle, marine turtle -1" [label="sea turtle"]
+"n01664065 loggerhead, loggerhead turtle, Caretta caretta 33" [label="loggerhead"]
+"n01665541 leatherback turtle, leatherback, leathery turtle, Dermochelys coriacea 34" [label="leatherback turtle"]
+"n01627424 amphibian -1" [label="amphibian"]
+"dummy7 dummy7 -1" [label="dummy7"]
+"n01639765 frog, toad, toad frog, anuran, batrachian, salientian -1" [label="frog"]
+"n01644373 tree frog, tree-frog 31" [label="tree frog"]
+"n01644900 tailed frog, bell toad, ribbed toad, tailed toad, Ascaphus trui 32" [label="tailed frog"]
+"n01640846 true frog, ranid -1" [label="true frog"]
+"n01641577 bullfrog, Rana catesbeiana 30" [label="bullfrog"]
+"dummy8 dummy8 -1" [label="dummy8"]
+"n01629276 salamander -1" [label="salamander"]
+"n01630284 newt, triton -1" [label="newt"]
+"n01630670 common newt, Triturus vulgaris 26" [label="common newt"]
+"n01631663 eft 27" [label="eft"]
+"n01629819 European fire salamander, Salamandra salamandra 25" [label="European fire salamander"]
+"n01632458 spotted salamander, Ambystoma maculatum 28" [label="spotted salamander"]
+"n01632777 axolotl, mud puppy, Ambystoma mexicanum 29" [label="axolotl"]
+"n02512053 fish -1" [label="fish"]
+"n01480516 cartilaginous fish, chondrichthian -1" [label="cartilaginous fish"]
+"n01495701 ray -1" [label="ray"]
+"n01496331 electric ray, crampfish, numbfish, torpedo 5" [label="electric ray"]
+"n01498041 stingray 6" [label="stingray"]
+"n01482330 shark -1" [label="shark"]
+"n01494475 hammerhead, hammerhead shark 4" [label="hammerhead"]
+"n01484850 great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias 2" [label="great white shark"]
+"n01491361 tiger shark, Galeocerdo cuvieri 3" [label="tiger shark"]
+"n02514825 bony fish -1" [label="bony fish"]
+"n02526121 eel 390" [label="eel"]
+"n01440764 tench, Tinca tinca 0" [label="tench"]
+"n01443537 goldfish, Carassius auratus 1" [label="goldfish"]
+"n02534734 salmon -1" [label="salmon"]
+"n02536864 coho, cohoe, coho salmon, blue jack, silver salmon, Oncorhynchus kisutch 391" [label="coho"]
+"n02640242 sturgeon 394" [label="sturgeon"]
+"n02641379 gar, garfish, garpike, billfish, Lepisosteus osseus 395" [label="gar"]
+"n02655020 puffer, pufferfish, blowfish, globefish 397" [label="puffer"]
+"n02606384 damselfish, demoiselle -1" [label="damselfish"]
+"n02607072 anemone fish 393" [label="anemone fish"]
+"n02605316 butterfly fish -1" [label="butterfly fish"]
+"n02606052 rock beauty, Holocanthus tricolor 392" [label="rock beauty"]
+"n02642644 scorpaenid, scorpaenid fish -1" [label="scorpaenid"]
+"n02643566 lionfish 396" [label="lionfish"]
+"n02514041 barracouta, snoek 389" [label="barracouta"]
+"n00017222 plant, flora, plant life -1" [label="plant"]
+"n13083586 vascular plant, tracheophyte -1" [label="vascular plant"]
+"n11669921 flower -1" [label="flower"]
+"n11939491 daisy 985" [label="daisy"]
+"n12041446 orchid, orchidaceous plant -1" [label="orchid"]
+"n12056217 lady's slipper, lady-slipper, ladies' slipper, slipper orchid -1" [label="lady's slipper"]
+"n12057211 yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum 986" [label="yellow lady's slipper"]
+"dummy21 fungus -1" [label="fungus"]
+"n12992868 fungus -1" [label="fungus"]
+"n12997654 basidiomycete, basidiomycetous fungi -1" [label="basidiomycete"]
+"n12985857 coral fungus 991" [label="coral fungus"]
+"n13040303 stinkhorn, carrion fungus 994" [label="stinkhorn"]
+"n13044778 earthstar 995" [label="earthstar"]
+"dummy20 mushroom -1" [label="mushroom"]
+"n12998815 agaric 992" [label="agaric"]
+"n13054560 bolete 997" [label="bolete"]
+"n13052670 hen-of-the-woods, hen of the woods, Polyporus frondosus, Grifola frondosa 996" [label="hen-of-the-woods"]
+"dummy19 ascomycete -1" [label="ascomycete"]
+"n13037406 gyromitra 993" [label="gyromitra"]
+"dummy65 person -1" [label="person"]
+"dummy66 person -1" [label="person"]
+"n00007846 person, individual, someone, somebody, mortal, soul -1" [label="person"]
+"n10565667 scuba diver 983" [label="scuba diver"]
+"n09835506 ballplayer, baseball player 981" [label="ballplayer"]
+"n10148035 groom, bridegroom 982" [label="groom"]
+//edge
+"n00001740 entity -1" -> "n00021939 non-living thing -1"
+"n00021939 non-living thing -1" -> "n03051540 apparel, toiletries -1"
+"n03051540 apparel, toiletries -1" -> "dummy32 garment -1"
+"dummy32 garment -1" -> "n03419014 garment -1"
+"n03419014 garment -1" -> "n04230808 skirt -1"
+"n04230808 skirt -1" -> "n03534580 hoopskirt, crinoline 601"
+"n04230808 skirt -1" -> "n03770439 miniskirt, mini 655"
+"n04230808 skirt -1" -> "n03866082 overskirt 689"
+"n04230808 skirt -1" -> "n04136333 sarong 775"
+"n03419014 garment -1" -> "n04489008 trouser, pant -1"
+"n04489008 trouser, pant -1" -> "n03594734 jean, blue jean, denim 608"
+"n03419014 garment -1" -> "n04508163 undergarment, unmentionable -1"
+"n04508163 undergarment, unmentionable -1" -> "n02892767 brassiere, bra, bandeau 459"
+"n04508163 undergarment, unmentionable -1" -> "n03188531 diaper, nappy, napkin 529"
+"n03419014 garment -1" -> "n04197391 shirt -1"
+"n04197391 shirt -1" -> "n03595614 jersey, T-shirt, tee shirt 610"
+"n03419014 garment -1" -> "n04370048 sweater, jumper -1"
+"n04370048 sweater, jumper -1" -> "n02963159 cardigan 474"
+"n04370048 sweater, jumper -1" -> "n04021028 pullover, slipover -1"
+"n04021028 pullover, slipover -1" -> "n04370456 sweatshirt 841"
+"n03419014 garment -1" -> "n04371563 swimsuit, swimwear, bathing suit, swimming costume, bathing costume -1"
+"n04371563 swimsuit, swimwear, bathing suit, swimming costume, bathing costume -1" -> "n02837789 bikini, two-piece 445"
+"n04371563 swimsuit, swimwear, bathing suit, swimming costume, bathing costume -1" -> "n03710721 maillot, tank suit 639"
+"n04371563 swimsuit, swimwear, bathing suit, swimming costume, bathing costume -1" -> "n04371430 swimming trunks, bathing trunks 842"
+"n03419014 garment -1" -> "n03236735 dress, frock -1"
+"n03236735 dress, frock -1" -> "n03450230 gown 578"
+"n03419014 garment -1" -> "n03825080 nightwear, sleepwear, nightclothes -1"
+"n03825080 nightwear, sleepwear, nightclothes -1" -> "n03877472 pajama, pyjama, pj's, jammies 697"
+"n03419014 garment -1" -> "n02730930 apron 411"
+"n03419014 garment -1" -> "n04350905 suit, suit of clothes 834"
+"n03419014 garment -1" -> "n03763968 military uniform 652"
+"n03419014 garment -1" -> "n03057021 coat -1"
+"n03057021 coat -1" -> "n03404251 fur coat 568"
+"n03057021 coat -1" -> "n03630383 lab coat, laboratory coat 617"
+"n03057021 coat -1" -> "n04049405 raincoat, waterproof -1"
+"n04049405 raincoat, waterproof -1" -> "n04479046 trench coat 869"
+"n03057021 coat -1" -> "n02669723 academic gown, academic robe, judge's robe 400"
+"n03057021 coat -1" -> "n04532106 vestment 887"
+"n03057021 coat -1" -> "n03980874 poncho 735"
+"n03057021 coat -1" -> "n03045698 cloak 501"
+"n03057021 coat -1" -> "n02667093 abaya 399"
+"n03057021 coat -1" -> "n03617480 kimono 614"
+"n03051540 apparel, toiletries -1" -> "n02671780 accessory, accoutrement, accouterment -1"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy34 facial accessories -1"
+"dummy34 facial accessories -1" -> "n03314378 face mask -1"
+"n03314378 face mask -1" -> "n04229816 ski mask 796"
+"n03314378 face mask -1" -> "n03724870 mask 643"
+"n03314378 face mask -1" -> "n03424325 gasmask, respirator, gas helmet 570"
+"dummy34 facial accessories -1" -> "n04272054 spectacles, specs, eyeglasses, glasses -1"
+"n04272054 spectacles, specs, eyeglasses, glasses -1" -> "n04356056 sunglasses, dark glasses, shades 837"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy35 armor -1"
+"dummy35 armor -1" -> "n02862048 body armor, body armour, suit of armor, suit of armour, coat of mail, cataphract -1"
+"n02862048 body armor, body armour, suit of armor, suit of armour, coat of mail, cataphract -1" -> "n02916936 bulletproof vest 465"
+"n02862048 body armor, body armour, suit of armor, suit of armour, coat of mail, cataphract -1" -> "n03000247 chain mail, ring mail, mail, chain armor, chain armour, ring armor, ring armour 490"
+"n02862048 body armor, body armour, suit of armor, suit of armour, coat of mail, cataphract -1" -> "n03146219 cuirass 524"
+"n02862048 body armor, body armour, suit of armor, suit of armour, coat of mail, cataphract -1" -> "n02895154 breastplate, aegis, egis 461"
+"n02671780 accessory, accoutrement, accouterment -1" -> "n03816005 neckwear -1"
+"n03816005 neckwear -1" -> "n03815615 necktie, tie -1"
+"n03815615 necktie, tie -1" -> "n02865351 bolo tie, bolo, bola tie, bola 451"
+"n03815615 necktie, tie -1" -> "n02883205 bow tie, bow-tie, bowtie 457"
+"n03815615 necktie, tie -1" -> "n04591157 Windsor tie 906"
+"n03816005 neckwear -1" -> "n04143897 scarf -1"
+"n04143897 scarf -1" -> "n03325584 feather boa, boa 552"
+"n04143897 scarf -1" -> "n04325704 stole 824"
+"n03816005 neckwear -1" -> "n03597469 jewelry, jewellery -1"
+"n03597469 jewelry, jewellery -1" -> "n03814906 necklace 679"
+"n03816005 neckwear -1" -> "n02834397 bib 443"
+"n03816005 neckwear -1" -> "n02887209 brace -1"
+"n02887209 brace -1" -> "n03814639 neck brace 678"
+"n02671780 accessory, accoutrement, accouterment -1" -> "n03381126 footwear, legwear -1"
+"n03381126 footwear, legwear -1" -> "n03623198 knee pad 615"
+"n03381126 footwear, legwear -1" -> "n04254777 sock 806"
+"n03381126 footwear, legwear -1" -> "n04323819 stocking -1"
+"n04323819 stocking -1" -> "n03026506 Christmas stocking 496"
+"n03381126 footwear, legwear -1" -> "n04434932 tights, leotards -1"
+"n04434932 tights, leotards -1" -> "n03710637 maillot 638"
+"n03381126 footwear, legwear -1" -> "n03047690 clog, geta, patten, sabot 502"
+"n03381126 footwear, legwear -1" -> "n04199027 shoe -1"
+"n04199027 shoe -1" -> "n03680355 Loafer 630"
+"n04199027 shoe -1" -> "n04120489 running shoe 770"
+"n04199027 shoe -1" -> "n04133789 sandal 774"
+"n03381126 footwear, legwear -1" -> "n02872752 boot -1"
+"n02872752 boot -1" -> "n03124043 cowboy boot 514"
+"n02671780 accessory, accoutrement, accouterment -1" -> "n03502509 headdress, headgear -1"
+"n03502509 headdress, headgear -1" -> "n03513137 helmet -1"
+"n03513137 helmet -1" -> "n03127747 crash helmet 518"
+"n03513137 helmet -1" -> "n03379051 football helmet 560"
+"n03513137 helmet -1" -> "n03929855 pickelhaube 715"
+"n03502509 headdress, headgear -1" -> "n03497657 hat, chapeau, lid -1"
+"n03497657 hat, chapeau, lid -1" -> "n02817516 bearskin, busby, shako 439"
+"n03497657 hat, chapeau, lid -1" -> "n02869837 bonnet, poke bonnet 452"
+"n03497657 hat, chapeau, lid -1" -> "n03124170 cowboy hat, ten-gallon hat 515"
+"n03497657 hat, chapeau, lid -1" -> "n04259630 sombrero 808"
+"n03502509 headdress, headgear -1" -> "n02954340 cap -1"
+"n02954340 cap -1" -> "n02807133 bathing cap, swimming cap 433"
+"n02954340 cap -1" -> "n03787032 mortarboard 667"
+"n02954340 cap -1" -> "n04209133 shower cap 793"
+"n03502509 headdress, headgear -1" -> "n03476083 hairpiece, false hair, postiche -1"
+"n03476083 hairpiece, false hair, postiche -1" -> "n04584207 wig 903"
+"n03502509 headdress, headgear -1" -> "n03043958 clip -1"
+"n03043958 clip -1" -> "n03476684 hair slide 584"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy39 dummy39 -1"
+"dummy39 dummy39 -1" -> "n04187061 sheath -1"
+"n04187061 sheath -1" -> "n03527444 holster 597"
+"n04187061 sheath -1" -> "n04141327 scabbard 777"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy50 dummy50 -1"
+"dummy50 dummy50 -1" -> "n03485794 handkerchief, hankie, hanky, hankey 591"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy51 dummy51 -1"
+"dummy51 dummy51 -1" -> "n03141823 crutch 523"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy52 bag -1"
+"dummy52 bag -1" -> "n02773037 bag -1"
+"n02773037 bag -1" -> "n02769748 backpack, back pack, knapsack, packsack, rucksack, haversack 414"
+"n02773037 bag -1" -> "n03709823 mailbag, postbag 636"
+"n02773037 bag -1" -> "n03958227 plastic bag 728"
+"n02773037 bag -1" -> "n04026417 purse 748"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy53 dummy53 -1"
+"dummy53 dummy53 -1" -> "n02910353 buckle 464"
+"n02671780 accessory, accoutrement, accouterment -1" -> "dummy57 dummy57 -1"
+"dummy57 dummy57 -1" -> "n04507155 umbrella 879"
+"n02671780 accessory, accoutrement, accouterment -1" -> "n03490324 handwear, hand wear -1"
+"n03490324 handwear, hand wear -1" -> "n03441112 glove -1"
+"n03441112 glove -1" -> "n03775071 mitten 658"
+"n03051540 apparel, toiletries -1" -> "n04447443 toiletry, toilet articles -1"
+"n04447443 toiletry, toilet articles -1" -> "n03113152 cosmetic -1"
+"n03113152 cosmetic -1" -> "n03714235 makeup, make-up, war paint -1"
+"n03714235 makeup, make-up, war paint -1" -> "n03314780 face powder 551"
+"n03714235 makeup, make-up, war paint -1" -> "n03676483 lipstick, lip rouge 629"
+"n03113152 cosmetic -1" -> "n03128519 cream, ointment, emollient -1"
+"n03128519 cream, ointment, emollient -1" -> "n04357314 sunscreen, sunblock, sun blocker 838"
+"n03128519 cream, ointment, emollient -1" -> "n03690938 lotion 631"
+"n03113152 cosmetic -1" -> "n03916031 perfume, essence 711"
+"n03113152 cosmetic -1" -> "n03476991 hair spray 585"
+"n04447443 toiletry, toilet articles -1" -> "n02785648 bandage, patch -1"
+"n02785648 bandage, patch -1" -> "n02680110 adhesive bandage -1"
+"n02680110 adhesive bandage -1" -> "n02786058 Band Aid 419"
+"n00021939 non-living thing -1" -> "n03100490 conveyance, transport -1"
+"n03100490 conveyance, transport -1" -> "n04576211 wheeled vehicle -1"
+"n04576211 wheeled vehicle -1" -> "n03791235 motor vehicle, automotive vehicle -1"
+"n03791235 motor vehicle, automotive vehicle -1" -> "n02958343 car, auto, automobile, machine, motorcar -1"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n02701002 ambulance 407"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n02814533 beach wagon, station wagon, wagon, estate car, beach waggon, station waggon, waggon 436"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n02930766 cab, hack, taxi, taxicab 468"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03100240 convertible 511"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03594945 jeep, landrover 609"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03670208 limousine, limo 627"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03770679 minivan 656"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03777568 Model T 661"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n04037443 racer, race car, racing car 751"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n04285008 sports car, sport car 817"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03444034 go-kart 573"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03445924 golfcart, golf cart 575"
+"n02958343 car, auto, automobile, machine, motorcar -1" -> "n03977966 police van, police wagon, paddy wagon, patrol wagon, wagon, black Maria 734"
+"n03791235 motor vehicle, automotive vehicle -1" -> "n04490091 truck, motortruck -1"
+"n04490091 truck, motortruck -1" -> "n03345487 fire engine, fire truck 555"
+"n04490091 truck, motortruck -1" -> "n03417042 garbage truck, dustcart 569"
+"n04490091 truck, motortruck -1" -> "n03930630 pickup, pickup truck 717"
+"n04490091 truck, motortruck -1" -> "n04461696 tow truck, tow car, wrecker 864"
+"n04490091 truck, motortruck -1" -> "n04467665 trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi 867"
+"n04490091 truck, motortruck -1" -> "n04465501 tractor 866"
+"n04490091 truck, motortruck -1" -> "n04252225 snowplow, snowplough 803"
+"n04490091 truck, motortruck -1" -> "n03796401 moving van 675"
+"n04490091 truck, motortruck -1" -> "n03384352 forklift 561"
+"n03791235 motor vehicle, automotive vehicle -1" -> "n03790512 motorcycle, bike -1"
+"n03790512 motorcycle, bike -1" -> "n03769722 minibike, motorbike -1"
+"n03769722 minibike, motorbike -1" -> "n03785016 moped 665"
+"n03790512 motorcycle, bike -1" -> "n03791053 motor scooter, scooter 670"
+"n03791235 motor vehicle, automotive vehicle -1" -> "n02924116 bus, autobus, coach, charabanc, double-decker, jitney, motorbus, motorcoach, omnibus, passenger vehicle -1"
+"n02924116 bus, autobus, coach, charabanc, double-decker, jitney, motorbus, motorcoach, omnibus, passenger vehicle -1" -> "n03769881 minibus 654"
+"n02924116 bus, autobus, coach, charabanc, double-decker, jitney, motorbus, motorcoach, omnibus, passenger vehicle -1" -> "n04146614 school bus 779"
+"n02924116 bus, autobus, coach, charabanc, double-decker, jitney, motorbus, motorcoach, omnibus, passenger vehicle -1" -> "n04487081 trolleybus, trolley coach, trackless trolley 874"
+"n02924116 bus, autobus, coach, charabanc, double-decker, jitney, motorbus, motorcoach, omnibus, passenger vehicle -1" -> "n04065272 recreational vehicle, RV, R.V. 757"
+"n04576211 wheeled vehicle -1" -> "n04464852 tracked vehicle -1"
+"n04464852 tracked vehicle -1" -> "n03478589 half track 586"
+"n04464852 tracked vehicle -1" -> "n04252077 snowmobile 802"
+"n04464852 tracked vehicle -1" -> "n04389033 tank, army tank, armored combat vehicle, armoured combat vehicle 847"
+"n04464852 tracked vehicle -1" -> "n02704792 amphibian, amphibious vehicle 408"
+"n04576211 wheeled vehicle -1" -> "n04468005 train, railroad train -1"
+"n04468005 train, railroad train -1" -> "n03896233 passenger train -1"
+"n03896233 passenger train -1" -> "n02917067 bullet train, bullet 466"
+"n04468005 train, railroad train -1" -> "n03684823 locomotive, engine, locomotive engine, railway locomotive -1"
+"n03684823 locomotive, engine, locomotive engine, railway locomotive -1" -> "n03272562 electric locomotive 547"
+"n03684823 locomotive, engine, locomotive engine, railway locomotive -1" -> "n04310018 steam locomotive 820"
+"n04468005 train, railroad train -1" -> "n04335435 streetcar, tram, tramcar, trolley, trolley car 829"
+"n04468005 train, railroad train -1" -> "n02959942 car, railcar, railway car, railroad car -1"
+"n02959942 car, railcar, railway car, railroad car -1" -> "n03393912 freight car 565"
+"n02959942 car, railcar, railway car, railroad car -1" -> "n03895866 passenger car, coach, carriage 705"
+"n04576211 wheeled vehicle -1" -> "n02970849 cart -1"
+"n02970849 cart -1" -> "n03538406 horse cart, horse-cart 603"
+"n02970849 cart -1" -> "n03599486 jinrikisha, ricksha, rickshaw 612"
+"n02970849 cart -1" -> "n03868242 oxcart 690"
+"n02970849 cart -1" -> "n03484083 handcart, pushcart, cart, go-cart -1"
+"n03484083 handcart, pushcart, cart, go-cart -1" -> "n02797295 barrow, garden cart, lawn cart, wheelbarrow 428"
+"n03484083 handcart, pushcart, cart, go-cart -1" -> "n04204347 shopping cart 791"
+"n04576211 wheeled vehicle -1" -> "dummy30 cycles -1"
+"dummy30 cycles -1" -> "n02834778 bicycle, bike, wheel, cycle -1"
+"n02834778 bicycle, bike, wheel, cycle -1" -> "n02835271 bicycle-built-for-two, tandem bicycle, tandem 444"
+"n02834778 bicycle, bike, wheel, cycle -1" -> "n03792782 mountain bike, all-terrain bike, off-roader 671"
+"dummy30 cycles -1" -> "n04482393 tricycle, trike, velocipede 870"
+"dummy30 cycles -1" -> "n04509417 unicycle, monocycle 880"
+"n03100490 conveyance, transport -1" -> "n03125870 craft -1"
+"n03125870 craft -1" -> "n04264914 spacecraft, ballistic capsule, space vehicle -1"
+"n04264914 spacecraft, ballistic capsule, space vehicle -1" -> "n04266014 space shuttle 812"
+"n03125870 craft -1" -> "n02686568 aircraft -1"
+"n02686568 aircraft -1" -> "n04552348 warplane, military plane 895"
+"n02686568 aircraft -1" -> "n02691156 airplane, aeroplane, plane -1"
+"n02691156 airplane, aeroplane, plane -1" -> "n02690373 airliner 404"
+"n02686568 aircraft -1" -> "n02692877 airship, dirigible 405"
+"n02686568 aircraft -1" -> "n02782093 balloon 417"
+"n03125870 craft -1" -> "n04530566 vessel, watercraft -1"
+"n04530566 vessel, watercraft -1" -> "n02858304 boat -1"
+"n02858304 boat -1" -> "n03344393 fireboat 554"
+"n02858304 boat -1" -> "n03447447 gondola 576"
+"n02858304 boat -1" -> "n04128499 sailboat, sailing boat -1"
+"n04128499 sailboat, sailing boat -1" -> "n02981792 catamaran 484"
+"n04128499 sailboat, sailing boat -1" -> "n04483307 trimaran 871"
+"n02858304 boat -1" -> "n03662601 lifeboat 625"
+"n02858304 boat -1" -> "n04273569 speedboat 814"
+"n02858304 boat -1" -> "n02951358 canoe 472"
+"n02858304 boat -1" -> "n04612504 yawl 914"
+"n04530566 vessel, watercraft -1" -> "n04194289 ship -1"
+"n04194289 ship -1" -> "n03947888 pirate, pirate ship 724"
+"n04194289 ship -1" -> "n04606251 wreck 913"
+"n04194289 ship -1" -> "n02965300 cargo ship, cargo vessel -1"
+"n02965300 cargo ship, cargo vessel -1" -> "n03095699 container ship, containership, container vessel 510"
+"n04194289 ship -1" -> "n04552696 warship, war vessel, combat ship -1"
+"n04552696 warship, war vessel, combat ship -1" -> "n02687172 aircraft carrier, carrier, flattop, attack aircraft carrier 403"
+"n04194289 ship -1" -> "n03896103 passenger ship -1"
+"n03896103 passenger ship -1" -> "n03673027 liner, ocean liner 628"
+"n04194289 ship -1" -> "n04147183 schooner 780"
+"n04530566 vessel, watercraft -1" -> "n04347754 submarine, pigboat, sub, U-boat 833"
+"n03100490 conveyance, transport -1" -> "dummy54 sled, sledge, sleigh -1"
+"dummy54 sled, sledge, sleigh -1" -> "n04235291 sled, sledge, sleigh -1"
+"n04235291 sled, sledge, sleigh -1" -> "n02860847 bobsled, bobsleigh, bob 450"
+"n04235291 sled, sledge, sleigh -1" -> "n03218198 dogsled, dog sled, dog sleigh 537"
+"n00021939 non-living thing -1" -> "n03405265 furnishing -1"
+"n03405265 furnishing -1" -> "n03405725 furniture, piece of furniture, article of furniture -1"
+"n03405725 furniture, piece of furniture, article of furniture -1" -> "n04379243 table -1"
+"n04379243 table -1" -> "n03179701 desk 526"
+"n04379243 table -1" -> "n03982430 pool table, billiard table, snooker table 736"
+"n04379243 table -1" -> "n03201208 dining table, board 532"
+"n03405725 furniture, piece of furniture, article of furniture -1" -> "n04549122 wall unit -1"
+"n04549122 wall unit -1" -> "n03290653 entertainment center 548"
+"n04549122 wall unit -1" -> "n02870880 bookcase 453"
+"n04549122 wall unit -1" -> "n04550184 wardrobe, closet, press 894"
+"n04549122 wall unit -1" -> "n02933112 cabinet -1"
+"n02933112 cabinet -1" -> "n03018349 china cabinet, china closet 495"
+"n02933112 cabinet -1" -> "n03742115 medicine chest, medicine cabinet 648"
+"n02933112 cabinet -1" -> "n03337140 file, file cabinet, filing cabinet 553"
+"n04549122 wall unit -1" -> "n03015254 chest of drawers, chest, bureau, dresser -1"
+"n03015254 chest of drawers, chest, bureau, dresser -1" -> "n03016953 chiffonier, commode 493"
+"n03405725 furniture, piece of furniture, article of furniture -1" -> "n04161981 seat -1"
+"n04161981 seat -1" -> "n04447861 toilet seat 861"
+"n04161981 seat -1" -> "n03001627 chair -1"
+"n03001627 chair -1" -> "n02791124 barber chair 423"
+"n03001627 chair -1" -> "n03376595 folding chair 559"
+"n03001627 chair -1" -> "n04099969 rocking chair, rocker 765"
+"n03001627 chair -1" -> "n03002210 chair of state -1"
+"n03002210 chair of state -1" -> "n04429376 throne 857"
+"n04161981 seat -1" -> "n04256520 sofa, couch, lounge -1"
+"n04256520 sofa, couch, lounge -1" -> "n03100346 convertible, sofa bed -1"
+"n03100346 convertible, sofa bed -1" -> "n04344873 studio couch, day bed 831"
+"n04256520 sofa, couch, lounge -1" -> "n02828884 bench -1"
+"n02828884 bench -1" -> "n03891251 park bench 703"
+"n03405725 furniture, piece of furniture, article of furniture -1" -> "n02821943 bedroom furniture -1"
+"n02821943 bedroom furniture -1" -> "n02818832 bed -1"
+"n02818832 bed -1" -> "n03388549 four-poster 564"
+"n02821943 bedroom furniture -1" -> "n02766320 baby bed, baby's bed -1"
+"n02766320 baby bed, baby's bed -1" -> "n02804414 bassinet 431"
+"n02766320 baby bed, baby's bed -1" -> "n03125729 cradle 516"
+"n02766320 baby bed, baby's bed -1" -> "n03131574 crib, cot 520"
+"n03405725 furniture, piece of furniture, article of furniture -1" -> "n04151581 screen -1"
+"n04151581 screen -1" -> "n03347037 fire screen, fireguard 556"
+"n04151581 screen -1" -> "n03788365 mosquito net 669"
+"n04151581 screen -1" -> "n04589890 window screen 904"
+"n04151581 screen -1" -> "n04201297 shoji 789"
+"n04151581 screen -1" -> "n04590129 window shade 905"
+"n03405725 furniture, piece of furniture, article of furniture -1" -> "dummy79 dummy79 -1"
+"dummy79 dummy79 -1" -> "n03014705 chest 492"
+"n03405725 furniture, piece of furniture, article of furniture -1" -> "n03221720 door -1"
+"n03221720 door -1" -> "n04239074 sliding door 799"
+"n03405265 furnishing -1" -> "dummy38 soft furnishings, accessories -1"
+"dummy38 soft furnishings, accessories -1" -> "n03873064 padding, cushioning -1"
+"n03873064 padding, cushioning -1" -> "n03151500 cushion -1"
+"n03151500 cushion -1" -> "n03938244 pillow 721"
+"dummy38 soft furnishings, accessories -1" -> "n03366823 floor cover, floor covering -1"
+"n03366823 floor cover, floor covering -1" -> "n04118021 rug, carpet, carpeting -1"
+"n04118021 rug, carpet, carpeting -1" -> "n03998194 prayer rug, prayer mat 741"
+"n03366823 floor cover, floor covering -1" -> "n03727837 mat -1"
+"n03727837 mat -1" -> "n03223299 doormat, welcome mat 539"
+"dummy38 soft furnishings, accessories -1" -> "n02820210 bedclothes, bed clothing, bedding -1"
+"n02820210 bedclothes, bed clothing, bedding -1" -> "n04033995 quilt, comforter, comfort, puff 750"
+"dummy38 soft furnishings, accessories -1" -> "n03636649 lamp -1"
+"n03636649 lamp -1" -> "n04380533 table lamp 846"
+"n03636649 lamp -1" -> "n03637318 lampshade, lamp shade 619"
+"dummy38 soft furnishings, accessories -1" -> "n03932670 piece of cloth, piece of material -1"
+"n03932670 piece of cloth, piece of material -1" -> "n03207743 dishrag, dishcloth 533"
+"n03932670 piece of cloth, piece of material -1" -> "n04459362 towel -1"
+"n04459362 towel -1" -> "n02808304 bath towel 434"
+"n04459362 towel -1" -> "n03887697 paper towel 700"
+"dummy38 soft furnishings, accessories -1" -> "dummy56 dummy56 -1"
+"dummy56 dummy56 -1" -> "n03151077 curtain, drape, drapery, mantle, pall -1"
+"n03151077 curtain, drape, drapery, mantle, pall -1" -> "n04209239 shower curtain 794"
+"n03151077 curtain, drape, drapery, mantle, pall -1" -> "n04418357 theater curtain, theatre curtain 854"
+"n00021939 non-living thing -1" -> "n00021265 food, nutrient -1"
+"n00021265 food, nutrient -1" -> "n07570720 cooked food, prepared food -1"
+"n07570720 cooked food, prepared food -1" -> "n07622061 baked goods -1"
+"n07622061 baked goods -1" -> "n07680932 bun, roll -1"
+"n07680932 bun, roll -1" -> "n07693725 bagel, beigel 931"
+"n07622061 baked goods -1" -> "n07681926 cracker -1"
+"n07681926 cracker -1" -> "n07695742 pretzel 932"
+"n07622061 baked goods -1" -> "n07683786 loaf of bread, loaf -1"
+"n07683786 loaf of bread, loaf -1" -> "n07684084 French loaf 930"
+"n07570720 cooked food, prepared food -1" -> "n07557434 dish -1"
+"n07557434 dish -1" -> "n07871810 meat loaf, meatloaf 962"
+"n07557434 dish -1" -> "n07873807 pizza, pizza pie 963"
+"n07557434 dish -1" -> "n07875152 potpie 964"
+"n07557434 dish -1" -> "n07880968 burrito 965"
+"n07557434 dish -1" -> "n07583197 soup -1"
+"n07583197 soup -1" -> "n07584110 consomme 925"
+"n07557434 dish -1" -> "n07588947 stew -1"
+"n07588947 stew -1" -> "n07590611 hot pot, hotpot 926"
+"n07557434 dish -1" -> "n07710616 potato, white potato, Irish potato, murphy, spud, tater -1"
+"n07710616 potato, white potato, Irish potato, murphy, spud, tater -1" -> "n07711569 mashed potato 935"
+"n07557434 dish -1" -> "n07695965 sandwich -1"
+"n07695965 sandwich -1" -> "n07697537 hotdog, hot dog, red hot 934"
+"n07695965 sandwich -1" -> "n07697100 hamburger, beefburger, burger -1"
+"n07697100 hamburger, beefburger, burger -1" -> "n07697313 cheeseburger 933"
+"n07570720 cooked food, prepared food -1" -> "n07609840 dessert, sweet, afters -1"
+"n07609840 dessert, sweet, afters -1" -> "n07611358 frozen dessert -1"
+"n07611358 frozen dessert -1" -> "n07614500 ice cream, icecream 928"
+"n07611358 frozen dessert -1" -> "n07615774 ice lolly, lolly, lollipop, popsicle 929"
+"n07609840 dessert, sweet, afters -1" -> "n07612996 pudding, pud -1"
+"n07612996 pudding, pud -1" -> "n07613480 trifle 927"
+"n07570720 cooked food, prepared food -1" -> "n07810907 condiment -1"
+"n07810907 condiment -1" -> "n07829412 sauce -1"
+"n07829412 sauce -1" -> "n07836838 chocolate sauce, chocolate syrup 960"
+"n07829412 sauce -1" -> "n07838233 spaghetti sauce, pasta sauce -1"
+"n07838233 spaghetti sauce, pasta sauce -1" -> "n07831146 carbonara 959"
+"n07810907 condiment -1" -> "n07582609 dip -1"
+"n07582609 dip -1" -> "n07583066 guacamole 924"
+"n00021265 food, nutrient -1" -> "n07705711 produce, green goods, green groceries, garden truck -1"
+"n07705711 produce, green goods, green groceries, garden truck -1" -> "n07707451 vegetable, veggie, veg -1"
+"n07707451 vegetable, veggie, veg -1" -> "n07718472 cucumber, cuke 943"
+"n07707451 vegetable, veggie, veg -1" -> "n07718747 artichoke, globe artichoke 944"
+"n07707451 vegetable, veggie, veg -1" -> "n07730033 cardoon 946"
+"n07707451 vegetable, veggie, veg -1" -> "n07734744 mushroom 947"
+"n07707451 vegetable, veggie, veg -1" -> "n07715561 squash -1"
+"n07715561 squash -1" -> "n07717070 winter squash -1"
+"n07717070 winter squash -1" -> "n07717410 acorn squash 941"
+"n07717070 winter squash -1" -> "n07717556 butternut squash 942"
+"n07715561 squash -1" -> "n07715721 summer squash -1"
+"n07715721 summer squash -1" -> "n07716358 zucchini, courgette 939"
+"n07715721 summer squash -1" -> "n07716906 spaghetti squash 940"
+"n07707451 vegetable, veggie, veg -1" -> "n07720442 pepper -1"
+"n07720442 pepper -1" -> "n07720615 sweet pepper -1"
+"n07720615 sweet pepper -1" -> "n07720875 bell pepper 945"
+"n07707451 vegetable, veggie, veg -1" -> "n07714990 broccoli 937"
+"n07707451 vegetable, veggie, veg -1" -> "n07715103 cauliflower 938"
+"n07707451 vegetable, veggie, veg -1" -> "n07713895 cabbage, chou -1"
+"n07713895 cabbage, chou -1" -> "n07714571 head cabbage 936"
+"n07705711 produce, green goods, green groceries, garden truck -1" -> "n13134947 fruit -1"
+"n13134947 fruit -1" -> "n12267677 acorn 988"
+"n13134947 fruit -1" -> "n12620546 hip, rose hip, rosehip 989"
+"n13134947 fruit -1" -> "n13133613 ear, spike, capitulum 998"
+"n13134947 fruit -1" -> "n07753113 fig 952"
+"n13134947 fruit -1" -> "n07753275 pineapple, ananas 953"
+"n13134947 fruit -1" -> "n07753592 banana 954"
+"n13134947 fruit -1" -> "n07754684 jackfruit, jak, jack 955"
+"n13134947 fruit -1" -> "n07760859 custard apple 956"
+"n13134947 fruit -1" -> "n07768694 pomegranate 957"
+"n13134947 fruit -1" -> "n07739125 apple -1"
+"n07739125 apple -1" -> "n07739506 eating apple, dessert apple -1"
+"n07739506 eating apple, dessert apple -1" -> "n07742313 Granny Smith 948"
+"n13134947 fruit -1" -> "n07745940 strawberry 949"
+"n13134947 fruit -1" -> "n07747607 orange 950"
+"n13134947 fruit -1" -> "n07749582 lemon 951"
+"n13134947 fruit -1" -> "n12768682 buckeye, horse chestnut, conker 990"
+"n13134947 fruit -1" -> "n11879895 rapeseed 984"
+"n13134947 fruit -1" -> "n12144580 corn 987"
+"n00021265 food, nutrient -1" -> "n07881800 beverage, drink, drinkable, potable -1"
+"n07881800 beverage, drink, drinkable, potable -1" -> "n07929519 coffee, java -1"
+"n07929519 coffee, java -1" -> "n07920052 espresso 967"
+"n07881800 beverage, drink, drinkable, potable -1" -> "n07884567 alcohol, alcoholic drink, alcoholic beverage, intoxicant, inebriant -1"
+"n07884567 alcohol, alcoholic drink, alcoholic beverage, intoxicant, inebriant -1" -> "n07891726 wine, vino -1"
+"n07891726 wine, vino -1" -> "n07892512 red wine 966"
+"n07884567 alcohol, alcoholic drink, alcoholic beverage, intoxicant, inebriant -1" -> "n07930554 punch -1"
+"n07930554 punch -1" -> "n07930864 cup 968"
+"n07930554 punch -1" -> "n07932039 eggnog 969"
+"n00021939 non-living thing -1" -> "dummy44 structure, place -1"
+"dummy44 structure, place -1" -> "n04341686 man-made structure, construction -1"
+"n04341686 man-made structure, construction -1" -> "n02913152 building, edifice -1"
+"n02913152 building, edifice -1" -> "n03953416 place of worship, house of prayer, house of God, house of worship -1"
+"n03953416 place of worship, house of prayer, house of God, house of worship -1" -> "n03028079 church, church building 497"
+"n03953416 place of worship, house of prayer, house of God, house of worship -1" -> "n03788195 mosque 668"
+"n03953416 place of worship, house of prayer, house of God, house of worship -1" -> "n04210390 shrine -1"
+"n04210390 shrine -1" -> "n04346328 stupa, tope 832"
+"n02913152 building, edifice -1" -> "n04417809 theater, theatre, house -1"
+"n04417809 theater, theatre, house -1" -> "n03032252 cinema, movie theater, movie theatre, movie house, picture palace 498"
+"n02913152 building, edifice -1" -> "n03859280 outbuilding -1"
+"n03859280 outbuilding -1" -> "n04187547 shed -1"
+"n04187547 shed -1" -> "n02727426 apiary, bee house 410"
+"n04187547 shed -1" -> "n02859443 boathouse 449"
+"n03859280 outbuilding -1" -> "n02793495 barn 425"
+"n03859280 outbuilding -1" -> "n03457902 greenhouse, nursery, glasshouse 580"
+"n02913152 building, edifice -1" -> "n03316406 factory, mill, manufacturing plant, manufactory -1"
+"n03316406 factory, mill, manufacturing plant, manufactory -1" -> "n03697007 lumbermill, sawmill 634"
+"n02913152 building, edifice -1" -> "n03748162 mercantile establishment, retail store, sales outlet, outlet -1"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n03461385 grocery store, grocery, food market, market 582"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n02776631 bakery, bakeshop, bakehouse 415"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n02791270 barbershop 424"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n02871525 bookshop, bookstore, bookstall 454"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n02927161 butcher shop, meat market 467"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n03089624 confectionery, confectionary, candy store 509"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n04200800 shoe shop, shoe-shop, shoe store 788"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n04443257 tobacco shop, tobacconist shop, tobacconist 860"
+"n03748162 mercantile establishment, retail store, sales outlet, outlet -1" -> "n04462240 toyshop 865"
+"n02913152 building, edifice -1" -> "dummy45 dummy45 -1"
+"dummy45 dummy45 -1" -> "n03661043 library 624"
+"n02913152 building, edifice -1" -> "dummy46 dummy46 -1"
+"dummy46 dummy46 -1" -> "n03956157 planetarium 727"
+"n02913152 building, edifice -1" -> "dummy47 dummy47 -1"
+"dummy47 dummy47 -1" -> "n04005630 prison, prison house 743"
+"n02913152 building, edifice -1" -> "dummy49 dummy49 -1"
+"dummy49 dummy49 -1" -> "n04081281 restaurant, eating house, eating place, eatery 762"
+"n02913152 building, edifice -1" -> "n04460130 tower -1"
+"n04460130 tower -1" -> "n02814860 beacon, lighthouse, beacon light, pharos 437"
+"n02913152 building, edifice -1" -> "n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1"
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" -> "n03042490 cliff dwelling 500"
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" -> "n04613696 yurt 915"
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" -> "n03776460 mobile home, manufactured home 660"
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" -> "n02980441 castle 483"
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" -> "n02843684 birdhouse 448"
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" -> "n03877845 palace 698"
+"n03259505 dwelling, home, domicile, abode, habitation, dwelling house -1" -> "n03781244 monastery 663"
+"n04341686 man-made structure, construction -1" -> "n03638321 landing, landing place -1"
+"n03638321 landing, landing place -1" -> "n03216828 dock, dockage, docking facility 536"
+"n04341686 man-made structure, construction -1" -> "n02735688 area -1"
+"n02735688 area -1" -> "n03899768 patio, terrace 706"
+"n02735688 area -1" -> "n02825657 bell cote, bell cot 442"
+"n02735688 area -1" -> "n04105068 roof -1"
+"n04105068 roof -1" -> "n03220513 dome 538"
+"n04105068 roof -1" -> "n04417672 thatch, thatched roof 853"
+"n04105068 roof -1" -> "n04435653 tile roof 858"
+"n04105068 roof -1" -> "n04523525 vault 884"
+"n02735688 area -1" -> "n04296562 stage 819"
+"n04341686 man-made structure, construction -1" -> "n04388743 tank, storage tank -1"
+"n04388743 tank, storage tank -1" -> "n04078574 reservoir -1"
+"n04078574 reservoir -1" -> "n04562935 water tower 900"
+"n04341686 man-made structure, construction -1" -> "n04091097 rig -1"
+"n04091097 rig -1" -> "n03240683 drilling platform, offshore rig 540"
+"n04341686 man-made structure, construction -1" -> "dummy67 dummy67 -1"
+"dummy67 dummy67 -1" -> "n03388043 fountain 562"
+"n04341686 man-made structure, construction -1" -> "dummy72 dummy72 -1"
+"dummy72 dummy72 -1" -> "n04217882 signboard, sign -1"
+"n04217882 signboard, sign -1" -> "n04149813 scoreboard 781"
+"n04217882 signboard, sign -1" -> "n06794110 street sign 919"
+"n04217882 signboard, sign -1" -> "n06874185 traffic light, traffic signal, stoplight 920"
+"n04341686 man-made structure, construction -1" -> "dummy73 dummy73 -1"
+"dummy73 dummy73 -1" -> "n02898711 bridge, span -1"
+"n02898711 bridge, span -1" -> "n04311004 steel arch bridge 821"
+"n02898711 bridge, span -1" -> "n04366367 suspension bridge 839"
+"n02898711 bridge, span -1" -> "n04532670 viaduct 888"
+"n04341686 man-made structure, construction -1" -> "dummy74 dummy74 -1"
+"dummy74 dummy74 -1" -> "n03733281 maze, labyrinth 646"
+"n04341686 man-made structure, construction -1" -> "dummy77 dummy77 -1"
+"dummy77 dummy77 -1" -> "n03743902 memorial, monument -1"
+"n03743902 memorial, monument -1" -> "n02892201 brass, memorial tablet, plaque 458"
+"n03743902 memorial, monument -1" -> "n03743016 megalith, megalithic structure 649"
+"n03743902 memorial, monument -1" -> "n04486054 triumphal arch 873"
+"n04341686 man-made structure, construction -1" -> "dummy78 dummy78 -1"
+"dummy78 dummy78 -1" -> "n03074380 column, pillar -1"
+"n03074380 column, pillar -1" -> "n03837869 obelisk 682"
+"n03074380 column, pillar -1" -> "n04458633 totem pole 863"
+"n03074380 column, pillar -1" -> "n03903868 pedestal, plinth, footstall 708"
+"n04341686 man-made structure, construction -1" -> "n02796623 barrier -1"
+"n02796623 barrier -1" -> "n02788148 bannister, banister, balustrade, balusters, handrail 421"
+"n02796623 barrier -1" -> "n02894605 breakwater, groin, groyne, mole, bulwark, seawall, jetty 460"
+"n02796623 barrier -1" -> "n03160309 dam, dike, dyke 525"
+"n02796623 barrier -1" -> "n03327234 fence, fencing -1"
+"n03327234 fence, fencing -1" -> "n03000134 chainlink fence 489"
+"n03327234 fence, fencing -1" -> "n03930313 picket fence, paling 716"
+"n03327234 fence, fencing -1" -> "n04326547 stone wall 825"
+"n03327234 fence, fencing -1" -> "n04046974 rail fence -1"
+"n04046974 rail fence -1" -> "n04604644 worm fence, snake fence, snake-rail fence, Virginia fence 912"
+"n02796623 barrier -1" -> "n03427296 gate -1"
+"n03427296 gate -1" -> "n04501370 turnstile 877"
+"dummy44 structure, place -1" -> "n09287968 geological formation, formation -1"
+"n09287968 geological formation, formation -1" -> "n09433442 shore -1"
+"n09433442 shore -1" -> "n09332890 lakeside, lakeshore 975"
+"n09433442 shore -1" -> "n09428293 seashore, coast, seacoast, sea-coast 978"
+"n09287968 geological formation, formation -1" -> "n09443453 spring, fountain, outflow, outpouring, natural spring -1"
+"n09443453 spring, fountain, outflow, outpouring, natural spring -1" -> "n09288635 geyser 974"
+"n09287968 geological formation, formation -1" -> "dummy68 dummy68 -1"
+"dummy68 dummy68 -1" -> "n09246464 cliff, drop, drop-off 972"
+"n09287968 geological formation, formation -1" -> "n09214060 bar -1"
+"n09214060 bar -1" -> "n09421951 sandbar, sand bar 977"
+"n09287968 geological formation, formation -1" -> "n09359803 mountain, mount -1"
+"n09359803 mountain, mount -1" -> "n09193705 alp 970"
+"n09359803 mountain, mount -1" -> "n09472597 volcano 980"
+"n09287968 geological formation, formation -1" -> "dummy69 dummy69 -1"
+"dummy69 dummy69 -1" -> "n09399592 promontory, headland, head, foreland 976"
+"n09287968 geological formation, formation -1" -> "n09406793 reef -1"
+"n09406793 reef -1" -> "n09256479 coral reef 973"
+"n09287968 geological formation, formation -1" -> "dummy71 dummy71 -1"
+"dummy71 dummy71 -1" -> "n09468604 valley, vale 979"
+"n00021939 non-living thing -1" -> "dummy63 paraphernalia -1"
+"dummy63 paraphernalia -1" -> "n02729837 appliance -1"
+"n02729837 appliance -1" -> "n03251766 dryer, drier -1"
+"n03251766 dryer, drier -1" -> "n03483316 hand blower, blow dryer, blow drier, hair dryer, hair drier 589"
+"n02729837 appliance -1" -> "n03528263 home appliance, household appliance -1"
+"n03528263 home appliance, household appliance -1" -> "n03584829 iron, smoothing iron 606"
+"n03528263 home appliance, household appliance -1" -> "n04179913 sewing machine 786"
+"n03528263 home appliance, household appliance -1" -> "n04517823 vacuum, vacuum cleaner 882"
+"n03528263 home appliance, household appliance -1" -> "n03320046 fan -1"
+"n03320046 fan -1" -> "n03271574 electric fan, blower 545"
+"n03528263 home appliance, household appliance -1" -> "n04265275 space heater 811"
+"n03528263 home appliance, household appliance -1" -> "n04330267 stove 827"
+"n03528263 home appliance, household appliance -1" -> "n03649909 lawn mower, mower 621"
+"n03528263 home appliance, household appliance -1" -> "n03101156 cooker -1"
+"n03101156 cooker -1" -> "n03133878 Crock Pot 521"
+"n03528263 home appliance, household appliance -1" -> "n03207941 dishwasher, dish washer, dishwashing machine 534"
+"n03528263 home appliance, household appliance -1" -> "n04070727 refrigerator, icebox 760"
+"n03528263 home appliance, household appliance -1" -> "n04554684 washer, automatic washer, washing machine 897"
+"n03528263 home appliance, household appliance -1" -> "n03761084 microwave, microwave oven 651"
+"n03528263 home appliance, household appliance -1" -> "n04442312 toaster 859"
+"n03528263 home appliance, household appliance -1" -> "n04542943 waffle iron 891"
+"n03528263 home appliance, household appliance -1" -> "n03063338 coffee maker -1"
+"n03063338 coffee maker -1" -> "n03297495 espresso maker 550"
+"n03528263 home appliance, household appliance -1" -> "n04111531 rotisserie 766"
+"dummy63 paraphernalia -1" -> "n03294048 equipment -1"
+"n03294048 equipment -1" -> "n03278248 electronic equipment -1"
+"n03278248 electronic equipment -1" -> "n02979186 cassette player 482"
+"n03278248 electronic equipment -1" -> "n02988304 CD player 485"
+"n03278248 electronic equipment -1" -> "n03777754 modem 662"
+"n03278248 electronic equipment -1" -> "n03782006 monitor 664"
+"n03278248 electronic equipment -1" -> "n03857828 oscilloscope, scope, cathode-ray oscilloscope, CRO 688"
+"n03278248 electronic equipment -1" -> "n04392985 tape player 848"
+"n03278248 electronic equipment -1" -> "n04401088 telephone, phone, telephone set -1"
+"n04401088 telephone, phone, telephone set -1" -> "n03187595 dial telephone, dial phone 528"
+"n04401088 telephone, phone, telephone set -1" -> "n03902125 pay-phone, pay-station 707"
+"n04401088 telephone, phone, telephone set -1" -> "n02992529 cellular telephone, cellular phone, cellphone, cell, mobile phone 487"
+"n03278248 electronic equipment -1" -> "n02757462 audio system, sound system -1"
+"n02757462 audio system, sound system -1" -> "n03584254 iPod 605"
+"n02757462 audio system, sound system -1" -> "n03691459 loudspeaker, speaker, speaker unit, loudspeaker system, speaker system 632"
+"n03278248 electronic equipment -1" -> "n04404412 television, television system 851"
+"n03278248 electronic equipment -1" -> "n04041544 radio, wireless 754"
+"n03278248 electronic equipment -1" -> "n03759954 microphone, mike 650"
+"n03278248 electronic equipment -1" -> "n03924679 photocopier 713"
+"n03278248 electronic equipment -1" -> "n04009552 projector 745"
+"n03278248 electronic equipment -1" -> "n03529860 home theater, home theatre 598"
+"n03278248 electronic equipment -1" -> "n03196324 digital computer -1"
+"n03196324 digital computer -1" -> "n03180011 desktop computer 527"
+"n03196324 digital computer -1" -> "n03485407 hand-held computer, hand-held microcomputer 590"
+"n03196324 digital computer -1" -> "n03642806 laptop, laptop computer 620"
+"n03196324 digital computer -1" -> "n03832673 notebook, notebook computer 681"
+"n03278248 electronic equipment -1" -> "n04004767 printer 742"
+"n03278248 electronic equipment -1" -> "n03211117 display, video display -1"
+"n03211117 display, video display -1" -> "n04152593 screen, CRT screen 782"
+"n03278248 electronic equipment -1" -> "n03085013 computer keyboard, keypad 508"
+"n03278248 electronic equipment -1" -> "n03602883 joystick 613"
+"n03278248 electronic equipment -1" -> "n03793489 mouse, computer mouse 673"
+"n03278248 electronic equipment -1" -> "n04074963 remote control, remote 761"
+"n03294048 equipment -1" -> "n04285146 sports equipment -1"
+"n04285146 sports equipment -1" -> "n04571292 weight, free weight, exercising weight -1"
+"n04571292 weight, free weight, exercising weight -1" -> "n02790996 barbell 422"
+"n04571292 weight, free weight, exercising weight -1" -> "n03255030 dumbbell 543"
+"n04285146 sports equipment -1" -> "n03472232 gymnastic apparatus, exerciser -1"
+"n03472232 gymnastic apparatus, exerciser -1" -> "n02777292 balance beam, beam 416"
+"n03472232 gymnastic apparatus, exerciser -1" -> "n03535780 horizontal bar, high bar 602"
+"n03472232 gymnastic apparatus, exerciser -1" -> "n03888605 parallel bars, bars 702"
+"n04285146 sports equipment -1" -> "n02778669 ball -1"
+"n02778669 ball -1" -> "n02799071 baseball 429"
+"n02778669 ball -1" -> "n02802426 basketball 430"
+"n02778669 ball -1" -> "n03134739 croquet ball 522"
+"n02778669 ball -1" -> "n03445777 golf ball 574"
+"n02778669 ball -1" -> "n03942813 ping-pong ball 722"
+"n02778669 ball -1" -> "n04023962 punching bag, punch bag, punching ball, punchball 747"
+"n02778669 ball -1" -> "n04118538 rugby ball 768"
+"n02778669 ball -1" -> "n04254680 soccer ball 805"
+"n02778669 ball -1" -> "n04409515 tennis ball 852"
+"n02778669 ball -1" -> "n04540053 volleyball 890"
+"n04285146 sports equipment -1" -> "n04039381 racket, racquet 752"
+"n04285146 sports equipment -1" -> "n04228054 ski 795"
+"n04285146 sports equipment -1" -> "n04251144 snorkel 801"
+"n03294048 equipment -1" -> "n03926148 photographic equipment -1"
+"n03926148 photographic equipment -1" -> "n02942699 camera, photographic camera -1"
+"n02942699 camera, photographic camera -1" -> "n03976467 Polaroid camera, Polaroid Land camera 732"
+"n02942699 camera, photographic camera -1" -> "n04069434 reflex camera 759"
+"n03926148 photographic equipment -1" -> "n04485082 tripod 872"
+"n03926148 photographic equipment -1" -> "n03657121 lens cap, lens cover 622"
+"dummy63 paraphernalia -1" -> "n03574816 instrument -1"
+"n03574816 instrument -1" -> "n03733925 measuring instrument, measuring system, measuring device -1"
+"n03733925 measuring instrument, measuring system, measuring device -1" -> "n03735637 measuring stick, measure, measuring rod -1"
+"n03735637 measuring stick, measure, measuring rod -1" -> "n04118776 rule, ruler 769"
+"n03733925 measuring instrument, measuring system, measuring device -1" -> "n03753077 meter -1"
+"n03753077 meter -1" -> "n03841143 odometer, hodometer, mileometer, milometer 685"
+"n03733925 measuring instrument, measuring system, measuring device -1" -> "n04437953 timepiece, timekeeper, horologe -1"
+"n04437953 timepiece, timekeeper, horologe -1" -> "n04355338 sundial 835"
+"n04437953 timepiece, timekeeper, horologe -1" -> "n04438304 timer -1"
+"n04438304 timer -1" -> "n03891332 parking meter 704"
+"n04438304 timer -1" -> "n04328186 stopwatch, stop watch 826"
+"n04437953 timepiece, timekeeper, horologe -1" -> "n03046257 clock -1"
+"n03046257 clock -1" -> "n02708093 analog clock 409"
+"n03046257 clock -1" -> "n03196217 digital clock 530"
+"n03046257 clock -1" -> "n04548280 wall clock 892"
+"n04437953 timepiece, timekeeper, horologe -1" -> "n04555897 watch, ticker -1"
+"n04555897 watch, ticker -1" -> "n03197337 digital watch 531"
+"n04437953 timepiece, timekeeper, horologe -1" -> "n04134632 sandglass -1"
+"n04134632 sandglass -1" -> "n03544143 hourglass 604"
+"n03733925 measuring instrument, measuring system, measuring device -1" -> "n02794156 barometer 426"
+"n03733925 measuring instrument, measuring system, measuring device -1" -> "n04141975 scale, weighing machine 778"
+"n03733925 measuring instrument, measuring system, measuring device -1" -> "n03080497 compass -1"
+"n03080497 compass -1" -> "n03706229 magnetic compass 635"
+"n03574816 instrument -1" -> "n04147495 scientific instrument -1"
+"n04147495 scientific instrument -1" -> "n02666196 abacus 398"
+"n04147495 scientific instrument -1" -> "n04403638 telescope, scope -1"
+"n04403638 telescope, scope -1" -> "n04044716 radio telescope, radio reflector 755"
+"n04147495 scientific instrument -1" -> "n03760671 microscope -1"
+"n03760671 microscope -1" -> "n03484931 hand glass, simple microscope, magnifying glass -1"
+"n03484931 hand glass, simple microscope, magnifying glass -1" -> "n03692522 loupe, jeweler's loupe 633"
+"n04147495 scientific instrument -1" -> "n02841315 binoculars, field glasses, opera glasses 447"
+"n03574816 instrument -1" -> "n03800933 musical instrument, instrument -1"
+"n03800933 musical instrument, instrument -1" -> "n03614532 keyboard instrument -1"
+"n03614532 keyboard instrument -1" -> "n02672831 accordion, piano accordion, squeeze box 401"
+"n03614532 keyboard instrument -1" -> "n03854065 organ, pipe organ 687"
+"n03614532 keyboard instrument -1" -> "n03928116 piano, pianoforte, forte-piano -1"
+"n03928116 piano, pianoforte, forte-piano -1" -> "n03452741 grand piano, grand 579"
+"n03928116 piano, pianoforte, forte-piano -1" -> "n04515003 upright, upright piano 881"
+"n03800933 musical instrument, instrument -1" -> "n03915437 percussion instrument, percussive instrument -1"
+"n03915437 percussion instrument, percussive instrument -1" -> "n03017168 chime, bell, gong 494"
+"n03915437 percussion instrument, percussive instrument -1" -> "n03249569 drum, membranophone, tympan 541"
+"n03915437 percussion instrument, percussive instrument -1" -> "n03447721 gong, tam-tam 577"
+"n03915437 percussion instrument, percussive instrument -1" -> "n03720891 maraca 641"
+"n03915437 percussion instrument, percussive instrument -1" -> "n03721384 marimba, xylophone 642"
+"n03915437 percussion instrument, percussive instrument -1" -> "n04311174 steel drum 822"
+"n03800933 musical instrument, instrument -1" -> "n04338517 stringed instrument -1"
+"n04338517 stringed instrument -1" -> "n02787622 banjo 420"
+"n04338517 stringed instrument -1" -> "n03467517 guitar -1"
+"n03467517 guitar -1" -> "n02676566 acoustic guitar 402"
+"n03467517 guitar -1" -> "n03272010 electric guitar 546"
+"n04338517 stringed instrument -1" -> "n03495258 harp 594"
+"n04338517 stringed instrument -1" -> "n02992211 cello, violoncello 486"
+"n04338517 stringed instrument -1" -> "n04536866 violin, fiddle 889"
+"n03800933 musical instrument, instrument -1" -> "n04586932 wind instrument, wind -1"
+"n04586932 wind instrument, wind -1" -> "n03840681 ocarina, sweet potato 684"
+"n04586932 wind instrument, wind -1" -> "n03945615 pipe -1"
+"n03945615 pipe -1" -> "n03884397 panpipe, pandean pipe, syrinx 699"
+"n04586932 wind instrument, wind -1" -> "n03494278 harmonica, mouth organ, harp, mouth harp 593"
+"n04586932 wind instrument, wind -1" -> "n03372029 flute, transverse flute 558"
+"n04586932 wind instrument, wind -1" -> "n02804610 bassoon 432"
+"n04586932 wind instrument, wind -1" -> "n03838899 oboe, hautboy, hautbois 683"
+"n04586932 wind instrument, wind -1" -> "n04141076 sax, saxophone 776"
+"n04586932 wind instrument, wind -1" -> "n03110669 cornet, horn, trumpet, trump 513"
+"n04586932 wind instrument, wind -1" -> "n03394916 French horn, horn 566"
+"n04586932 wind instrument, wind -1" -> "n04487394 trombone 875"
+"n03574816 instrument -1" -> "n04451818 tool -1"
+"n04451818 tool -1" -> "n03967562 plow, plough 730"
+"n04451818 tool -1" -> "n03876231 paintbrush 696"
+"n04451818 tool -1" -> "n03906997 pen -1"
+"n03906997 pen -1" -> "n02783161 ballpoint, ballpoint pen, ballpen, Biro 418"
+"n03906997 pen -1" -> "n03388183 fountain pen 563"
+"n03906997 pen -1" -> "n04033901 quill, quill pen 749"
+"n04451818 tool -1" -> "n03294833 eraser -1"
+"n03294833 eraser -1" -> "n04116512 rubber eraser, rubber, pencil eraser 767"
+"n04451818 tool -1" -> "n04185071 sharpener -1"
+"n04185071 sharpener -1" -> "n03908714 pencil sharpener 710"
+"n04451818 tool -1" -> "n04153751 screw 783"
+"n04451818 tool -1" -> "n03804744 nail 677"
+"n04451818 tool -1" -> "n03940256 pin -1"
+"n03940256 pin -1" -> "n04127249 safety pin 772"
+"n04451818 tool -1" -> "n03682487 lock -1"
+"n03682487 lock -1" -> "n03075370 combination lock 507"
+"n03682487 lock -1" -> "n03874599 padlock 695"
+"n04451818 tool -1" -> "n04067472 reel 758"
+"n04451818 tool -1" -> "n03666591 lighter, light, igniter, ignitor 626"
+"n04451818 tool -1" -> "n04456115 torch 862"
+"n04451818 tool -1" -> "n03481172 hammer 587"
+"n04451818 tool -1" -> "n03970156 plunger, plumber's helper 731"
+"n04451818 tool -1" -> "n04154565 screwdriver 784"
+"n04451818 tool -1" -> "n04208210 shovel 792"
+"n04451818 tool -1" -> "n02966687 carpenter's kit, tool kit 477"
+"n04451818 tool -1" -> "n03995372 power drill 740"
+"n04451818 tool -1" -> "n03000684 chain saw, chainsaw 491"
+"n03574816 instrument -1" -> "n03739693 medical instrument -1"
+"n03739693 medical instrument -1" -> "n04317175 stethoscope 823"
+"n03739693 medical instrument -1" -> "n04376876 syringe 845"
+"n03574816 instrument -1" -> "n04565375 weapon, arm, weapon system -1"
+"n04565375 weapon, arm, weapon system -1" -> "n02879718 bow 456"
+"n04565375 weapon, arm, weapon system -1" -> "n03773504 missile 657"
+"n04565375 weapon, arm, weapon system -1" -> "n04008634 projectile, missile 744"
+"n04565375 weapon, arm, weapon system -1" -> "n02950826 cannon 471"
+"n04565375 weapon, arm, weapon system -1" -> "n03343853 firearm, piece, small-arm -1"
+"n03343853 firearm, piece, small-arm -1" -> "n04090263 rifle 764"
+"n03343853 firearm, piece, small-arm -1" -> "n03948459 pistol, handgun, side arm, shooting iron -1"
+"n03948459 pistol, handgun, side arm, shooting iron -1" -> "n04086273 revolver, six-gun, six-shooter 763"
+"n03343853 firearm, piece, small-arm -1" -> "n02760429 automatic firearm, automatic gun, automatic weapon -1"
+"n02760429 automatic firearm, automatic gun, automatic weapon -1" -> "n02749479 assault rifle, assault gun 413"
+"n03574816 instrument -1" -> "n03621049 kitchen utensil -1"
+"n03621049 kitchen utensil -1" -> "n03848348 opener -1"
+"n03848348 opener -1" -> "n02951585 can opener, tin opener 473"
+"n03848348 opener -1" -> "n02877962 bottle opener -1"
+"n02877962 bottle opener -1" -> "n03109150 corkscrew, bottle screw 512"
+"n03621049 kitchen utensil -1" -> "n03961711 plate rack 729"
+"n03621049 kitchen utensil -1" -> "n04476259 tray 868"
+"n03621049 kitchen utensil -1" -> "n03062245 cocktail shaker 503"
+"n03621049 kitchen utensil -1" -> "n04131690 saltshaker, salt shaker 773"
+"n03621049 kitchen utensil -1" -> "n03990474 pot -1"
+"n03990474 pot -1" -> "n02939185 caldron, cauldron 469"
+"n03990474 pot -1" -> "n03063689 coffeepot 505"
+"n03990474 pot -1" -> "n04398044 teapot 849"
+"n03990474 pot -1" -> "n03259280 Dutch oven 544"
+"n03621049 kitchen utensil -1" -> "n03880531 pan, cooking pan -1"
+"n03880531 pan, cooking pan -1" -> "n03400231 frying pan, frypan, skillet 567"
+"n03880531 pan, cooking pan -1" -> "n04596742 wok 909"
+"n03621049 kitchen utensil -1" -> "n04270147 spatula 813"
+"n03621049 kitchen utensil -1" -> "n03633091 ladle 618"
+"n03621049 kitchen utensil -1" -> "n03623556 knife -1"
+"n03623556 knife -1" -> "n03041632 cleaver, meat cleaver, chopper 499"
+"n03621049 kitchen utensil -1" -> "n03733805 measuring cup 647"
+"n03574816 instrument -1" -> "n04381994 tableware -1"
+"n04381994 tableware -1" -> "n02880940 bowl -1"
+"n02880940 bowl -1" -> "n03775546 mixing bowl 659"
+"n02880940 bowl -1" -> "n04263257 soup bowl 809"
+"n04381994 tableware -1" -> "n07579787 plate 923"
+"n04381994 tableware -1" -> "n04284002 spoon -1"
+"n04284002 spoon -1" -> "n04597913 wooden spoon 910"
+"n04381994 tableware -1" -> "n03797390 mug -1"
+"n03797390 mug -1" -> "n03063599 coffee mug 504"
+"n04381994 tableware -1" -> "n03438257 glass, drinking glass -1"
+"n03438257 glass, drinking glass -1" -> "n02823750 beer glass 441"
+"n03438257 glass, drinking glass -1" -> "n03443371 goblet 572"
+"n04381994 tableware -1" -> "n02876657 bottle -1"
+"n02876657 bottle -1" -> "n02823428 beer bottle 440"
+"n02876657 bottle -1" -> "n03983396 pop bottle, soda bottle 737"
+"n02876657 bottle -1" -> "n04557648 water bottle 898"
+"n02876657 bottle -1" -> "n04591713 wine bottle 907"
+"n04381994 tableware -1" -> "n03603722 jug -1"
+"n03603722 jug -1" -> "n04560804 water jug 899"
+"n03603722 jug -1" -> "n04579145 whiskey jug 901"
+"n00001740 entity -1" -> "n00004258 living thing, animate thing -1"
+"n00004258 living thing, animate thing -1" -> "n00015388 animal, animate being, beast, brute, creature, fauna -1"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01767661 arthropod -1"
+"n01767661 arthropod -1" -> "n01768244 trilobite 69"
+"n01767661 arthropod -1" -> "n01784675 centipede 79"
+"n01767661 arthropod -1" -> "n01769347 arachnid, arachnoid -1"
+"n01769347 arachnid, arachnoid -1" -> "n01770081 harvestman, daddy longlegs, Phalangium opilio 70"
+"n01769347 arachnid, arachnoid -1" -> "n01770393 scorpion 71"
+"n01769347 arachnid, arachnoid -1" -> "n01776192 acarine -1"
+"n01776192 acarine -1" -> "n01776313 tick 78"
+"n01769347 arachnid, arachnoid -1" -> "n01772222 spider -1"
+"n01772222 spider -1" -> "n01773157 black and gold garden spider, Argiope aurantia 72"
+"n01772222 spider -1" -> "n01773549 barn spider, Araneus cavaticus 73"
+"n01772222 spider -1" -> "n01773797 garden spider, Aranea diademata 74"
+"n01772222 spider -1" -> "n01774384 black widow, Latrodectus mactans 75"
+"n01772222 spider -1" -> "n01774750 tarantula 76"
+"n01772222 spider -1" -> "n01775062 wolf spider, hunting spider 77"
+"n01767661 arthropod -1" -> "n01974773 crustacean -1"
+"n01974773 crustacean -1" -> "n01985128 crayfish, crawfish, crawdad, crawdaddy 124"
+"n01974773 crustacean -1" -> "n01986214 hermit crab 125"
+"n01974773 crustacean -1" -> "n01982650 lobster -1"
+"n01982650 lobster -1" -> "n01984695 spiny lobster, langouste, rock lobster, crawfish, crayfish, sea crawfish 123"
+"n01982650 lobster -1" -> "n01983048 true lobster -1"
+"n01983048 true lobster -1" -> "n01983481 American lobster, Northern lobster, Maine lobster, Homarus americanus 122"
+"n01974773 crustacean -1" -> "n01976957 crab -1"
+"n01976957 crab -1" -> "n01978287 Dungeness crab, Cancer magister 118"
+"n01976957 crab -1" -> "n01978455 rock crab, Cancer irroratus 119"
+"n01976957 crab -1" -> "n01980166 fiddler crab 120"
+"n01976957 crab -1" -> "n01981276 king crab, Alaska crab, Alaskan king crab, Alaska king crab, Paralithodes camtschatica 121"
+"n01974773 crustacean -1" -> "n01990800 isopod 126"
+"n01767661 arthropod -1" -> "n02159955 insect -1"
+"n02159955 insect -1" -> "n02164464 beetle -1"
+"n02164464 beetle -1" -> "n02165105 tiger beetle 300"
+"n02164464 beetle -1" -> "n02165456 ladybug, ladybeetle, lady beetle, ladybird, ladybird beetle 301"
+"n02164464 beetle -1" -> "n02167151 ground beetle, carabid beetle 302"
+"n02164464 beetle -1" -> "n02168699 long-horned beetle, longicorn, longicorn beetle 303"
+"n02164464 beetle -1" -> "n02169497 leaf beetle, chrysomelid 304"
+"n02164464 beetle -1" -> "n02177972 weevil 307"
+"n02164464 beetle -1" -> "n02171869 scarabaeid beetle, scarabaeid, scarabaean -1"
+"n02171869 scarabaeid beetle, scarabaeid, scarabaean -1" -> "n02172182 dung beetle 305"
+"n02171869 scarabaeid beetle, scarabaeid, scarabaean -1" -> "n02174001 rhinoceros beetle 306"
+"n02159955 insect -1" -> "n02256656 cicada, cicala 316"
+"n02159955 insect -1" -> "n02259212 leafhopper 317"
+"n02159955 insect -1" -> "n02226429 grasshopper, hopper 311"
+"n02159955 insect -1" -> "n02229544 cricket 312"
+"n02159955 insect -1" -> "n02274259 butterfly -1"
+"n02274259 butterfly -1" -> "n02277742 ringlet, ringlet butterfly 322"
+"n02274259 butterfly -1" -> "n02281406 sulphur butterfly, sulfur butterfly 325"
+"n02274259 butterfly -1" -> "n02281787 lycaenid, lycaenid butterfly 326"
+"n02274259 butterfly -1" -> "n02280458 pierid, pierid butterfly -1"
+"n02280458 pierid, pierid butterfly -1" -> "n02280649 cabbage butterfly 324"
+"n02274259 butterfly -1" -> "n02274822 nymphalid, nymphalid butterfly, brush-footed butterfly, four-footed butterfly -1"
+"n02274822 nymphalid, nymphalid butterfly, brush-footed butterfly, four-footed butterfly -1" -> "n02276258 admiral 321"
+"n02274259 butterfly -1" -> "n02279637 danaid, danaid butterfly -1"
+"n02279637 danaid, danaid butterfly -1" -> "n02279972 monarch, monarch butterfly, milkweed butterfly, Danaus plexippus 323"
+"n02159955 insect -1" -> "n02233338 cockroach, roach 314"
+"n02159955 insect -1" -> "n02236044 mantis, mantid 315"
+"n02159955 insect -1" -> "n02206856 bee 309"
+"n02159955 insect -1" -> "n02219486 ant, emmet, pismire 310"
+"n02159955 insect -1" -> "n02264363 lacewing, lacewing fly 318"
+"n02159955 insect -1" -> "n02190166 fly 308"
+"n02159955 insect -1" -> "n02231487 walking stick, walkingstick, stick insect 313"
+"n02159955 insect -1" -> "n02268443 dragonfly, darning needle, devil's darning needle, sewing needle, snake feeder, snake doctor, mosquito hawk, skeeter hawk 319"
+"n02159955 insect -1" -> "n02268853 damselfly 320"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n02316707 echinoderm -1"
+"n02316707 echinoderm -1" -> "dummy11 dummy11 -1"
+"dummy11 dummy11 -1" -> "n02317335 starfish, sea star 327"
+"n02316707 echinoderm -1" -> "dummy12 dummy12 -1"
+"dummy12 dummy12 -1" -> "n02321529 sea cucumber, holothurian 329"
+"n02316707 echinoderm -1" -> "dummy13 dummy13 -1"
+"dummy13 dummy13 -1" -> "n02319095 sea urchin 328"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01940736 mollusk, mollusc, shellfish -1"
+"n01940736 mollusk, mollusc, shellfish -1" -> "n01955084 chiton, coat-of-mail shell, sea cradle, polyplacophore 116"
+"n01940736 mollusk, mollusc, shellfish -1" -> "n01942177 gastropod, univalve -1"
+"n01942177 gastropod, univalve -1" -> "n01943899 conch 112"
+"n01942177 gastropod, univalve -1" -> "n01944390 snail 113"
+"n01942177 gastropod, univalve -1" -> "n01945685 slug 114"
+"n01942177 gastropod, univalve -1" -> "n01950731 sea slug, nudibranch 115"
+"n01940736 mollusk, mollusc, shellfish -1" -> "n01968315 cephalopod, cephalopod mollusk -1"
+"n01968315 cephalopod, cephalopod mollusk -1" -> "n01968897 chambered nautilus, pearly nautilus, nautilus 117"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01909422 coelenterate, cnidarian -1"
+"n01909422 coelenterate, cnidarian -1" -> "n01914163 anthozoan, actinozoan -1"
+"n01914163 anthozoan, actinozoan -1" -> "n01914609 sea anemone, anemone 108"
+"n01914163 anthozoan, actinozoan -1" -> "n01915811 coral -1"
+"n01915811 coral -1" -> "n01917289 brain coral 109"
+"n01909422 coelenterate, cnidarian -1" -> "dummy10 dummy10 -1"
+"dummy10 dummy10 -1" -> "n01910747 jellyfish 107"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01922303 worm -1"
+"n01922303 worm -1" -> "dummy14 dummy14 -1"
+"dummy14 dummy14 -1" -> "n01924916 flatworm, platyhelminth 110"
+"n01922303 worm -1" -> "dummy15 dummy15 -1"
+"dummy15 dummy15 -1" -> "n01930112 nematode, nematode worm, roundworm 111"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01861778 mammal, mammalian -1"
+"n01861778 mammal, mammalian -1" -> "n01871875 monotreme, egg-laying mammal -1"
+"n01871875 monotreme, egg-laying mammal -1" -> "n01872401 echidna, spiny anteater, anteater 102"
+"n01871875 monotreme, egg-laying mammal -1" -> "n01873310 platypus, duckbill, duckbilled platypus, duck-billed platypus, Ornithorhynchus anatinus 103"
+"n01861778 mammal, mammalian -1" -> "n02453611 edentate -1"
+"n02453611 edentate -1" -> "n02454379 armadillo 363"
+"n02453611 edentate -1" -> "n02456962 sloth, tree sloth -1"
+"n02456962 sloth, tree sloth -1" -> "n02457408 three-toed sloth, ai, Bradypus tridactylus 364"
+"n01861778 mammal, mammalian -1" -> "n02329401 rodent, gnawer -1"
+"n02329401 rodent, gnawer -1" -> "n02342885 hamster 333"
+"n02329401 rodent, gnawer -1" -> "n02346627 porcupine, hedgehog 334"
+"n02329401 rodent, gnawer -1" -> "n02361337 marmot 336"
+"n02329401 rodent, gnawer -1" -> "n02363005 beaver 337"
+"n02329401 rodent, gnawer -1" -> "n02355227 squirrel -1"
+"n02355227 squirrel -1" -> "n02356798 fox squirrel, eastern fox squirrel, Sciurus niger 335"
+"n02329401 rodent, gnawer -1" -> "n02364673 guinea pig, Cavia cobaya 338"
+"n01861778 mammal, mammalian -1" -> "n02062017 aquatic mammal -1"
+"n02062017 aquatic mammal -1" -> "n02073250 sea cow, sirenian mammal, sirenian -1"
+"n02073250 sea cow, sirenian mammal, sirenian -1" -> "n02074367 dugong, Dugong dugon 149"
+"n02062017 aquatic mammal -1" -> "n02062744 whale -1"
+"n02062744 whale -1" -> "n02066245 grey whale, gray whale, devilfish, Eschrichtius gibbosus, Eschrichtius robustus 147"
+"n02062744 whale -1" -> "n02071294 killer whale, killer, orca, grampus, sea wolf, Orcinus orca 148"
+"n02062017 aquatic mammal -1" -> "n02076196 seal -1"
+"n02076196 seal -1" -> "n02077923 sea lion 150"
+"n01861778 mammal, mammalian -1" -> "n02503127 proboscidean, proboscidian -1"
+"n02503127 proboscidean, proboscidian -1" -> "n02503517 elephant -1"
+"n02503517 elephant -1" -> "n02504013 Indian elephant, Elephas maximus 385"
+"n02503517 elephant -1" -> "n02504458 African elephant, Loxodonta africana 386"
+"n01861778 mammal, mammalian -1" -> "n02469914 primate -1"
+"n02469914 primate -1" -> "n02496913 lemur -1"
+"n02496913 lemur -1" -> "n02497673 Madagascar cat, ring-tailed lemur, Lemur catta 383"
+"n02496913 lemur -1" -> "n02500267 indri, indris, Indri indri, Indri brevicaudatus 384"
+"n02469914 primate -1" -> "n02484322 monkey -1"
+"n02484322 monkey -1" -> "n02490219 marmoset 377"
+"n02484322 monkey -1" -> "n02492035 capuchin, ringtail, Cebus capucinus 378"
+"n02484322 monkey -1" -> "n02492660 howler monkey, howler 379"
+"n02484322 monkey -1" -> "n02493509 titi, titi monkey 380"
+"n02484322 monkey -1" -> "n02493793 spider monkey, Ateles geoffroyi 381"
+"n02484322 monkey -1" -> "n02494079 squirrel monkey, Saimiri sciureus 382"
+"n02484322 monkey -1" -> "n02484975 guenon, guenon monkey 370"
+"n02484322 monkey -1" -> "n02486261 patas, hussar monkey, Erythrocebus patas 371"
+"n02484322 monkey -1" -> "n02486410 baboon 372"
+"n02484322 monkey -1" -> "n02487347 macaque 373"
+"n02484322 monkey -1" -> "n02488291 langur 374"
+"n02484322 monkey -1" -> "n02488702 colobus, colobus monkey 375"
+"n02484322 monkey -1" -> "n02489166 proboscis monkey, Nasalis larvatus 376"
+"n02469914 primate -1" -> "n02470325 ape -1"
+"n02470325 ape -1" -> "n02480495 orangutan, orang, orangutang, Pongo pygmaeus 365"
+"n02470325 ape -1" -> "n02480855 gorilla, Gorilla gorilla 366"
+"n02470325 ape -1" -> "n02481823 chimpanzee, chimp, Pan troglodytes 367"
+"n02470325 ape -1" -> "n02483362 gibbon, Hylobates lar 368"
+"n02470325 ape -1" -> "n02483708 siamang, Hylobates syndactylus, Symphalangus syndactylus 369"
+"n01861778 mammal, mammalian -1" -> "n02323449 lagomorph, gnawing mammal -1"
+"n02323449 lagomorph, gnawing mammal -1" -> "n02326432 hare 331"
+"n02323449 lagomorph, gnawing mammal -1" -> "n02324045 rabbit, coney, cony -1"
+"n02324045 rabbit, coney, cony -1" -> "n02325366 wood rabbit, cottontail, cottontail rabbit 330"
+"n02324045 rabbit, coney, cony -1" -> "n02328150 Angora, Angora rabbit 332"
+"n01861778 mammal, mammalian -1" -> "n02370806 ungulate, hoofed mammal -1"
+"n02370806 ungulate, hoofed mammal -1" -> "n02398521 hippopotamus, hippo, river horse, Hippopotamus amphibius 344"
+"n02370806 ungulate, hoofed mammal -1" -> "n02437616 llama 355"
+"n02370806 ungulate, hoofed mammal -1" -> "n02437136 camel -1"
+"n02437136 camel -1" -> "n02437312 Arabian camel, dromedary, Camelus dromedarius 354"
+"n02370806 ungulate, hoofed mammal -1" -> "n02395406 hog, pig, grunter, squealer, Sus scrofa 341"
+"n02370806 ungulate, hoofed mammal -1" -> "n02396427 wild boar, boar, Sus scrofa 342"
+"n02370806 ungulate, hoofed mammal -1" -> "n02397096 warthog 343"
+"n02370806 ungulate, hoofed mammal -1" -> "n02391049 zebra 340"
+"n02370806 ungulate, hoofed mammal -1" -> "n02374451 horse, Equus caballus -1"
+"n02374451 horse, Equus caballus -1" -> "n02389026 sorrel 339"
+"n02370806 ungulate, hoofed mammal -1" -> "n02410509 bison 347"
+"n02370806 ungulate, hoofed mammal -1" -> "n02419796 antelope -1"
+"n02419796 antelope -1" -> "n02422106 hartebeest 351"
+"n02419796 antelope -1" -> "n02422699 impala, Aepyceros melampus 352"
+"n02419796 antelope -1" -> "n02423022 gazelle 353"
+"n02370806 ungulate, hoofed mammal -1" -> "n02411705 sheep -1"
+"n02411705 sheep -1" -> "n02412080 ram, tup 348"
+"n02370806 ungulate, hoofed mammal -1" -> "n02407959 Old World buffalo, buffalo -1"
+"n02407959 Old World buffalo, buffalo -1" -> "n02408429 water buffalo, water ox, Asiatic buffalo, Bubalus bubalis 346"
+"n02370806 ungulate, hoofed mammal -1" -> "n02414578 wild sheep -1"
+"n02414578 wild sheep -1" -> "n02415435 mountain sheep -1"
+"n02415435 mountain sheep -1" -> "n02415577 bighorn, bighorn sheep, cimarron, Rocky Mountain bighorn, Rocky Mountain sheep, Ovis canadensis 349"
+"n02370806 ungulate, hoofed mammal -1" -> "n02416519 goat, caprine animal -1"
+"n02416519 goat, caprine animal -1" -> "n02417914 ibex, Capra ibex 350"
+"n02370806 ungulate, hoofed mammal -1" -> "n02402425 cattle, cows, kine, oxen, Bos taurus -1"
+"n02402425 cattle, cows, kine, oxen, Bos taurus -1" -> "n02403003 ox 345"
+"n01861778 mammal, mammalian -1" -> "n02075296 carnivore -1"
+"n02075296 carnivore -1" -> "n02131653 bear -1"
+"n02131653 bear -1" -> "n02132136 brown bear, bruin, Ursus arctos 294"
+"n02131653 bear -1" -> "n02133161 American black bear, black bear, Ursus americanus, Euarctos americanus 295"
+"n02131653 bear -1" -> "n02134084 ice bear, polar bear, Ursus Maritimus, Thalarctos maritimus 296"
+"n02131653 bear -1" -> "n02134418 sloth bear, Melursus ursinus, Ursus ursinus 297"
+"n02075296 carnivore -1" -> "n02128385 leopard, Panthera pardus 288"
+"n02075296 carnivore -1" -> "n02128757 snow leopard, ounce, Panthera uncia 289"
+"n02075296 carnivore -1" -> "n02128925 jaguar, panther, Panthera onca, Felis onca 290"
+"n02075296 carnivore -1" -> "n02129165 lion, king of beasts, Panthera leo 291"
+"n02075296 carnivore -1" -> "n02129604 tiger, Panthera tigris 292"
+"n02075296 carnivore -1" -> "n02130308 cheetah, chetah, Acinonyx jubatus 293"
+"n02075296 carnivore -1" -> "n02441942 weasel 356"
+"n02075296 carnivore -1" -> "n02442845 mink 357"
+"n02075296 carnivore -1" -> "n02443114 polecat, fitch, foulmart, foumart, Mustela putorius 358"
+"n02075296 carnivore -1" -> "n02443484 black-footed ferret, ferret, Mustela nigripes 359"
+"n02075296 carnivore -1" -> "n02444819 otter 360"
+"n02075296 carnivore -1" -> "n02445715 skunk, polecat, wood pussy 361"
+"n02075296 carnivore -1" -> "n02447366 badger 362"
+"n02075296 carnivore -1" -> "n02137549 mongoose 298"
+"n02075296 carnivore -1" -> "n02138441 meerkat, mierkat 299"
+"n02075296 carnivore -1" -> "n02509815 lesser panda, red panda, panda, bear cat, cat bear, Ailurus fulgens 387"
+"n02075296 carnivore -1" -> "n02510455 giant panda, panda, panda bear, coon bear, Ailuropoda melanoleuca 388"
+"n02075296 carnivore -1" -> "n02121808 domestic cat, house cat, Felis domesticus, Felis catus -1"
+"n02121808 domestic cat, house cat, Felis domesticus, Felis catus -1" -> "n02123045 tabby, tabby cat 281"
+"n02121808 domestic cat, house cat, Felis domesticus, Felis catus -1" -> "n02123159 tiger cat 282"
+"n02121808 domestic cat, house cat, Felis domesticus, Felis catus -1" -> "n02123394 Persian cat 283"
+"n02121808 domestic cat, house cat, Felis domesticus, Felis catus -1" -> "n02123597 Siamese cat, Siamese 284"
+"n02121808 domestic cat, house cat, Felis domesticus, Felis catus -1" -> "n02124075 Egyptian cat 285"
+"n02075296 carnivore -1" -> "n02125311 cougar, puma, catamount, mountain lion, painter, panther, Felis concolor 286"
+"n02075296 carnivore -1" -> "n02127052 lynx, catamount 287"
+"n02075296 carnivore -1" -> "n02117135 hyena, hyaena 276"
+"n02075296 carnivore -1" -> "n02114100 wolf -1"
+"n02114100 wolf -1" -> "n02114367 timber wolf, grey wolf, gray wolf, Canis lupus 269"
+"n02114100 wolf -1" -> "n02114548 white wolf, Arctic wolf, Canis lupus tundrarum 270"
+"n02114100 wolf -1" -> "n02114712 red wolf, maned wolf, Canis rufus, Canis niger 271"
+"n02114100 wolf -1" -> "n02114855 coyote, prairie wolf, brush wolf, Canis latrans 272"
+"n02075296 carnivore -1" -> "n02118333 fox -1"
+"n02118333 fox -1" -> "n02119022 red fox, Vulpes vulpes 277"
+"n02118333 fox -1" -> "n02119789 kit fox, Vulpes macrotis 278"
+"n02118333 fox -1" -> "n02120079 Arctic fox, white fox, Alopex lagopus 279"
+"n02118333 fox -1" -> "n02120505 grey fox, gray fox, Urocyon cinereoargenteus 280"
+"n02075296 carnivore -1" -> "n02084071 dog, domestic dog, Canis familiaris -1"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02110341 dalmatian, coach dog, carriage dog 251"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02110806 basenji 253"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02110958 pug, pug-dog 254"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02111129 Leonberg 255"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02111277 Newfoundland, Newfoundland dog 256"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02111500 Great Pyrenees 257"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02113978 Mexican hairless 268"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02113335 poodle, poodle dog -1"
+"n02113335 poodle, poodle dog -1" -> "n02113624 toy poodle 265"
+"n02113335 poodle, poodle dog -1" -> "n02113712 miniature poodle 266"
+"n02113335 poodle, poodle dog -1" -> "n02113799 standard poodle 267"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02112826 corgi, Welsh corgi -1"
+"n02112826 corgi, Welsh corgi -1" -> "n02113023 Pembroke, Pembroke Welsh corgi 263"
+"n02112826 corgi, Welsh corgi -1" -> "n02113186 Cardigan, Cardigan Welsh corgi 264"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02112497 griffon, Brussels griffon, Belgian griffon -1"
+"n02112497 griffon, Brussels griffon, Belgian griffon -1" -> "n02112706 Brabancon griffon 262"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02111889 Samoyed, Samoyede 258"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02112018 Pomeranian 259"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02112137 chow, chow chow 260"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02112350 keeshond 261"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02108089 boxer 242"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02108422 bull mastiff 243"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02109047 Great Dane 246"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02109525 Saint Bernard, St Bernard 247"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02109961 Eskimo dog, husky 248"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02108672 bulldog, English bulldog -1"
+"n02108672 bulldog, English bulldog -1" -> "n02108915 French bulldog 245"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02108254 mastiff -1"
+"n02108254 mastiff -1" -> "n02108551 Tibetan mastiff 244"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02110063 malamute, malemute, Alaskan malamute 249"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02110185 Siberian husky 250"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02105251 briard 226"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02105412 kelpie 227"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02105505 komondor 228"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02105641 Old English sheepdog, bobtail 229"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02105855 Shetland sheepdog, Shetland sheep dog, Shetland 230"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02106030 collie 231"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02106166 Border collie 232"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02106382 Bouvier des Flandres, Bouviers des Flandres 233"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02106550 Rottweiler 234"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02106662 German shepherd, German shepherd dog, German police dog, alsatian 235"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02104882 Belgian sheepdog, Belgian shepherd -1"
+"n02104882 Belgian sheepdog, Belgian shepherd -1" -> "n02105056 groenendael 224"
+"n02104882 Belgian sheepdog, Belgian shepherd -1" -> "n02105162 malinois 225"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02085620 Chihuahua 151"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02085782 Japanese spaniel 152"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02085936 Maltese dog, Maltese terrier, Maltese 153"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02086079 Pekinese, Pekingese, Peke 154"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02086240 Shih-Tzu 155"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02087046 toy terrier 158"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02086346 toy spaniel -1"
+"n02086346 toy spaniel -1" -> "n02086910 papillon 157"
+"n02086346 toy spaniel -1" -> "n02086646 Blenheim spaniel 156"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02107574 Greater Swiss Mountain dog 238"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02107683 Bernese mountain dog 239"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02107908 Appenzeller 240"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02108000 EntleBucher 241"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02087394 Rhodesian ridgeback 159"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02093647 Bedlington terrier 181"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02093754 Border terrier 182"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02093859 Kerry blue terrier 183"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02093991 Irish terrier 184"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02094114 Norfolk terrier 185"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02094258 Norwich terrier 186"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02094433 Yorkshire terrier 187"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02096051 Airedale, Airedale terrier 191"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02096177 cairn, cairn terrier 192"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02096294 Australian terrier 193"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02096437 Dandie Dinmont, Dandie Dinmont terrier 194"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02096585 Boston bull, Boston terrier 195"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02097298 Scotch terrier, Scottish terrier, Scottie 199"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02097474 Tibetan terrier, chrysanthemum dog 200"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02097658 silky terrier, Sydney silky 201"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02098105 soft-coated wheaten terrier 202"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02098286 West Highland white terrier 203"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02098413 Lhasa, Lhasa apso 204"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02095412 wirehair, wirehaired terrier, wire-haired terrier -1"
+"n02095412 wirehair, wirehaired terrier, wire-haired terrier -1" -> "n02095570 Lakeland terrier 189"
+"n02095412 wirehair, wirehaired terrier, wire-haired terrier -1" -> "n02095727 Welsh terrier -1"
+"n02095727 Welsh terrier -1" -> "n02095889 Sealyham terrier, Sealyham 190"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02095050 fox terrier -1"
+"n02095050 fox terrier -1" -> "n02095314 wire-haired fox terrier 188"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02093056 bullterrier, bull terrier -1"
+"n02093056 bullterrier, bull terrier -1" -> "n02093256 Staffordshire bullterrier, Staffordshire bull terrier 179"
+"n02093056 bullterrier, bull terrier -1" -> "n02093428 American Staffordshire terrier, Staffordshire terrier, American pit bull terrier, pit bull terrier 180"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02096756 schnauzer -1"
+"n02096756 schnauzer -1" -> "n02097047 miniature schnauzer 196"
+"n02096756 schnauzer -1" -> "n02097130 giant schnauzer 197"
+"n02096756 schnauzer -1" -> "n02097209 standard schnauzer 198"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02099267 flat-coated retriever 205"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02099429 curly-coated retriever 206"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02099601 golden retriever 207"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02099712 Labrador retriever 208"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02099849 Chesapeake Bay retriever 209"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02100236 German short-haired pointer 210"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02100583 vizsla, Hungarian pointer 211"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02101388 Brittany spaniel 215"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02101556 clumber, clumber spaniel 216"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02102318 cocker spaniel, English cocker spaniel, cocker 219"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02102480 Sussex spaniel 220"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02101861 springer spaniel, springer -1"
+"n02101861 springer spaniel, springer -1" -> "n02102040 English springer, English springer spaniel 217"
+"n02101861 springer spaniel, springer -1" -> "n02102177 Welsh springer spaniel 218"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02102605 water spaniel -1"
+"n02102605 water spaniel -1" -> "n02102973 Irish water spaniel 221"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02100735 English setter 212"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02100877 Irish setter, red setter 213"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02101006 Gordon setter 214"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02104029 kuvasz 222"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02104365 schipperke 223"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02107142 Doberman, Doberman pinscher 236"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02107312 miniature pinscher 237"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02110627 affenpinscher, monkey pinscher, monkey dog 252"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02088094 Afghan hound, Afghan 160"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02088238 basset, basset hound 161"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02088364 beagle 162"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02088466 bloodhound, sleuthhound 163"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02088632 bluetick 164"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02090379 redbone 168"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02091244 Ibizan hound, Ibizan Podenco 173"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02091467 Norwegian elkhound, elkhound 174"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02091635 otterhound, otter hound 175"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02091831 Saluki, gazelle hound 176"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02092002 Scottish deerhound, deerhound 177"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02092339 Weimaraner 178"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02091032 Italian greyhound 171"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02091134 whippet 172"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02090622 borzoi, Russian wolfhound 169"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02090721 Irish wolfhound 170"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02089867 Walker hound, Walker foxhound 166"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02089973 English foxhound 167"
+"n02084071 dog, domestic dog, Canis familiaris -1" -> "n02089078 black-and-tan coonhound 165"
+"n02075296 carnivore -1" -> "n02115335 wild dog -1"
+"n02115335 wild dog -1" -> "n02115641 dingo, warrigal, warragal, Canis dingo 273"
+"n02115335 wild dog -1" -> "n02115913 dhole, Cuon alpinus 274"
+"n02115335 wild dog -1" -> "n02116738 African hunting dog, hyena dog, Cape hunting dog, Lycaon pictus 275"
+"n01861778 mammal, mammalian -1" -> "n01874434 marsupial, pouched mammal -1"
+"n01874434 marsupial, pouched mammal -1" -> "n01883070 wombat 106"
+"n01874434 marsupial, pouched mammal -1" -> "n01881171 phalanger, opossum, possum -1"
+"n01881171 phalanger, opossum, possum -1" -> "n01882714 koala, koala bear, kangaroo bear, native bear, Phascolarctos cinereus 105"
+"n01874434 marsupial, pouched mammal -1" -> "n01877134 kangaroo -1"
+"n01877134 kangaroo -1" -> "n01877812 wallaby, brush kangaroo 104"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01503061 bird -1"
+"n01503061 bird -1" -> "n01604330 bird of prey, raptor, raptorial bird -1"
+"n01604330 bird of prey, raptor, raptorial bird -1" -> "n01616318 vulture 23"
+"n01604330 bird of prey, raptor, raptorial bird -1" -> "n01613294 eagle, bird of Jove -1"
+"n01613294 eagle, bird of Jove -1" -> "n01614925 bald eagle, American eagle, Haliaeetus leucocephalus 22"
+"n01604330 bird of prey, raptor, raptorial bird -1" -> "n01621127 owl, bird of Minerva, bird of night, hooter -1"
+"n01621127 owl, bird of Minerva, bird of night, hooter -1" -> "n01622779 great grey owl, great gray owl, Strix nebulosa 24"
+"n01604330 bird of prey, raptor, raptorial bird -1" -> "n01605630 hawk -1"
+"n01605630 hawk -1" -> "n01608432 kite 21"
+"n01503061 bird -1" -> "n01838038 piciform bird -1"
+"n01838038 piciform bird -1" -> "n01843065 jacamar 95"
+"n01838038 piciform bird -1" -> "n01843383 toucan 96"
+"n01503061 bird -1" -> "n01517565 ratite, ratite bird, flightless bird -1"
+"n01517565 ratite, ratite bird, flightless bird -1" -> "n01518878 ostrich, Struthio camelus 9"
+"n01503061 bird -1" -> "n01825930 coraciiform bird -1"
+"n01825930 coraciiform bird -1" -> "n01828970 bee eater 92"
+"n01825930 coraciiform bird -1" -> "n01829413 hornbill 93"
+"n01503061 bird -1" -> "n01831712 apodiform bird -1"
+"n01831712 apodiform bird -1" -> "n01833805 hummingbird 94"
+"n01503061 bird -1" -> "n01822602 cuculiform bird -1"
+"n01822602 cuculiform bird -1" -> "n01823013 cuckoo -1"
+"n01823013 cuckoo -1" -> "n01824575 coucal 91"
+"n01503061 bird -1" -> "n01844917 aquatic bird -1"
+"n01844917 aquatic bird -1" -> "n01858441 swan -1"
+"n01858441 swan -1" -> "n01860187 black swan, Cygnus atratus 100"
+"n01844917 aquatic bird -1" -> "n02016358 gallinule, marsh hen, water hen, swamphen -1"
+"n02016358 gallinule, marsh hen, water hen, swamphen -1" -> "n02016956 purple gallinule -1"
+"n02016956 purple gallinule -1" -> "n02017213 European gallinule, Porphyrio porphyrio 136"
+"n01844917 aquatic bird -1" -> "n02051845 pelican 144"
+"n01844917 aquatic bird -1" -> "n02058221 albatross, mollymawk 146"
+"n01844917 aquatic bird -1" -> "n01855672 goose 99"
+"n01844917 aquatic bird -1" -> "n01846331 duck -1"
+"n01846331 duck -1" -> "n01847000 drake 97"
+"n01846331 duck -1" -> "n01854415 merganser, fish duck, sawbill, sheldrake -1"
+"n01854415 merganser, fish duck, sawbill, sheldrake -1" -> "n01855032 red-breasted merganser, Mergus serrator 98"
+"n01844917 aquatic bird -1" -> "n02006656 spoonbill 129"
+"n01844917 aquatic bird -1" -> "n02007558 flamingo 130"
+"n01844917 aquatic bird -1" -> "n02012849 crane 134"
+"n01844917 aquatic bird -1" -> "n02013706 limpkin, Aramus pictus 135"
+"n01844917 aquatic bird -1" -> "n02018795 bustard 138"
+"n01844917 aquatic bird -1" -> "n02008041 heron -1"
+"n02008041 heron -1" -> "n02009229 little blue heron, Egretta caerulea 131"
+"n02008041 heron -1" -> "n02011460 bittern 133"
+"n02008041 heron -1" -> "n02008796 egret -1"
+"n02008796 egret -1" -> "n02009912 American egret, great white heron, Egretta albus 132"
+"n01844917 aquatic bird -1" -> "n02002075 stork -1"
+"n02002075 stork -1" -> "n02002556 white stork, Ciconia ciconia 127"
+"n02002075 stork -1" -> "n02002724 black stork, Ciconia nigra 128"
+"n01844917 aquatic bird -1" -> "n02014941 rail -1"
+"n02014941 rail -1" -> "n02018027 coot -1"
+"n02018027 coot -1" -> "n02018207 American coot, marsh hen, mud hen, water hen, Fulica americana 137"
+"n01844917 aquatic bird -1" -> "n02037110 oystercatcher, oyster catcher 143"
+"n01844917 aquatic bird -1" -> "n02026059 sandpiper -1"
+"n02026059 sandpiper -1" -> "n02027492 red-backed sandpiper, dunlin, Erolia alpina 140"
+"n02026059 sandpiper -1" -> "n02028035 redshank, Tringa totanus 141"
+"n01844917 aquatic bird -1" -> "n02031934 snipe -1"
+"n02031934 snipe -1" -> "n02033041 dowitcher 142"
+"n01844917 aquatic bird -1" -> "n02023341 plover -1"
+"n02023341 plover -1" -> "n02025239 ruddy turnstone, Arenaria interpres 139"
+"n01844917 aquatic bird -1" -> "n02055803 penguin -1"
+"n02055803 penguin -1" -> "n02056570 king penguin, Aptenodytes patagonica 145"
+"n01503061 bird -1" -> "n01524359 passerine, passeriform bird -1"
+"n01524359 passerine, passeriform bird -1" -> "n01601694 water ouzel, dipper 20"
+"n01524359 passerine, passeriform bird -1" -> "n01591697 titmouse, tit -1"
+"n01591697 titmouse, tit -1" -> "n01592084 chickadee 19"
+"n01524359 passerine, passeriform bird -1" -> "n01558993 robin, American robin, Turdus migratorius 15"
+"n01524359 passerine, passeriform bird -1" -> "n01560105 nightingale, Luscinia megarhynchos -1"
+"n01560105 nightingale, Luscinia megarhynchos -1" -> "n01560419 bulbul 16"
+"n01524359 passerine, passeriform bird -1" -> "n01530575 brambling, Fringilla montifringilla 10"
+"n01524359 passerine, passeriform bird -1" -> "n01531178 goldfinch, Carduelis carduelis 11"
+"n01524359 passerine, passeriform bird -1" -> "n01532829 house finch, linnet, Carpodacus mexicanus 12"
+"n01524359 passerine, passeriform bird -1" -> "n01534433 junco, snowbird 13"
+"n01524359 passerine, passeriform bird -1" -> "n01537544 indigo bunting, indigo finch, indigo bird, Passerina cyanea 14"
+"n01524359 passerine, passeriform bird -1" -> "n01580077 jay 17"
+"n01524359 passerine, passeriform bird -1" -> "n01582220 magpie 18"
+"n01503061 bird -1" -> "n01789386 gallinaceous bird, gallinacean -1"
+"n01789386 gallinaceous bird, gallinacean -1" -> "n01802721 phasianid -1"
+"n01802721 phasianid -1" -> "n01806567 quail 85"
+"n01802721 phasianid -1" -> "n01807496 partridge 86"
+"n01802721 phasianid -1" -> "n01806143 peacock 84"
+"n01789386 gallinaceous bird, gallinacean -1" -> "n01795088 grouse -1"
+"n01795088 grouse -1" -> "n01795545 black grouse 80"
+"n01795088 grouse -1" -> "n01796340 ptarmigan 81"
+"n01795088 grouse -1" -> "n01797886 ruffed grouse, partridge, Bonasa umbellus 82"
+"n01795088 grouse -1" -> "n01798484 prairie chicken, prairie grouse, prairie fowl 83"
+"n01503061 bird -1" -> "dummy0 dummy0 -1"
+"dummy0 dummy0 -1" -> "n01514668 cock 7"
+"n01503061 bird -1" -> "dummy1 dummy1 -1"
+"dummy1 dummy1 -1" -> "n01514859 hen 8"
+"n01503061 bird -1" -> "dummy6 dummy6 -1"
+"dummy6 dummy6 -1" -> "n01816887 parrot -1"
+"n01816887 parrot -1" -> "n01817953 African grey, African gray, Psittacus erithacus 87"
+"n01816887 parrot -1" -> "n01818515 macaw 88"
+"n01816887 parrot -1" -> "n01819115 cockatoo -1"
+"n01819115 cockatoo -1" -> "n01819313 sulphur-crested cockatoo, Kakatoe galerita, Cacatua galerita 89"
+"n01816887 parrot -1" -> "n01820348 lory -1"
+"n01820348 lory -1" -> "n01820546 lorikeet 90"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01661091 reptile, reptilian -1"
+"n01661091 reptile, reptilian -1" -> "n01696633 crocodilian reptile, crocodilian -1"
+"n01696633 crocodilian reptile, crocodilian -1" -> "n01698434 alligator, gator -1"
+"n01698434 alligator, gator -1" -> "n01698640 American alligator, Alligator mississipiensis 50"
+"n01696633 crocodilian reptile, crocodilian -1" -> "n01697178 crocodile -1"
+"n01697178 crocodile -1" -> "n01697457 African crocodile, Nile crocodile, Crocodylus niloticus 49"
+"n01661091 reptile, reptilian -1" -> "n01674216 saurian -1"
+"n01674216 saurian -1" -> "n01674464 lizard -1"
+"n01674464 lizard -1" -> "n01687665 agamid, agamid lizard -1"
+"n01687665 agamid, agamid lizard -1" -> "n01687978 agama 42"
+"n01687665 agamid, agamid lizard -1" -> "n01688243 frilled lizard, Chlamydosaurus kingi 43"
+"n01674464 lizard -1" -> "n01689411 anguid lizard -1"
+"n01689411 anguid lizard -1" -> "n01689811 alligator lizard 44"
+"n01674464 lizard -1" -> "n01676755 iguanid, iguanid lizard -1"
+"n01676755 iguanid, iguanid lizard -1" -> "n01677366 common iguana, iguana, Iguana iguana 39"
+"n01676755 iguanid, iguanid lizard -1" -> "n01682714 American chameleon, anole, Anolis carolinensis 40"
+"n01674464 lizard -1" -> "n01693783 chameleon, chamaeleon -1"
+"n01693783 chameleon, chamaeleon -1" -> "n01694178 African chameleon, Chamaeleo chamaeleon 47"
+"n01674464 lizard -1" -> "n01692864 lacertid lizard, lacertid -1"
+"n01692864 lacertid lizard, lacertid -1" -> "n01693334 green lizard, Lacerta viridis 46"
+"n01674464 lizard -1" -> "n01691951 venomous lizard -1"
+"n01691951 venomous lizard -1" -> "n01692333 Gila monster, Heloderma suspectum 45"
+"n01674464 lizard -1" -> "n01674990 gecko -1"
+"n01674990 gecko -1" -> "n01675722 banded gecko 38"
+"n01674464 lizard -1" -> "n01685439 teiid lizard, teiid -1"
+"n01685439 teiid lizard, teiid -1" -> "n01685808 whiptail, whiptail lizard 41"
+"n01674464 lizard -1" -> "n01694709 monitor, monitor lizard, varan -1"
+"n01694709 monitor, monitor lizard, varan -1" -> "n01695060 Komodo dragon, Komodo lizard, dragon lizard, giant lizard, Varanus komodoensis 48"
+"n01661091 reptile, reptilian -1" -> "n01695681 archosaur, archosaurian, archosaurian reptile -1"
+"n01695681 archosaur, archosaurian, archosaurian reptile -1" -> "n01699831 dinosaur -1"
+"n01699831 dinosaur -1" -> "n01700470 ornithischian, ornithischian dinosaur -1"
+"n01700470 ornithischian, ornithischian dinosaur -1" -> "n01703569 ceratopsian, horned dinosaur -1"
+"n01703569 ceratopsian, horned dinosaur -1" -> "n01704323 triceratops 51"
+"n01661091 reptile, reptilian -1" -> "dummy9 serpentes -1"
+"dummy9 serpentes -1" -> "n01726692 snake, serpent, ophidian -1"
+"n01726692 snake, serpent, ophidian -1" -> "n01751748 sea snake 65"
+"n01726692 snake, serpent, ophidian -1" -> "n01728572 thunder snake, worm snake, Carphophis amoenus 52"
+"n01726692 snake, serpent, ophidian -1" -> "n01728920 ringneck snake, ring-necked snake, ring snake 53"
+"n01726692 snake, serpent, ophidian -1" -> "n01729322 hognose snake, puff adder, sand viper 54"
+"n01726692 snake, serpent, ophidian -1" -> "n01729977 green snake, grass snake 55"
+"n01726692 snake, serpent, ophidian -1" -> "n01734418 king snake, kingsnake 56"
+"n01726692 snake, serpent, ophidian -1" -> "n01735189 garter snake, grass snake 57"
+"n01726692 snake, serpent, ophidian -1" -> "n01737021 water snake 58"
+"n01726692 snake, serpent, ophidian -1" -> "n01739381 vine snake 59"
+"n01726692 snake, serpent, ophidian -1" -> "n01740131 night snake, Hypsiglena torquata 60"
+"n01726692 snake, serpent, ophidian -1" -> "n01753488 horned viper, cerastes, sand viper, horned asp, Cerastes cornutus 66"
+"n01726692 snake, serpent, ophidian -1" -> "n01747885 cobra -1"
+"n01747885 cobra -1" -> "n01748264 Indian cobra, Naja naja 63"
+"n01726692 snake, serpent, ophidian -1" -> "n01749582 mamba -1"
+"n01749582 mamba -1" -> "n01749742 black mamba, Dendroaspis augusticeps -1"
+"n01749742 black mamba, Dendroaspis augusticeps -1" -> "n01749939 green mamba 64"
+"n01726692 snake, serpent, ophidian -1" -> "n01754876 rattlesnake, rattler -1"
+"n01754876 rattlesnake, rattler -1" -> "n01755581 diamondback, diamondback rattlesnake, Crotalus adamanteus 67"
+"n01754876 rattlesnake, rattler -1" -> "n01756291 sidewinder, horned rattlesnake, Crotalus cerastes 68"
+"n01726692 snake, serpent, ophidian -1" -> "n01742172 boa constrictor, Constrictor constrictor 61"
+"n01726692 snake, serpent, ophidian -1" -> "n01743605 python -1"
+"n01743605 python -1" -> "n01744401 rock python, rock snake, Python sebae 62"
+"n01661091 reptile, reptilian -1" -> "n01662622 chelonian, chelonian reptile -1"
+"n01662622 chelonian, chelonian reptile -1" -> "n01662784 turtle -1"
+"n01662784 turtle -1" -> "n01667114 mud turtle 35"
+"n01662784 turtle -1" -> "n01667778 terrapin 36"
+"n01662784 turtle -1" -> "n01669191 box turtle, box tortoise 37"
+"n01662784 turtle -1" -> "n01663401 sea turtle, marine turtle -1"
+"n01663401 sea turtle, marine turtle -1" -> "n01664065 loggerhead, loggerhead turtle, Caretta caretta 33"
+"n01663401 sea turtle, marine turtle -1" -> "n01665541 leatherback turtle, leatherback, leathery turtle, Dermochelys coriacea 34"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n01627424 amphibian -1"
+"n01627424 amphibian -1" -> "dummy7 dummy7 -1"
+"dummy7 dummy7 -1" -> "n01639765 frog, toad, toad frog, anuran, batrachian, salientian -1"
+"n01639765 frog, toad, toad frog, anuran, batrachian, salientian -1" -> "n01644373 tree frog, tree-frog 31"
+"n01639765 frog, toad, toad frog, anuran, batrachian, salientian -1" -> "n01644900 tailed frog, bell toad, ribbed toad, tailed toad, Ascaphus trui 32"
+"n01639765 frog, toad, toad frog, anuran, batrachian, salientian -1" -> "n01640846 true frog, ranid -1"
+"n01640846 true frog, ranid -1" -> "n01641577 bullfrog, Rana catesbeiana 30"
+"n01627424 amphibian -1" -> "dummy8 dummy8 -1"
+"dummy8 dummy8 -1" -> "n01629276 salamander -1"
+"n01629276 salamander -1" -> "n01630284 newt, triton -1"
+"n01630284 newt, triton -1" -> "n01630670 common newt, Triturus vulgaris 26"
+"n01630284 newt, triton -1" -> "n01631663 eft 27"
+"n01629276 salamander -1" -> "n01629819 European fire salamander, Salamandra salamandra 25"
+"n01629276 salamander -1" -> "n01632458 spotted salamander, Ambystoma maculatum 28"
+"n01629276 salamander -1" -> "n01632777 axolotl, mud puppy, Ambystoma mexicanum 29"
+"n00015388 animal, animate being, beast, brute, creature, fauna -1" -> "n02512053 fish -1"
+"n02512053 fish -1" -> "n01480516 cartilaginous fish, chondrichthian -1"
+"n01480516 cartilaginous fish, chondrichthian -1" -> "n01495701 ray -1"
+"n01495701 ray -1" -> "n01496331 electric ray, crampfish, numbfish, torpedo 5"
+"n01495701 ray -1" -> "n01498041 stingray 6"
+"n01480516 cartilaginous fish, chondrichthian -1" -> "n01482330 shark -1"
+"n01482330 shark -1" -> "n01494475 hammerhead, hammerhead shark 4"
+"n01482330 shark -1" -> "n01484850 great white shark, white shark, man-eater, man-eating shark, Carcharodon carcharias 2"
+"n01482330 shark -1" -> "n01491361 tiger shark, Galeocerdo cuvieri 3"
+"n02512053 fish -1" -> "n02514825 bony fish -1"
+"n02514825 bony fish -1" -> "n02526121 eel 390"
+"n02514825 bony fish -1" -> "n01440764 tench, Tinca tinca 0"
+"n02514825 bony fish -1" -> "n01443537 goldfish, Carassius auratus 1"
+"n02514825 bony fish -1" -> "n02534734 salmon -1"
+"n02534734 salmon -1" -> "n02536864 coho, cohoe, coho salmon, blue jack, silver salmon, Oncorhynchus kisutch 391"
+"n02514825 bony fish -1" -> "n02640242 sturgeon 394"
+"n02514825 bony fish -1" -> "n02641379 gar, garfish, garpike, billfish, Lepisosteus osseus 395"
+"n02514825 bony fish -1" -> "n02655020 puffer, pufferfish, blowfish, globefish 397"
+"n02514825 bony fish -1" -> "n02606384 damselfish, demoiselle -1"
+"n02606384 damselfish, demoiselle -1" -> "n02607072 anemone fish 393"
+"n02514825 bony fish -1" -> "n02605316 butterfly fish -1"
+"n02605316 butterfly fish -1" -> "n02606052 rock beauty, Holocanthus tricolor 392"
+"n02514825 bony fish -1" -> "n02642644 scorpaenid, scorpaenid fish -1"
+"n02642644 scorpaenid, scorpaenid fish -1" -> "n02643566 lionfish 396"
+"n02514825 bony fish -1" -> "n02514041 barracouta, snoek 389"
+"n00004258 living thing, animate thing -1" -> "n00017222 plant, flora, plant life -1"
+"n00017222 plant, flora, plant life -1" -> "n13083586 vascular plant, tracheophyte -1"
+"n13083586 vascular plant, tracheophyte -1" -> "n11669921 flower -1"
+"n11669921 flower -1" -> "n11939491 daisy 985"
+"n11669921 flower -1" -> "n12041446 orchid, orchidaceous plant -1"
+"n12041446 orchid, orchidaceous plant -1" -> "n12056217 lady's slipper, lady-slipper, ladies' slipper, slipper orchid -1"
+"n12056217 lady's slipper, lady-slipper, ladies' slipper, slipper orchid -1" -> "n12057211 yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum 986"
+"n00004258 living thing, animate thing -1" -> "dummy21 fungus -1"
+"dummy21 fungus -1" -> "n12992868 fungus -1"
+"n12992868 fungus -1" -> "n12997654 basidiomycete, basidiomycetous fungi -1"
+"n12997654 basidiomycete, basidiomycetous fungi -1" -> "n12985857 coral fungus 991"
+"n12997654 basidiomycete, basidiomycetous fungi -1" -> "n13040303 stinkhorn, carrion fungus 994"
+"n12997654 basidiomycete, basidiomycetous fungi -1" -> "n13044778 earthstar 995"
+"n12997654 basidiomycete, basidiomycetous fungi -1" -> "dummy20 mushroom -1"
+"dummy20 mushroom -1" -> "n12998815 agaric 992"
+"dummy20 mushroom -1" -> "n13054560 bolete 997"
+"dummy20 mushroom -1" -> "n13052670 hen-of-the-woods, hen of the woods, Polyporus frondosus, Grifola frondosa 996"
+"n12992868 fungus -1" -> "dummy19 ascomycete -1"
+"dummy19 ascomycete -1" -> "n13037406 gyromitra 993"
+"n00004258 living thing, animate thing -1" -> "dummy65 person -1"
+"dummy65 person -1" -> "dummy66 person -1"
+"dummy66 person -1" -> "n00007846 person, individual, someone, somebody, mortal, soul -1"
+"n00007846 person, individual, someone, somebody, mortal, soul -1" -> "n10565667 scuba diver 983"
+"n00007846 person, individual, someone, somebody, mortal, soul -1" -> "n09835506 ballplayer, baseball player 981"
+"n00007846 person, individual, someone, somebody, mortal, soul -1" -> "n10148035 groom, bridegroom 982"
+}

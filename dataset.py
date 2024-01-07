@@ -8,17 +8,19 @@ from torchvision.datasets import CIFAR100, ImageNet
 DATA_DIR = {
     'imagenet1k': '/data/imagenet_sets/in1k/',
     'imagenet1kfeature': '/root/projects/readings/work/feature_dataset',
+    
+    'imagenet1kfeature_benchmark': '/root/projects/readings/work/feature_dataset_benchmark',
 }
 
 
 class _ImageNet(ImageNet):
-    """extend ``torchvision.datasets.ImageNet`` return path in ``__getitem__``
+    """extend `torchvision.datasets.ImageNet` return path in `__getitem__`
 
     Args:
         root (string): Root directory of the ImageNet Dataset.
-        split (string, optional): The dataset split, supports ``train``, or ``val``.
+        split (string, optional): The dataset split, supports `train`, or `val`.
         transform (callable, optional): A function/transform that  takes in an PIL image
-            and returns a transformed version. E.g, ``transforms.RandomCrop``
+            and returns a transformed version. E.g, `transforms.RandomCrop`
         target_transform (callable, optional): A function/transform that takes in the
             target and transforms it.
         loader (callable, optional): A function to load an image given its path.
@@ -38,11 +40,11 @@ class _ImageNet(ImageNet):
 
 
 class ImageNetFeatureDataset(ImageNet):
-    """Dataset of ImageNet-1k's CLIP features, modified from ``torchvision.datasets.ImageNet``.
+    """Dataset of ImageNet-1k's CLIP features, modified from `torchvision.datasets.ImageNet`.
     """
-    def __init__(self, split, arch, model) -> Dataset:
+    def __init__(self, split, arch, model, root=DATA_DIR['imagenet1k']) -> Dataset:
         super().__init__(root=DATA_DIR['imagenet1k'], split=split)
-        self.featfile = os.path.join(DATA_DIR['imagenet1kfeature'], arch.lower(), model.replace('/', '-'), f'imagenet1k_{split}_features.pkl')
+        self.featfile = os.path.join(root, arch.lower(), model.replace('/', '-'), f'imagenet1k_{split}_features.pkl')
         assert os.path.isfile(self.featfile), f'featrue file {self.featfile} not found'
         with open(self.featfile, 'rb') as file:
             self.feature_data = pickle.load(file)
@@ -76,3 +78,13 @@ FEAT_DATASET = {
 if __name__ == '__main__':
     ds_feature = FEAT_DATASET['imagenet1k'](split='val', arch='clip', model='ViT-B/32')
     print(ds_feature[0])
+    for i, cls in enumerate(ds_feature.classes):
+        print(f'{i}: {cls} {ds_feature.wnids[i]}')
+
+    # print(f'wnid: {ds_feature.wnids[657], ds_feature.classes[657]}')  # 657: ('missile',)
+    # print(f'wnid: {ds_feature.wnids[744], ds_feature.classes[744]}')  # 744: ('projectile', 'missile')
+
+    # print(f'wnid: {ds_feature.wnids[836], ds_feature.classes[836]}')  # 836: ('sunglass',)
+    # print(f'wnid: {ds_feature.wnids[837], ds_feature.classes[837]}')  # 837: ('sunglasses', 'dark glasses', 'shades')
+    
+    print(f'wnid: {ds_feature.wnids[745], ds_feature.classes[745]}')

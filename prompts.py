@@ -124,7 +124,7 @@ def clsname2prompt(classnames):
     prompt2target.append(texts)
     
     # prompt 2
-    texts = [f'a photo of a {c}' for c in classnames]
+    texts = [f'a photo of a {", or ".join(c)}' for c in classnames]
     # m = {t: i for i, t in enumerate(texts)}
     prompt2target.append(texts)
     
@@ -134,7 +134,7 @@ def clsname2prompt(classnames):
     prompt2target.append(texts)
     
     # prompt 4
-    texts = [template.format(c) for template in imagenet_classes for c in imagenet_templates_subset]
+    texts = [template.format(c) for c in imagenet_classes for template in imagenet_templates_subset]
     # m = {t: i for i, t in enumerate(texts)}
     prompt2target.append(texts)
     
@@ -144,3 +144,7 @@ def clsname2prompt(classnames):
     prompt2target.append(texts)
 
     return prompt2target
+
+
+def hierarchical_prompts():
+    pass

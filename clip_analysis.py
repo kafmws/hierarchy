@@ -10,13 +10,13 @@ from typing import Tuple, Any
 from torch.utils.data import DataLoader
 
 from utils import set_seed
-from dataset import DATASET, FEAT_DATASET
 from prompts import clsname2prompt
+from dataset import DATASET, FEAT_DATASET, DATA_DIR
 
 # config
 seed = 42
-model_name = 'ViT-L/14'
-datasets = {'imagenet1k': ['train', 'val']}
+model_name = 'ViT-L/14@336px'
+datasets = {'imagenet1k': ['val']}
 output_dir = '/root/projects/readings/work/feature_dataset'
 
 for ds in datasets:
@@ -24,7 +24,7 @@ for ds in datasets:
 set_seed(42)
 
 # Load the model
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
 model, preprocess = clip.load(model_name, device)
 
 
@@ -63,11 +63,19 @@ def collect_image_features():
                 pickle.dump(obj=data, file=file)
 
 
-def collect_clip_logits():
+def collect_clip_logits(text_fusion=False, only: int=None, dump=True):
+    """CLIP zero-shot inference with multiple prompts.
+
+    Args:
+        text_fusion (bool, optional): To mean text prompt embedding or not. Defaults to False.
+        only (int, optional): Test all kinds of prompts or which only. Defaults to None (test all).
+        dump (bool, optional): Whether save the logits or not. Defaults to True.
+    """
     
+    split = 'val'
     dataset_name = 'imagenet1k'
-    dataset = FEAT_DATASET[dataset_name](split='val', arch='clip', model='ViT-L/14')
-    split = dataset.split
+    root = DATA_DIR['imagenet1kfeature']
+    dataset = FEAT_DATASET[dataset_name](root=root, split=split, arch='clip', model=model_name)
     loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
     print(f'preparing {dataset_name} {split} logits...')
     
@@ -77,31 +85,37 @@ def collect_clip_logits():
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
-    # texts = [f'a photo of a {", ".join(c)}' for c in dataset.classes]                                                             # ViT-L/14
-    # text_inputs = torch.cat([clip.tokenize(t) for t in texts]).to(device)                                                         # accuracy:  70.86
-    # text_inputs = torch.cat([clip.tokenize(f"a photo of a {c[0]}") for c in dataset.classes]).to(device)                          # accuracy:  70.20
-    # text_inputs = torch.cat([clip.tokenize(f"a photo of a {c}") for c in dataset.classes]).to(device)                             # accuracy:  70.82
-    # text_inputs = torch.cat([clip.tokenize([f'a photo of a {", or ".join(c)}' for c in dataset.classes])]).to(device)             # accuracy:  71.36
+    # best prompt #3 w/o prompt, #4 w/ prompt
+    n_classes = len(dataset.classes)
     text_inputs = clsname2prompt(dataset.classes)
+    if only:
+        text_inputs = text_inputs[only:only + 1]
 
     for i, texts in enumerate(text_inputs):
-        # calculate text features
         
-        if len(texts) > 1000:
-            mutiple = len(texts) / 1000
+        if len(texts) > n_classes:
+            mutiple = len(texts) / n_classes
+            assert mutiple == int(mutiple)
+            mutiple = int(mutiple)
             
             global device
             text_features = []
+            # calculate text features
             with torch.no_grad():
-                texts = clip.tokenize(texts).to(device)  # tokenize
-                _batch = list(range(0, len(texts), 256))
-                if _batch[-1] < len(texts):
-                    _batch.append(len(texts))
+                tokens = clip.tokenize(texts).to(device)  # tokenize
+                _batch = list(range(0, len(tokens), mutiple))
+                if _batch[-1] < len(tokens):
+                    _batch.append(len(tokens))
                 for endi in range(1, len(_batch)):
-                    text_features.extend(model.encode_text(texts[_batch[endi - 1]:_batch[endi]]))
+                    batch_text_features = model.encode_text(tokens[_batch[endi - 1]:_batch[endi]])
+                    batch_text_features /= batch_text_features.norm(dim=-1, keepdim=True)
+                    if text_fusion:
+                        batch_text_features = batch_text_features.mean(dim=0)
+                        batch_text_features /= batch_text_features.norm()
+                        batch_text_features = [batch_text_features]
+                    text_features.extend(batch_text_features)
             text_features = torch.stack(text_features, dim=0)
-            assert text_features.shape[0] == len(texts), f'{text_features.shape[0]} != {len(texts)}'
-            text_features /= text_features.norm(dim=-1, keepdim=True)
+            assert text_features.shape[0] == n_classes if text_fusion else len(tokens), f'{text_features.shape[0]} != {n_classes if text_fusion else len(tokens)}'
             
             correct = 0
             with torch.no_grad():
@@ -116,14 +130,21 @@ def collect_clip_logits():
                     for path, target, _logits, in zip(paths, targets, logits):
                         sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
                     predicts = similarity.topk(1, dim=1).indices.squeeze(dim=1)
-                    predicts = (predicts / mutiple)
+                    if not text_fusion:
+                        predicts = (predicts / mutiple)
+                    
+                    """ correct two `sunglasses` classes, which trivially contributes to 0.06% accuracy"""
+                    # predicts = torch.where(predicts == 836, 1000, predicts)
+                    # predicts = torch.where(predicts == 837, 1000, predicts)
+                    # targets = torch.where(targets == 836, 1000, targets)
+                    # targets = torch.where(targets == 837, 1000, targets)
                     
                     correct += sum(torch.eq(targets, predicts)).item()
         
         else:
             with torch.no_grad():
-                texts = clip.tokenize(texts).to(device)  # tokenize
-                text_features: torch.Tensor = model.encode_text(texts)
+                tokens = clip.tokenize(texts).to(device)  # tokenize
+                text_features: torch.Tensor = model.encode_text(tokens)
             text_features /= text_features.norm(dim=-1, keepdim=True)
 
             correct = 0
@@ -141,21 +162,30 @@ def collect_clip_logits():
                     correct += sum(torch.eq(targets, predicts)).item()
         
         print(f'accuracy of prompt #{i}: {correct / len(dataset) * 100: .2f}')
-        # data = {
-        #     'fname': f'{dataset_name}_{split}_logits.pkl',
-        #     'text_features': text_features,
-        #     'logits': sample_logits,
-        #     'model': model_name,
-        # }
+        
+        if dump:
+            data = {
+                'fname': f'{dataset_name}_{split}_logits.pkl',
+                'text_features': text_features,
+                'logits': sample_logits,
+                'model': model_name,
+                'texts': texts,
+                'seed': seed,
+            }
+            
+            with open(os.path.join(feat_output_dir, data['fname']), 'wb') as file:
+                pickle.dump(obj=data, file=file)
 
-        # # torch.save(obj=data, f=os.path.join(feat_output_dir, data['fname'] + '.pth'))
-        # with open(os.path.join(feat_output_dir, data['fname']), 'wb') as file:
-        #     pickle.dump(obj=data, file=file)
+
+def hierarchical_inference():
+    
+    pass
 
 
 if __name__ == '__main__':
     # collect_image_features()
-    collect_clip_logits()
+    collect_clip_logits(text_fusion=True, only=3, dump=False)
+    # hierarchical_inference()
     
 
 def benchmark_torchsave_pickledump():

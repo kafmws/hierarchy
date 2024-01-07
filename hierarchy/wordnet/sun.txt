@@ -1,0 +1,319 @@
+SUN BATHING (immersing the body in sunlight)
+Descendants:
+Ancestors:
+	bathing
+	diversion, recreation
+	activity
+	act, deed, human action, human activity
+	event
+	psychological feature
+	abstraction, abstract entity
+
+
+SUN DANCE (a ceremonial dance performed by Amerindians at the summer solstice)
+Descendants:
+Ancestors:
+	ritual dancing, ritual dance, ceremonial dance
+	dancing, dance, terpsichore, saltation
+	performing arts
+	humanistic discipline, humanities, liberal arts, arts
+	discipline, subject, subject area, subject field, field, field of study, study, bailiwick
+	knowledge domain, knowledge base, domain
+	content, cognitive content, mental object
+	cognition, knowledge, noesis
+	psychological feature
+	abstraction, abstract entity
+
+
+PITH HAT, PITH HELMET, SUN HELMET, TOPEE, TOPI (a lightweight hat worn in tropical countries for protection from the sun)
+Descendants:
+Ancestors:
+	sunhat, sun hat
+	hat, chapeau, lid
+	headdress, headgear
+	clothing, article of clothing, vesture, wear, wearable, habiliment
+	consumer goods
+	commodity, trade good, good
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN DECK (an unroofed deck)
+Descendants:
+Ancestors:
+	deck
+	porch
+	structure, construction
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN GEAR (the central gear in an epicyclic train)
+Descendants:
+Ancestors:
+	gear, gear wheel, geared wheel, cogwheel
+	wheel
+	machine, simple machine
+	mechanical device
+	mechanism
+	device
+	instrumentality, instrumentation
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUNHAT, SUN HAT (a hat with a broad brim that protects the face from direct exposure to the sun)
+Descendants:
+	sunbonnet
+	pith hat, pith helmet, sun helmet, topee, topi
+Ancestors:
+	hat, chapeau, lid
+	headdress, headgear
+	clothing, article of clothing, vesture, wear, wearable, habiliment
+	consumer goods
+	commodity, trade good, good
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUNLAMP, SUN LAMP, SUNRAY LAMP, SUN-RAY LAMP (a mercury-vapor lamp used in medical or cosmetic treatments)
+Descendants:
+Ancestors:
+	mercury-vapor lamp
+	ultraviolet lamp, ultraviolet source
+	source of illumination
+	device
+	instrumentality, instrumentation
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN PARLOR, SUN PARLOUR, SUN PORCH, SUNPORCH, SUNROOM, SUN LOUNGE, SOLARIUM (a room enclosed largely with glass and affording exposure to the sun)
+Descendants:
+Ancestors:
+	room
+	area
+	structure, construction
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUNSCREEN, SUNBLOCK, SUN BLOCKER (a cream spread on the skin; contains a chemical (as PABA) to filter out ultraviolet light and so protect from sunburn)
+Descendants:
+Ancestors:
+	cream, ointment, emollient
+	toiletry, toilet articles
+	instrumentality, instrumentation
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN VISOR (a shade (sometimes of green mica) affixed above the windshield of an automobile)
+Descendants:
+Ancestors:
+	shade
+	protective covering, protective cover, protection
+	covering
+	artifact, artefact
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN PROTECTION FACTOR, SPF (the degree to which a sunscreen protects the skin from the direct rays of the sun)
+Descendants:
+Ancestors:
+	degree, grade, level
+	property
+	attribute
+	abstraction, abstract entity
+
+
+MEAN SUN (a theoretical sun that moves along the celestial equator at a constant speed and completes its annual course in the same amount of time the real sun takes at variable speeds)
+Descendants:
+Ancestors:
+	model, theoretical account, framework
+	hypothesis, possibility, theory
+	concept, conception, construct
+	idea, thought
+	content, cognitive content, mental object
+	cognition, knowledge, noesis
+	psychological feature
+	abstraction, abstract entity
+
+
+SUN TEA (tea made by exposing tea leaves steeped in water to the direct rays of the sun; usually served with ice)
+Descendants:
+Ancestors:
+	tea
+	beverage, drink, drinkable, potable
+	liquid
+	fluid
+	substance
+	part, portion, component part, component, constituent
+	relation
+	abstraction, abstract entity
+
+
+SUN (any star around which a planetary system revolves)
+Descendants:
+Ancestors:
+	star
+	celestial body, heavenly body
+	natural object
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN GOD (a god that personifies the sun or is otherwise associated with the sun)
+Descendants:
+Ancestors:
+	deity, divinity, god, immortal
+	spiritual being, supernatural being
+	belief
+	content, cognitive content, mental object
+	cognition, knowledge, noesis
+	psychological feature
+	abstraction, abstract entity
+
+
+SUN (a person considered as a source of warmth or energy or glory etc)
+Descendants:
+Ancestors:
+	important person, influential person, personage
+	adult, grownup
+	person, individual, someone, somebody, mortal, soul
+	causal agent, cause, causal agency
+	physical entity
+
+
+SUN WORSHIPER (someone who worships the sun)
+Descendants:
+Ancestors:
+	believer, worshiper, worshipper
+	religious person
+	person, individual, someone, somebody, mortal, soul
+	causal agent, cause, causal agency
+	physical entity
+
+
+MIDNIGHT SUN (the sun visible at midnight (inside the Arctic or Antarctic Circles))
+Descendants:
+Ancestors:
+	atmospheric phenomenon
+	physical phenomenon
+	natural phenomenon
+	phenomenon
+	process, physical process
+	physical entity
+
+
+SUNLIGHT, SUNSHINE, SUN (the rays of the sun; "the shingles were weathered by the sun and wind")
+Descendants:
+	sunburst
+Ancestors:
+	light, visible light, visible radiation
+	actinic radiation, actinic ray
+	electromagnetic radiation, electromagnetic wave, nonparticulate radiation
+	radiation
+	energy, free energy
+	physical phenomenon
+	natural phenomenon
+	phenomenon
+	process, physical process
+	physical entity
+
+
+ROSE MOSS, SUN PLANT, PORTULACA GRANDIFLORA (widely cultivated in many varieties for its fleshy moss-like foliage and profusion of brightly colored flowers)
+Descendants:
+Ancestors:
+	portulaca
+	flower
+	angiosperm, flowering plant
+	spermatophyte, phanerogam, seed plant
+	vascular plant, tracheophyte
+	plant, flora, plant life
+	organism, being
+	living thing, animate thing
+	whole, unit
+	object, physical object
+	physical entity
+
+
+CAPE MARIGOLD, SUN MARIGOLD, STAR OF THE VELDT (any of several South African plants grown for the profusion of usually yellow daisylike flowers and mounds of aromatic foliage)
+Descendants:
+Ancestors:
+	flower
+	angiosperm, flowering plant
+	spermatophyte, phanerogam, seed plant
+	vascular plant, tracheophyte
+	plant, flora, plant life
+	organism, being
+	living thing, animate thing
+	whole, unit
+	object, physical object
+	physical entity
+
+
+HELIANTHEMUM, SUNROSE, SUN ROSE (any plant of the genus Helianthemum; vigorous plants of stony alpine meadows and dry scrub regions)
+Descendants:
+	rush rose, Helianthemum scoparium
+	rockrose, rock rose
+	frostweed, frost-weed, frostwort, Helianthemum canadense, Crocanthemum canadense
+Ancestors:
+	shrub, bush
+	woody plant, ligneous plant
+	vascular plant, tracheophyte
+	plant, flora, plant life
+	organism, being
+	living thing, animate thing
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN PITCHER (any of several herbs of Guiana highlands having racemes of nodding white or pink flowers; trap and digest insects in pitcher-shaped leaves with spoon-shaped caps)
+Descendants:
+Ancestors:
+	pitcher plant
+	carnivorous plant
+	herb, herbaceous plant
+	vascular plant, tracheophyte
+	plant, flora, plant life
+	organism, being
+	living thing, animate thing
+	whole, unit
+	object, physical object
+	physical entity
+
+
+SUN SPURGE, WARTWEED, WARTWORT, DEVIL'S MILK, EUPHORBIA HELIOSCOPIA (not unattractive European weed whose flowers turn toward the sun)
+Descendants:
+Ancestors:
+	spurge
+	shrub, bush
+	woody plant, ligneous plant
+	vascular plant, tracheophyte
+	plant, flora, plant life
+	organism, being
+	living thing, animate thing
+	whole, unit
+	object, physical object
+	physical entity
+
+
