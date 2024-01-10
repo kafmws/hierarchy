@@ -101,7 +101,7 @@ output_dir = '/root/projects/readings/work/prompts'
 os.makedirs(output_dir, exist_ok=True)
 
 
-def clsname2prompt(classnames):
+def imagenet_prompts(classnames):
     """from clsnames to prompt texts
 
     Args:
@@ -120,27 +120,22 @@ def clsname2prompt(classnames):
     
     # prompt 1
     texts = [f'a photo of a {", ".join(c)}' for c in classnames]
-    # m = {t: i for i, t in enumerate(texts)}
     prompt2target.append(texts)
     
     # prompt 2
     texts = [f'a photo of a {", or ".join(c)}' for c in classnames]
-    # m = {t: i for i, t in enumerate(texts)}
     prompt2target.append(texts)
     
     # prompt 3
     texts = [f'a photo of a {c}' for c in imagenet_classes]
-    # m = {t: i for i, t in enumerate(texts)}
     prompt2target.append(texts)
     
     # prompt 4
     texts = [template.format(c) for c in imagenet_classes for template in imagenet_templates_subset]
-    # m = {t: i for i, t in enumerate(texts)}
     prompt2target.append(texts)
     
     # prompt 5
     texts = [template.format(c) for template in imagenet_classes for c in imagenet_templates]
-    # m = {t: i for i, t in enumerate(texts)}
     prompt2target.append(texts)
 
     return prompt2target
@@ -148,3 +143,15 @@ def clsname2prompt(classnames):
 
 def hierarchical_prompts():
     pass
+
+
+def clsname2prompt(dataset, classnames, hierarchy=False):
+
+    if hierarchy:
+        return {
+            'imagenet1k': hierarchical_prompts,
+        }[dataset](classnames)
+
+    return {
+        'imagenet1k': imagenet_prompts,
+    }[dataset](classnames)

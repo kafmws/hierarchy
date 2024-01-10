@@ -703,7 +703,7 @@ if __name__ == '__main__':
                 
                 if len(ch.leaves_reachable(wnid)) > 50:
                     cls_idx = -2
-                    nodename += f'family {name} {cls_idx}'
+                    nodename = f'family {name} {cls_idx}'
                     bignode.append(wnid)
                 
                 file.write(f'"{nodename}" [label="{label}"')
@@ -729,7 +729,15 @@ if __name__ == '__main__':
     
     
     export_graphviz()
+    
+    
+    # 检查breeds
     with open('class_hierarchy.txt') as _:
         edges = [line.strip().split() for line in _.readlines()]
+    assert len(edges) == ch.graph.number_of_edges(), f'len(edges): {len(edges)} != ch.graph.number_of_edges(): {ch.graph.number_of_edges()}'
     print('len(edges): {}, ch.graph.number_of_edges(): {}'.format(len(edges), ch.graph.number_of_edges()))
+    breeds_node = set(pair for pair in edges)
+    
+    
+    
     # "dog, domestic dog, Canis familiaris"  "bird"  "insect"

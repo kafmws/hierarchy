@@ -1,4 +1,8 @@
+import sys
+sys.path.append('/root/projects/readings')
+
 import os
+import CLIP
 import torch
 import pickle
 from typing import Tuple, Any
@@ -42,7 +46,7 @@ class _ImageNet(ImageNet):
 class ImageNetFeatureDataset(ImageNet):
     """Dataset of ImageNet-1k's CLIP features, modified from `torchvision.datasets.ImageNet`.
     """
-    def __init__(self, split, arch, model, root=DATA_DIR['imagenet1k']) -> Dataset:
+    def __init__(self, split, arch, model, root=DATA_DIR['imagenet1kfeature']) -> Dataset:
         super().__init__(root=DATA_DIR['imagenet1k'], split=split)
         self.featfile = os.path.join(root, arch.lower(), model.replace('/', '-'), f'imagenet1k_{split}_features.pkl')
         assert os.path.isfile(self.featfile), f'featrue file {self.featfile} not found'
@@ -77,6 +81,10 @@ FEAT_DATASET = {
 
 if __name__ == '__main__':
     ds_feature = FEAT_DATASET['imagenet1k'](split='val', arch='clip', model='ViT-B/32')
+    with open('wnid2idx.txt', 'w') as file:
+        for i, wnid in enumerate(ds_feature.wnids):
+            file.write(f'{i}\t{wnid}\n')
+    
     print(ds_feature[0])
     for i, cls in enumerate(ds_feature.classes):
         print(f'{i}: {cls} {ds_feature.wnids[i]}')

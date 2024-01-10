@@ -87,7 +87,7 @@ def collect_clip_logits(text_fusion=False, only: int=None, dump=True):
 
     # best prompt #3 w/o prompt, #4 w/ prompt
     n_classes = len(dataset.classes)
-    text_inputs = clsname2prompt(dataset.classes)
+    text_inputs = clsname2prompt(dataset_name, dataset.classes)
     if only:
         text_inputs = text_inputs[only:only + 1]
 
