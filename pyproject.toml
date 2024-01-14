@@ -1,0 +1,4 @@
+[tool.black]
+line-length = 128
+ignore = F401, E402, F403, W503, W504, W293
+target-version = ['py311']
