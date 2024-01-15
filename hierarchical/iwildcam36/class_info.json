@@ -1,0 +1,830 @@
+{
+    "aepyceros_melampus": {
+        "global_idx": [
+            1,
+            2,
+            10,
+            32,
+            66
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            0,
+            1,
+            1
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Bovidae",
+            "Aepyceros",
+            "Aepyceros melampus"
+        ]
+    },
+    "bos_taurus": {
+        "global_idx": [
+            1,
+            2,
+            10,
+            36,
+            70
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            0,
+            5,
+            5
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Bovidae",
+            "Bos",
+            "Bos taurus"
+        ]
+    },
+    "cephalophus_nigrifrons": {
+        "global_idx": [
+            1,
+            2,
+            10,
+            38,
+            72
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            0,
+            7,
+            7
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Bovidae",
+            "Cephalophus",
+            "Cephalophus nigrifrons"
+        ]
+    },
+    "madoqua_guentheri": {
+        "global_idx": [
+            1,
+            2,
+            10,
+            48,
+            83
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            0,
+            17,
+            18
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Bovidae",
+            "Madoqua",
+            "Madoqua guentheri"
+        ]
+    },
+    "syncerus_caffer": {
+        "global_idx": [
+            1,
+            2,
+            10,
+            60,
+            96
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            0,
+            29,
+            31
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Bovidae",
+            "Syncerus",
+            "Syncerus caffer"
+        ]
+    },
+    "camelus_dromedarius": {
+        "global_idx": [
+            1,
+            2,
+            11,
+            37,
+            71
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            1,
+            6,
+            6
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Camelidae",
+            "Camelus",
+            "Camelus dromedarius"
+        ]
+    },
+    "mazama_pandora": {
+        "global_idx": [
+            1,
+            2,
+            14,
+            49,
+            84
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            4,
+            18,
+            19
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Cervidae",
+            "Mazama",
+            "Mazama pandora"
+        ]
+    },
+    "mazama_temama": {
+        "global_idx": [
+            1,
+            2,
+            14,
+            49,
+            85
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            4,
+            18,
+            20
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Cervidae",
+            "Mazama",
+            "Mazama temama"
+        ]
+    },
+    "muntiacus_muntjak": {
+        "global_idx": [
+            1,
+            2,
+            14,
+            51,
+            87
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            4,
+            20,
+            22
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Cervidae",
+            "Muntiacus",
+            "Muntiacus muntjak"
+        ]
+    },
+    "odocoileus_virginianus": {
+        "global_idx": [
+            1,
+            2,
+            14,
+            53,
+            89
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            4,
+            22,
+            24
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Cervidae",
+            "Odocoileus",
+            "Odocoileus virginianus"
+        ]
+    },
+    "giraffa_camelopardalis": {
+        "global_idx": [
+            1,
+            2,
+            21,
+            45,
+            80
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            11,
+            14,
+            15
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Giraffidae",
+            "Giraffa",
+            "Giraffa camelopardalis"
+        ]
+    },
+    "pecari_tajacu": {
+        "global_idx": [
+            1,
+            2,
+            29,
+            56,
+            92
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            19,
+            25,
+            27
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Tayassuidae",
+            "Pecari",
+            "Pecari tajacu"
+        ]
+    },
+    "tayassu_pecari": {
+        "global_idx": [
+            1,
+            2,
+            29,
+            62,
+            98
+        ],
+        "inlayer_idx": [
+            1,
+            0,
+            19,
+            31,
+            33
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Artiodactyla",
+            "Tayassuidae",
+            "Tayassu",
+            "Tayassu pecari"
+        ]
+    },
+    "urocyon_cinereoargenteus": {
+        "global_idx": [
+            1,
+            3,
+            12,
+            64,
+            100
+        ],
+        "inlayer_idx": [
+            1,
+            1,
+            2,
+            33,
+            35
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Carnivora",
+            "Canidae",
+            "Urocyon",
+            "Urocyon cinereoargenteus"
+        ]
+    },
+    "leopardus_pardalis": {
+        "global_idx": [
+            1,
+            3,
+            20,
+            46,
+            81
+        ],
+        "inlayer_idx": [
+            1,
+            1,
+            10,
+            15,
+            16
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Carnivora",
+            "Felidae",
+            "Leopardus",
+            "Leopardus pardalis"
+        ]
+    },
+    "panthera_onca": {
+        "global_idx": [
+            1,
+            3,
+            20,
+            54,
+            90
+        ],
+        "inlayer_idx": [
+            1,
+            1,
+            10,
+            23,
+            25
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Carnivora",
+            "Felidae",
+            "Panthera",
+            "Panthera onca"
+        ]
+    },
+    "puma_concolor": {
+        "global_idx": [
+            1,
+            3,
+            20,
+            59,
+            95
+        ],
+        "inlayer_idx": [
+            1,
+            1,
+            10,
+            28,
+            30
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Carnivora",
+            "Felidae",
+            "Puma",
+            "Puma concolor"
+        ]
+    },
+    "nasua_narica": {
+        "global_idx": [
+            1,
+            3,
+            26,
+            52,
+            88
+        ],
+        "inlayer_idx": [
+            1,
+            1,
+            16,
+            21,
+            23
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Carnivora",
+            "Procyonidae",
+            "Nasua",
+            "Nasua narica"
+        ]
+    },
+    "crax_rubra": {
+        "global_idx": [
+            0,
+            4,
+            15,
+            39,
+            73
+        ],
+        "inlayer_idx": [
+            0,
+            2,
+            5,
+            8,
+            8
+        ],
+        "layer_cls": [
+            "Aves",
+            "Galliformes",
+            "Cracidae",
+            "Crax",
+            "Crax rubra"
+        ]
+    },
+    "penelope_purpurascens": {
+        "global_idx": [
+            0,
+            4,
+            15,
+            57,
+            93
+        ],
+        "inlayer_idx": [
+            0,
+            2,
+            5,
+            26,
+            28
+        ],
+        "layer_cls": [
+            "Aves",
+            "Galliformes",
+            "Cracidae",
+            "Penelope",
+            "Penelope purpurascens"
+        ]
+    },
+    "acryllium_vulturinum": {
+        "global_idx": [
+            0,
+            4,
+            24,
+            31,
+            65
+        ],
+        "inlayer_idx": [
+            0,
+            2,
+            14,
+            0,
+            0
+        ],
+        "layer_cls": [
+            "Aves",
+            "Galliformes",
+            "Numididae",
+            "Acryllium",
+            "Acryllium vulturinum"
+        ]
+    },
+    "argusianus_argus": {
+        "global_idx": [
+            0,
+            4,
+            25,
+            34,
+            68
+        ],
+        "inlayer_idx": [
+            0,
+            2,
+            15,
+            3,
+            3
+        ],
+        "layer_cls": [
+            "Aves",
+            "Galliformes",
+            "Phasianidae",
+            "Argusianus",
+            "Argusianus argus"
+        ]
+    },
+    "meleagris_ocellata": {
+        "global_idx": [
+            0,
+            4,
+            25,
+            50,
+            86
+        ],
+        "inlayer_idx": [
+            0,
+            2,
+            15,
+            19,
+            21
+        ],
+        "layer_cls": [
+            "Aves",
+            "Galliformes",
+            "Phasianidae",
+            "Meleagris",
+            "Meleagris ocellata"
+        ]
+    },
+    "pternistis_nobilis": {
+        "global_idx": [
+            0,
+            4,
+            25,
+            58,
+            94
+        ],
+        "inlayer_idx": [
+            0,
+            2,
+            15,
+            27,
+            29
+        ],
+        "layer_cls": [
+            "Aves",
+            "Galliformes",
+            "Phasianidae",
+            "Pternistis",
+            "Pternistis nobilis"
+        ]
+    },
+    "equus_grevyi": {
+        "global_idx": [
+            1,
+            5,
+            19,
+            43,
+            77
+        ],
+        "inlayer_idx": [
+            1,
+            3,
+            9,
+            12,
+            12
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Perissodactyla",
+            "Equidae",
+            "Equus",
+            "Equus grevyi"
+        ]
+    },
+    "equus_quagga": {
+        "global_idx": [
+            1,
+            5,
+            19,
+            43,
+            78
+        ],
+        "inlayer_idx": [
+            1,
+            3,
+            9,
+            12,
+            13
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Perissodactyla",
+            "Equidae",
+            "Equus",
+            "Equus quagga"
+        ]
+    },
+    "tapirus_bairdii": {
+        "global_idx": [
+            1,
+            5,
+            28,
+            61,
+            97
+        ],
+        "inlayer_idx": [
+            1,
+            3,
+            18,
+            30,
+            32
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Perissodactyla",
+            "Tapiridae",
+            "Tapirus",
+            "Tapirus bairdii"
+        ]
+    },
+    "allochrocebus_lhoesti": {
+        "global_idx": [
+            1,
+            6,
+            13,
+            33,
+            67
+        ],
+        "inlayer_idx": [
+            1,
+            4,
+            3,
+            2,
+            2
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Primates",
+            "Cercopithecidae",
+            "Allochrocebus",
+            "Allochrocebus lhoesti"
+        ]
+    },
+    "papio_anubis": {
+        "global_idx": [
+            1,
+            6,
+            13,
+            55,
+            91
+        ],
+        "inlayer_idx": [
+            1,
+            4,
+            3,
+            24,
+            26
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Primates",
+            "Cercopithecidae",
+            "Papio",
+            "Papio anubis"
+        ]
+    },
+    "loxodonta_africana": {
+        "global_idx": [
+            1,
+            7,
+            18,
+            47,
+            82
+        ],
+        "inlayer_idx": [
+            1,
+            5,
+            8,
+            16,
+            17
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Proboscidea",
+            "Elephantidae",
+            "Loxodonta",
+            "Loxodonta africana"
+        ]
+    },
+    "cuniculus_paca": {
+        "global_idx": [
+            1,
+            8,
+            16,
+            41,
+            75
+        ],
+        "inlayer_idx": [
+            1,
+            6,
+            6,
+            10,
+            10
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Rodentia",
+            "Cuniculidae",
+            "Cuniculus",
+            "Cuniculus paca"
+        ]
+    },
+    "dasyprocta_punctata": {
+        "global_idx": [
+            1,
+            8,
+            17,
+            42,
+            76
+        ],
+        "inlayer_idx": [
+            1,
+            6,
+            7,
+            11,
+            11
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Rodentia",
+            "Dasyproctidae",
+            "Dasyprocta",
+            "Dasyprocta punctata"
+        ]
+    },
+    "atherurus_africanus": {
+        "global_idx": [
+            1,
+            8,
+            22,
+            35,
+            69
+        ],
+        "inlayer_idx": [
+            1,
+            6,
+            12,
+            4,
+            4
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Rodentia",
+            "Hystricidae",
+            "Atherurus",
+            "Atherurus africanus"
+        ]
+    },
+    "cricetomys_gambianus": {
+        "global_idx": [
+            1,
+            8,
+            23,
+            40,
+            74
+        ],
+        "inlayer_idx": [
+            1,
+            6,
+            13,
+            9,
+            9
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Rodentia",
+            "Nesomyidae",
+            "Cricetomys",
+            "Cricetomys gambianus"
+        ]
+    },
+    "funisciurus_carruthersi": {
+        "global_idx": [
+            1,
+            8,
+            27,
+            44,
+            79
+        ],
+        "inlayer_idx": [
+            1,
+            6,
+            17,
+            13,
+            14
+        ],
+        "layer_cls": [
+            "Mammalia",
+            "Rodentia",
+            "Sciuridae",
+            "Funisciurus",
+            "Funisciurus carruthersi"
+        ]
+    },
+    "tinamus_major": {
+        "global_idx": [
+            0,
+            9,
+            30,
+            63,
+            99
+        ],
+        "inlayer_idx": [
+            0,
+            7,
+            20,
+            32,
+            34
+        ],
+        "layer_cls": [
+            "Aves",
+            "Tinamiformes",
+            "Tinamidae",
+            "Tinamus",
+            "Tinamus major"
+        ]
+    }
+}

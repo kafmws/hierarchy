@@ -1,0 +1,916 @@
+{
+    "Aves": {
+        "global_idx": 0,
+        "sub_node": [
+            "Galliformes",
+            "Tinamiformes"
+        ],
+        "layer": "class",
+        "inlayer_idx": 0
+    },
+    "Mammalia": {
+        "global_idx": 1,
+        "sub_node": [
+            "Proboscidea",
+            "Perissodactyla",
+            "Primates",
+            "Carnivora",
+            "Rodentia",
+            "Artiodactyla"
+        ],
+        "layer": "class",
+        "inlayer_idx": 1
+    },
+    "Artiodactyla": {
+        "global_idx": 2,
+        "sub_node": [
+            "Camelidae",
+            "Bovidae",
+            "Giraffidae",
+            "Tayassuidae",
+            "Cervidae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 0
+    },
+    "Carnivora": {
+        "global_idx": 3,
+        "sub_node": [
+            "Felidae",
+            "Canidae",
+            "Procyonidae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 1
+    },
+    "Galliformes": {
+        "global_idx": 4,
+        "sub_node": [
+            "Cracidae",
+            "Numididae",
+            "Phasianidae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 2
+    },
+    "Perissodactyla": {
+        "global_idx": 5,
+        "sub_node": [
+            "Equidae",
+            "Tapiridae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 3
+    },
+    "Primates": {
+        "global_idx": 6,
+        "sub_node": [
+            "Cercopithecidae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 4
+    },
+    "Proboscidea": {
+        "global_idx": 7,
+        "sub_node": [
+            "Elephantidae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 5
+    },
+    "Rodentia": {
+        "global_idx": 8,
+        "sub_node": [
+            "Sciuridae",
+            "Hystricidae",
+            "Dasyproctidae",
+            "Cuniculidae",
+            "Nesomyidae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 6
+    },
+    "Tinamiformes": {
+        "global_idx": 9,
+        "sub_node": [
+            "Tinamidae"
+        ],
+        "layer": "order",
+        "inlayer_idx": 7
+    },
+    "Bovidae": {
+        "global_idx": 10,
+        "sub_node": [
+            "Aepyceros",
+            "Madoqua",
+            "Bos",
+            "Syncerus",
+            "Cephalophus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 0
+    },
+    "Camelidae": {
+        "global_idx": 11,
+        "sub_node": [
+            "Camelus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 1
+    },
+    "Canidae": {
+        "global_idx": 12,
+        "sub_node": [
+            "Urocyon"
+        ],
+        "layer": "family",
+        "inlayer_idx": 2
+    },
+    "Cercopithecidae": {
+        "global_idx": 13,
+        "sub_node": [
+            "Papio",
+            "Allochrocebus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 3
+    },
+    "Cervidae": {
+        "global_idx": 14,
+        "sub_node": [
+            "Muntiacus",
+            "Mazama",
+            "Odocoileus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 4
+    },
+    "Cracidae": {
+        "global_idx": 15,
+        "sub_node": [
+            "Crax",
+            "Penelope"
+        ],
+        "layer": "family",
+        "inlayer_idx": 5
+    },
+    "Cuniculidae": {
+        "global_idx": 16,
+        "sub_node": [
+            "Cuniculus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 6
+    },
+    "Dasyproctidae": {
+        "global_idx": 17,
+        "sub_node": [
+            "Dasyprocta"
+        ],
+        "layer": "family",
+        "inlayer_idx": 7
+    },
+    "Elephantidae": {
+        "global_idx": 18,
+        "sub_node": [
+            "Loxodonta"
+        ],
+        "layer": "family",
+        "inlayer_idx": 8
+    },
+    "Equidae": {
+        "global_idx": 19,
+        "sub_node": [
+            "Equus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 9
+    },
+    "Felidae": {
+        "global_idx": 20,
+        "sub_node": [
+            "Puma",
+            "Leopardus",
+            "Panthera"
+        ],
+        "layer": "family",
+        "inlayer_idx": 10
+    },
+    "Giraffidae": {
+        "global_idx": 21,
+        "sub_node": [
+            "Giraffa"
+        ],
+        "layer": "family",
+        "inlayer_idx": 11
+    },
+    "Hystricidae": {
+        "global_idx": 22,
+        "sub_node": [
+            "Atherurus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 12
+    },
+    "Nesomyidae": {
+        "global_idx": 23,
+        "sub_node": [
+            "Cricetomys"
+        ],
+        "layer": "family",
+        "inlayer_idx": 13
+    },
+    "Numididae": {
+        "global_idx": 24,
+        "sub_node": [
+            "Acryllium"
+        ],
+        "layer": "family",
+        "inlayer_idx": 14
+    },
+    "Phasianidae": {
+        "global_idx": 25,
+        "sub_node": [
+            "Pternistis",
+            "Argusianus",
+            "Meleagris"
+        ],
+        "layer": "family",
+        "inlayer_idx": 15
+    },
+    "Procyonidae": {
+        "global_idx": 26,
+        "sub_node": [
+            "Nasua"
+        ],
+        "layer": "family",
+        "inlayer_idx": 16
+    },
+    "Sciuridae": {
+        "global_idx": 27,
+        "sub_node": [
+            "Funisciurus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 17
+    },
+    "Tapiridae": {
+        "global_idx": 28,
+        "sub_node": [
+            "Tapirus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 18
+    },
+    "Tayassuidae": {
+        "global_idx": 29,
+        "sub_node": [
+            "Tayassu",
+            "Pecari"
+        ],
+        "layer": "family",
+        "inlayer_idx": 19
+    },
+    "Tinamidae": {
+        "global_idx": 30,
+        "sub_node": [
+            "Tinamus"
+        ],
+        "layer": "family",
+        "inlayer_idx": 20
+    },
+    "Acryllium": {
+        "global_idx": 31,
+        "sub_node": [
+            "Acryllium vulturinum"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 0
+    },
+    "Aepyceros": {
+        "global_idx": 32,
+        "sub_node": [
+            "Aepyceros melampus"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 1
+    },
+    "Allochrocebus": {
+        "global_idx": 33,
+        "sub_node": [
+            "Allochrocebus lhoesti"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 2
+    },
+    "Argusianus": {
+        "global_idx": 34,
+        "sub_node": [
+            "Argusianus argus"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 3
+    },
+    "Atherurus": {
+        "global_idx": 35,
+        "sub_node": [
+            "Atherurus africanus"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 4
+    },
+    "Bos": {
+        "global_idx": 36,
+        "sub_node": [
+            "Bos taurus"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 5
+    },
+    "Camelus": {
+        "global_idx": 37,
+        "sub_node": [
+            "Camelus dromedarius"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 6
+    },
+    "Cephalophus": {
+        "global_idx": 38,
+        "sub_node": [
+            "Cephalophus nigrifrons"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 7
+    },
+    "Crax": {
+        "global_idx": 39,
+        "sub_node": [
+            "Crax rubra"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 8
+    },
+    "Cricetomys": {
+        "global_idx": 40,
+        "sub_node": [
+            "Cricetomys gambianus"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 9
+    },
+    "Cuniculus": {
+        "global_idx": 41,
+        "sub_node": [
+            "Cuniculus paca"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 10
+    },
+    "Dasyprocta": {
+        "global_idx": 42,
+        "sub_node": [
+            "Dasyprocta punctata"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 11
+    },
+    "Equus": {
+        "global_idx": 43,
+        "sub_node": [
+            "Equus quagga",
+            "Equus grevyi"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 12
+    },
+    "Funisciurus": {
+        "global_idx": 44,
+        "sub_node": [
+            "Funisciurus carruthersi"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 13
+    },
+    "Giraffa": {
+        "global_idx": 45,
+        "sub_node": [
+            "Giraffa camelopardalis"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 14
+    },
+    "Leopardus": {
+        "global_idx": 46,
+        "sub_node": [
+            "Leopardus pardalis"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 15
+    },
+    "Loxodonta": {
+        "global_idx": 47,
+        "sub_node": [
+            "Loxodonta africana"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 16
+    },
+    "Madoqua": {
+        "global_idx": 48,
+        "sub_node": [
+            "Madoqua guentheri"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 17
+    },
+    "Mazama": {
+        "global_idx": 49,
+        "sub_node": [
+            "Mazama temama",
+            "Mazama pandora"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 18
+    },
+    "Meleagris": {
+        "global_idx": 50,
+        "sub_node": [
+            "Meleagris ocellata"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 19
+    },
+    "Muntiacus": {
+        "global_idx": 51,
+        "sub_node": [
+            "Muntiacus muntjak"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 20
+    },
+    "Nasua": {
+        "global_idx": 52,
+        "sub_node": [
+            "Nasua narica"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 21
+    },
+    "Odocoileus": {
+        "global_idx": 53,
+        "sub_node": [
+            "Odocoileus virginianus"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 22
+    },
+    "Panthera": {
+        "global_idx": 54,
+        "sub_node": [
+            "Panthera onca"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 23
+    },
+    "Papio": {
+        "global_idx": 55,
+        "sub_node": [
+            "Papio anubis"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 24
+    },
+    "Pecari": {
+        "global_idx": 56,
+        "sub_node": [
+            "Pecari tajacu"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 25
+    },
+    "Penelope": {
+        "global_idx": 57,
+        "sub_node": [
+            "Penelope purpurascens"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 26
+    },
+    "Pternistis": {
+        "global_idx": 58,
+        "sub_node": [
+            "Pternistis nobilis"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 27
+    },
+    "Puma": {
+        "global_idx": 59,
+        "sub_node": [
+            "Puma concolor"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 28
+    },
+    "Syncerus": {
+        "global_idx": 60,
+        "sub_node": [
+            "Syncerus caffer"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 29
+    },
+    "Tapirus": {
+        "global_idx": 61,
+        "sub_node": [
+            "Tapirus bairdii"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 30
+    },
+    "Tayassu": {
+        "global_idx": 62,
+        "sub_node": [
+            "Tayassu pecari"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 31
+    },
+    "Tinamus": {
+        "global_idx": 63,
+        "sub_node": [
+            "Tinamus major"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 32
+    },
+    "Urocyon": {
+        "global_idx": 64,
+        "sub_node": [
+            "Urocyon cinereoargenteus"
+        ],
+        "layer": "genus",
+        "inlayer_idx": 33
+    },
+    "Acryllium vulturinum": {
+        "global_idx": 65,
+        "sub_node": [
+            "acryllium_vulturinum",
+            "vulturine guineafowl",
+            "Acryllium vulturinum is a bird in the guineafowl family with a dark blue body, white spots, a black crest on its head, and a red throat wattle. It has a long tail with black stripes and feeds on seeds, insects, lizards and more."
+        ],
+        "layer": "species",
+        "inlayer_idx": 0
+    },
+    "Aepyceros melampus": {
+        "global_idx": 66,
+        "sub_node": [
+            "aepyceros_melampus",
+            "Impala",
+            "Aepyceros melampus is the impala, an antelope that lives in eastern and southern Africa, with reddish brown fur, white belly and tail, and curved horns in males."
+        ],
+        "layer": "species",
+        "inlayer_idx": 1
+    },
+    "Allochrocebus lhoesti": {
+        "global_idx": 67,
+        "sub_node": [
+            "allochrocebus_lhoesti",
+            "L'Hoest's monkey",
+            "Allochrocebus lhoesti is a monkey with black or dark brown fur and a white beard on its throat and ears. It has a red or orange patch on its back and an orange eye. It has a blue scrotum in males."
+        ],
+        "layer": "species",
+        "inlayer_idx": 2
+    },
+    "Argusianus argus": {
+        "global_idx": 68,
+        "sub_node": [
+            "argusianus_argus",
+            "Great argus",
+            "Argusianus argus is a large pheasant with a blue head and neck, a brown body, and a long tail. It has huge, broad and elongated secondary wing feathers with large eyespots."
+        ],
+        "layer": "species",
+        "inlayer_idx": 3
+    },
+    "Atherurus africanus": {
+        "global_idx": 69,
+        "sub_node": [
+            "atherurus_africanus",
+            "african brush-tailed porcupine",
+            "Atherurus africanus is a porcupine with black or dark brown fur and a yellow brush tail. It has red or orange patches on its back and various types of spines on its body."
+        ],
+        "layer": "species",
+        "inlayer_idx": 4
+    },
+    "Bos taurus": {
+        "global_idx": 70,
+        "sub_node": [
+            "bos_taurus",
+            "Cattle Cow Bull",
+            "Bos taurus is a large, domesticated,\u00a0cloven-hooved herbivore\u00a0with short hair that varies in color from black to white, red or brown. It has two\u00a0hollow horns, a\u00a0dewlap\u00a0and a\u00a0long tufted tail."
+        ],
+        "layer": "species",
+        "inlayer_idx": 5
+    },
+    "Camelus dromedarius": {
+        "global_idx": 71,
+        "sub_node": [
+            "camelus_dromedarius",
+            "dromedary",
+            "Camelus dromedarius is an even-toed ungulate in the camel family with a brown or gray body, a long curved neck, a narrow chest and a hump."
+        ],
+        "layer": "species",
+        "inlayer_idx": 6
+    },
+    "Cephalophus nigrifrons": {
+        "global_idx": 72,
+        "sub_node": [
+            "cephalophus_nigrifrons",
+            "black-fronted duiker",
+            "Cephalophus nigrifrons is a bovid animal with reddish brown or chestnut fur and a black stripe on its head. It has bright red eyebrows, a white chin, and a black tail. It has short conical horns in both sexes."
+        ],
+        "layer": "species",
+        "inlayer_idx": 7
+    },
+    "Crax rubra": {
+        "global_idx": 73,
+        "sub_node": [
+            "crax_rubra",
+            "great curassow",
+            "Crax rubra is a bird with black plumage, a forward-curled crest, a white belly and undertail, and a yellow knob on its bill."
+        ],
+        "layer": "species",
+        "inlayer_idx": 8
+    },
+    "Cricetomys gambianus": {
+        "global_idx": 74,
+        "sub_node": [
+            "cricetomys_gambianus",
+            "Gambian pouched rat",
+            "Cricetomys gambianus is the Gambian pouched rat, a nocturnal rodent with coarse brown fur, dark eye rings and large cheek pouches"
+        ],
+        "layer": "species",
+        "inlayer_idx": 9
+    },
+    "Cuniculus paca": {
+        "global_idx": 75,
+        "sub_node": [
+            "cuniculus_paca",
+            "lowland paca",
+            "Cuniculus paca is a large rodent with\u00a0dark brown\u00a0fur and\u00a0white spots,\u00a0short ears\u00a0and\u00a0barely visible tail."
+        ],
+        "layer": "species",
+        "inlayer_idx": 10
+    },
+    "Dasyprocta punctata": {
+        "global_idx": 76,
+        "sub_node": [
+            "dasyprocta_punctata",
+            "Central American agouti",
+            "Central American agouti is a rodent with coarse, glossy fur that ranges from orange to black, and a contrasting rump."
+        ],
+        "layer": "species",
+        "inlayer_idx": 11
+    },
+    "Equus grevyi": {
+        "global_idx": 77,
+        "sub_node": [
+            "equus_grevyi",
+            "zebra",
+            "Equus grevyi is an odd-toed ungulate in the horse family with a white body, black stripes, a large head, round ears, a robust neck, and an erect mane. It has a long tail with a black tuft and feeds on grasses, legumes and leaves."
+        ],
+        "layer": "species",
+        "inlayer_idx": 12
+    },
+    "Equus quagga": {
+        "global_idx": 78,
+        "sub_node": [
+            "equus_quagga",
+            "Plains zebra",
+            "Equus quagga is the plains zebra, with black and white stripes, varying in width and arrangement among individuals, medium-sized body, small ears, long tail."
+        ],
+        "layer": "species",
+        "inlayer_idx": 13
+    },
+    "Funisciurus carruthersi": {
+        "global_idx": 79,
+        "sub_node": [
+            "funisciurus_carruthersi",
+            "mountain squirrel",
+            "Funisciurus carruthersi is a rodent in the squirrel family with a brown body, black stripes, a large head, large eyes, and small ears. It has a long tail with black spots and tip."
+        ],
+        "layer": "species",
+        "inlayer_idx": 14
+    },
+    "Giraffa camelopardalis": {
+        "global_idx": 80,
+        "sub_node": [
+            "giraffa_camelopardalis",
+            "Giraffe",
+            "Giraffa camelopardalis is the giraffe, with extremely long neck and legs, short horns on the head, spotted patterns on the body, varying in shape and colour among subspecies."
+        ],
+        "layer": "species",
+        "inlayer_idx": 15
+    },
+    "Leopardus pardalis": {
+        "global_idx": 81,
+        "sub_node": [
+            "leopardus_pardalis",
+            "Ocelot",
+            "Ocelot is a medium-sized, spotted wild cat with a grayish-brown head and neck, and a reddish-brown to yellowish body with black markings."
+        ],
+        "layer": "species",
+        "inlayer_idx": 16
+    },
+    "Loxodonta africana": {
+        "global_idx": 82,
+        "sub_node": [
+            "loxodonta_africana",
+            "African bush elephant",
+            "Loxodonta africana is the African bush elephant, the largest land animal, with grey skin, large ears and long tusks."
+        ],
+        "layer": "species",
+        "inlayer_idx": 17
+    },
+    "Madoqua guentheri": {
+        "global_idx": 83,
+        "sub_node": [
+            "madoqua_guentheri",
+            "G\u00fcnther's dik-dik",
+            "Madoqua guentheri is the G\u00fcnther\u2019s dik-dik. It has yellowish-gray or reddish-brown fur, black hooves, small and long head, large and white ears, short and straight horns in males, larger females than males."
+        ],
+        "layer": "species",
+        "inlayer_idx": 18
+    },
+    "Mazama pandora": {
+        "global_idx": 84,
+        "sub_node": [
+            "mazama_pandora",
+            "yucatan brown brocket",
+            "Odocoileus pandora is a small deer with\u00a0gray-brown\u00a0or\u00a0reddish-brown\u00a0fur,\u00a0white underparts, and\u00a0short antlers\u00a0in males."
+        ],
+        "layer": "species",
+        "inlayer_idx": 19
+    },
+    "Mazama temama": {
+        "global_idx": 85,
+        "sub_node": [
+            "mazama_temama",
+            "central American red brocket",
+            "Mazama temama is a small brocket deer with\u00a0reddish-brown\u00a0or\u00a0grayish-brown\u00a0fur,\u00a0white throat\u00a0and\u00a0inner legs, and\u00a0no antlers."
+        ],
+        "layer": "species",
+        "inlayer_idx": 20
+    },
+    "Meleagris ocellata": {
+        "global_idx": 86,
+        "sub_node": [
+            "meleagris_ocellata",
+            "ocellated turkey",
+            "Meleagris ocellata is a bird with bronze or green plumage, an eye-spotted tail, a bare blue or red head and neck, and a fleshy wattle."
+        ],
+        "layer": "species",
+        "inlayer_idx": 21
+    },
+    "Muntiacus muntjak": {
+        "global_idx": 87,
+        "sub_node": [
+            "muntiacus_muntjak",
+            "Indian muntjac",
+            "Muntiacus muntjak is a deer species. It has a short brownish or grayish coat, sometimes with creamy markings, and a dark face. It is among the smallest deer species and has short antlers, long canines, and large facial scent glands."
+        ],
+        "layer": "species",
+        "inlayer_idx": 22
+    },
+    "Nasua narica": {
+        "global_idx": 88,
+        "sub_node": [
+            "nasua_narica",
+            "White-nosed coati",
+            "Nasua narica is a carnivore with a brown or yellow body, coarse fur, a white ringed nose and white eye patches on its head, and a long tail with black rings that can be raised as a signal. It has a black bill with curved claws."
+        ],
+        "layer": "species",
+        "inlayer_idx": 23
+    },
+    "Odocoileus virginianus": {
+        "global_idx": 89,
+        "sub_node": [
+            "odocoileus_virginianus",
+            "white-tailed deer",
+            "Odocoileus virginianus is a medium-sized deer with\u00a0reddish-brown\u00a0or\u00a0grayish-brown\u00a0fur,\u00a0white underparts, and a\u00a0long white tail. The male has\u00a0branched antlers\u00a0that curve forward."
+        ],
+        "layer": "species",
+        "inlayer_idx": 24
+    },
+    "Panthera onca": {
+        "global_idx": 90,
+        "sub_node": [
+            "panthera_onca",
+            "Jaguar",
+            "Jaguar is a large cat species with a yellowish to tan fur with black spots and rosettes."
+        ],
+        "layer": "species",
+        "inlayer_idx": 25
+    },
+    "Papio anubis": {
+        "global_idx": 91,
+        "sub_node": [
+            "papio_anubis",
+            "Olive baboon",
+            "Papio anubis is a baboon, with a dark olive-gray\u00a0fur\u00a0that is longer in males, forming a\u00a0mane. It has a\u00a0flat head, a\u00a0dog-like muzzle, and a\u00a0tail\u00a0that is erect for the first quarter and then droops down. It has\u00a0dark gray\u00a0skin on the face and rump."
+        ],
+        "layer": "species",
+        "inlayer_idx": 26
+    },
+    "Pecari tajacu": {
+        "global_idx": 92,
+        "sub_node": [
+            "pecari_tajacu",
+            "Collared peccary",
+            "Collared peccary is a pig-like animal with coarse, dark brown fur and a white collar around its neck."
+        ],
+        "layer": "species",
+        "inlayer_idx": 27
+    },
+    "Penelope purpurascens": {
+        "global_idx": 93,
+        "sub_node": [
+            "penelope_purpurascens",
+            "crested guan",
+            "Penelope purpurascens is a bird in the guan family with a dark brown body, white spots, a black crest on its head, and a red throat wattle. It has a long tail with black stripes."
+        ],
+        "layer": "species",
+        "inlayer_idx": 28
+    },
+    "Pternistis nobilis": {
+        "global_idx": 94,
+        "sub_node": [
+            "pternistis_nobilis",
+            "handsome spurfowl",
+            "Pternistis nobilis is a pheasant-like bird with dark red or brown feathers and a grey head. It has a red bill and legs and a brown eye. It has spurs on its legs in males."
+        ],
+        "layer": "species",
+        "inlayer_idx": 29
+    },
+    "Puma concolor": {
+        "global_idx": 95,
+        "sub_node": [
+            "puma_concolor",
+            "Cougar",
+            "Puma is a large brownish cat with a long tail and retractable claws."
+        ],
+        "layer": "species",
+        "inlayer_idx": 30
+    },
+    "Syncerus caffer": {
+        "global_idx": 96,
+        "sub_node": [
+            "syncerus_caffer",
+            "African buffalo",
+            "Syncerus caffer is the African buffalo,  with black or brown fur, thick bone shield on the head and shoulders, curved horns in both sexes, strong and fierce body."
+        ],
+        "layer": "species",
+        "inlayer_idx": 31
+    },
+    "Tapirus bairdii": {
+        "global_idx": 97,
+        "sub_node": [
+            "tapirus_bairdii",
+            "Baird's tapir",
+            "Tapirus bairdii is a hoofed animal with dark brown or black fur, white fringes on its ears, lips, throat and chest, and a short, fleshy proboscis."
+        ],
+        "layer": "species",
+        "inlayer_idx": 32
+    },
+    "Tayassu pecari": {
+        "global_idx": 98,
+        "sub_node": [
+            "tayassu_pecari",
+            "White-lipped peccary",
+            "White-lipped peccary is a pig-like animal with dark hair, white lips and throat, and a musky odor."
+        ],
+        "layer": "species",
+        "inlayer_idx": 33
+    },
+    "Tinamus major": {
+        "global_idx": 99,
+        "sub_node": [
+            "tinamus_major",
+            "Great tinamou",
+            "Great tinamou is a bird with a brownish to grayish plumage, a short tail, and a long bill."
+        ],
+        "layer": "species",
+        "inlayer_idx": 34
+    },
+    "Urocyon cinereoargenteus": {
+        "global_idx": 100,
+        "sub_node": [
+            "urocyon_cinereoargenteus",
+            "gray fox",
+            "Urocyon cinereoargenteus is a carnivore with gray or black fur, a striped head and neck, a black-tipped tail, and reddish-brown legs and sides."
+        ],
+        "layer": "species",
+        "inlayer_idx": 35
+    }
+}

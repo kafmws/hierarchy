@@ -72,8 +72,9 @@ class ImageNetFeatureDataset(ImageNet):
 
 class IWildCam(ImageFolder):
     
-    def __init__(self, root: str, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None):
-        super().__init__(root, transform, target_transform)
+    def __init__(self, root: str, split: str, transform: Callable[..., Any] | None = None, target_transform: Callable[..., Any] | None = None):
+        super().__init__(os.path.join(root, split), transform, target_transform)
+        self.split = split
     
     def __getitem__(self, index) -> Tuple[Any, Any, Any]:
         sample, target = super().__getitem__(index=index)
@@ -81,16 +82,15 @@ class IWildCam(ImageFolder):
         return sample, target, path
     
     def IWildCam(split, transform):
-        dataset = IWildCam(root=os.path.join(DATA_DIR['iwildcam36'], split), transform=transform)
-        dataset.split = split
+        dataset = IWildCam(root=DATA_DIR['iwildcam36'], split=split, transform=transform)
         return dataset
 
 
-class IWildCamFeatureDataset(ImageFolder):
+class IWildCamFeatureDataset(IWildCam):
     """Dataset of ImageNet-1k's CLIP features, modified from `torchvision.datasets.ImageNet`.
     """
     def __init__(self, split, arch, model, root=DATA_DIR['iwildcam36feature']) -> Dataset:
-        super().__init__(root=os.path.join(DATA_DIR['iwildcam36'], split))
+        super().__init__(root=DATA_DIR['iwildcam36'], split=split)
         self.featfile = os.path.join(root, arch.lower(), model.replace('/', '-'), f'iwildcam36_{split}_features.pkl')
         assert os.path.isfile(self.featfile), f'featrue file {self.featfile} not found'
         with open(self.featfile, 'rb') as file:
@@ -104,7 +104,7 @@ class IWildCamFeatureDataset(ImageFolder):
         imgpath, _target = self.samples[index]
         imgname, target, feature = self.feature_samples[index]
         assert imgname in imgpath and _target == target
-        return torch.HalfTensor(feature), target, imgpath
+        return torch.HalfTensor(feature), torch.LongTensor([target]), imgpath
 
 
 DATASET = {

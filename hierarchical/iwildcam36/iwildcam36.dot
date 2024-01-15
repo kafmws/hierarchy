@@ -1,0 +1,264 @@
+strict digraph "iwildcam36" {
+
+	ranksep = 1
+	//root 0 Aves begins
+	subgraph "0 Aves" {
+		//subgraph "layer 0"{
+			node [width="1", fontsize=14]
+			//node
+			"0 Aves" [label="Aves"]
+			//edge
+			"0 Aves" -> "9 Tinamiformes"
+			"0 Aves" -> "4 Galliformes"
+		//}
+		//subgraph "layer 1"{
+			node [width="0", fontsize=11]
+			//node
+			"9 Tinamiformes" [label="Tinamiformes"]
+			"4 Galliformes" [label="Galliformes"]
+			//edge
+			"9 Tinamiformes" -> "30 Tinamidae"
+			"4 Galliformes" -> "25 Phasianidae"
+			"4 Galliformes" -> "15 Cracidae"
+			"4 Galliformes" -> "24 Numididae"
+		//}
+		//subgraph "layer 2"{
+			node [width="0", fontsize=8]
+			//node
+			"24 Numididae" [label="Numididae"]
+			"30 Tinamidae" [label="Tinamidae"]
+			"25 Phasianidae" [label="Phasianidae"]
+			"15 Cracidae" [label="Cracidae"]
+			//edge
+			"25 Phasianidae" -> "50 Meleagris"
+			"30 Tinamidae" -> "63 Tinamus"
+			"25 Phasianidae" -> "58 Pternistis"
+			"15 Cracidae" -> "57 Penelope"
+			"24 Numididae" -> "31 Acryllium"
+			"25 Phasianidae" -> "34 Argusianus"
+			"15 Cracidae" -> "39 Crax"
+		//}
+		//subgraph "layer 3"{
+			node [width="0", fontsize=7]
+			//node
+			"34 Argusianus" [label="Argusianus"]
+			"50 Meleagris" [label="Meleagris"]
+			"39 Crax" [label="Crax"]
+			"31 Acryllium" [label="Acryllium"]
+			"63 Tinamus" [label="Tinamus"]
+			"57 Penelope" [label="Penelope"]
+			"58 Pternistis" [label="Pternistis"]
+			//edge
+			"57 Penelope" -> "93 Penelope purpurascens"
+			"63 Tinamus" -> "99 Tinamus major"
+			"50 Meleagris" -> "86 Meleagris ocellata"
+			"31 Acryllium" -> "65 Acryllium vulturinum"
+			"39 Crax" -> "73 Crax rubra"
+			"34 Argusianus" -> "68 Argusianus argus"
+			"58 Pternistis" -> "94 Pternistis nobilis"
+		//}
+		//subgraph "layer 4"{
+			node [width="0", fontsize=5]
+			//node
+			"73 Crax rubra" [label="Crax rubra"]
+			"65 Acryllium vulturinum" [label="Acryllium vulturinum"]
+			"93 Penelope purpurascens" [label="Penelope purpurascens"]
+			"86 Meleagris ocellata" [label="Meleagris ocellata"]
+			"94 Pternistis nobilis" [label="Pternistis nobilis"]
+			"99 Tinamus major" [label="Tinamus major"]
+			"68 Argusianus argus" [label="Argusianus argus"]
+			//edge
+		//}
+	}
+	//root 0 Aves ends
+	//root 1 Mammalia begins
+	subgraph "1 Mammalia" {
+		//subgraph "layer 0"{
+			node [width="1", fontsize=14]
+			//node
+			"1 Mammalia" [label="Mammalia"]
+			//edge
+			"1 Mammalia" -> "2 Artiodactyla"
+			"1 Mammalia" -> "3 Carnivora"
+			"1 Mammalia" -> "5 Perissodactyla"
+			"1 Mammalia" -> "6 Primates"
+			"1 Mammalia" -> "7 Proboscidea"
+			"1 Mammalia" -> "8 Rodentia"
+		//}
+		//subgraph "layer 1"{
+			node [width="0", fontsize=11]
+			//node
+			"5 Perissodactyla" [label="Perissodactyla"]
+			"2 Artiodactyla" [label="Artiodactyla"]
+			"6 Primates" [label="Primates"]
+			"3 Carnivora" [label="Carnivora"]
+			"7 Proboscidea" [label="Proboscidea"]
+			"8 Rodentia" [label="Rodentia"]
+			//edge
+			"7 Proboscidea" -> "18 Elephantidae"
+			"2 Artiodactyla" -> "14 Cervidae"
+			"2 Artiodactyla" -> "21 Giraffidae"
+			"2 Artiodactyla" -> "11 Camelidae"
+			"3 Carnivora" -> "12 Canidae"
+			"8 Rodentia" -> "23 Nesomyidae"
+			"8 Rodentia" -> "22 Hystricidae"
+			"8 Rodentia" -> "16 Cuniculidae"
+			"5 Perissodactyla" -> "19 Equidae"
+			"2 Artiodactyla" -> "29 Tayassuidae"
+			"2 Artiodactyla" -> "10 Bovidae"
+			"8 Rodentia" -> "27 Sciuridae"
+			"6 Primates" -> "13 Cercopithecidae"
+			"8 Rodentia" -> "17 Dasyproctidae"
+			"3 Carnivora" -> "26 Procyonidae"
+			"3 Carnivora" -> "20 Felidae"
+			"5 Perissodactyla" -> "28 Tapiridae"
+		//}
+		//subgraph "layer 2"{
+			node [width="0", fontsize=8]
+			//node
+			"19 Equidae" [label="Equidae"]
+			"29 Tayassuidae" [label="Tayassuidae"]
+			"26 Procyonidae" [label="Procyonidae"]
+			"23 Nesomyidae" [label="Nesomyidae"]
+			"27 Sciuridae" [label="Sciuridae"]
+			"16 Cuniculidae" [label="Cuniculidae"]
+			"28 Tapiridae" [label="Tapiridae"]
+			"11 Camelidae" [label="Camelidae"]
+			"14 Cervidae" [label="Cervidae"]
+			"22 Hystricidae" [label="Hystricidae"]
+			"10 Bovidae" [label="Bovidae"]
+			"13 Cercopithecidae" [label="Cercopithecidae"]
+			"20 Felidae" [label="Felidae"]
+			"17 Dasyproctidae" [label="Dasyproctidae"]
+			"12 Canidae" [label="Canidae"]
+			"18 Elephantidae" [label="Elephantidae"]
+			"21 Giraffidae" [label="Giraffidae"]
+			//edge
+			"18 Elephantidae" -> "47 Loxodonta"
+			"26 Procyonidae" -> "52 Nasua"
+			"14 Cervidae" -> "49 Mazama"
+			"10 Bovidae" -> "32 Aepyceros"
+			"22 Hystricidae" -> "35 Atherurus"
+			"10 Bovidae" -> "60 Syncerus"
+			"29 Tayassuidae" -> "56 Pecari"
+			"13 Cercopithecidae" -> "55 Papio"
+			"20 Felidae" -> "54 Panthera"
+			"12 Canidae" -> "64 Urocyon"
+			"19 Equidae" -> "43 Equus"
+			"27 Sciuridae" -> "44 Funisciurus"
+			"20 Felidae" -> "46 Leopardus"
+			"14 Cervidae" -> "53 Odocoileus"
+			"21 Giraffidae" -> "45 Giraffa"
+			"10 Bovidae" -> "48 Madoqua"
+			"20 Felidae" -> "59 Puma"
+			"13 Cercopithecidae" -> "33 Allochrocebus"
+			"28 Tapiridae" -> "61 Tapirus"
+			"10 Bovidae" -> "38 Cephalophus"
+			"23 Nesomyidae" -> "40 Cricetomys"
+			"14 Cervidae" -> "51 Muntiacus"
+			"11 Camelidae" -> "37 Camelus"
+			"16 Cuniculidae" -> "41 Cuniculus"
+			"29 Tayassuidae" -> "62 Tayassu"
+			"17 Dasyproctidae" -> "42 Dasyprocta"
+			"10 Bovidae" -> "36 Bos"
+		//}
+		//subgraph "layer 3"{
+			node [width="0", fontsize=7]
+			//node
+			"41 Cuniculus" [label="Cuniculus"]
+			"61 Tapirus" [label="Tapirus"]
+			"62 Tayassu" [label="Tayassu"]
+			"42 Dasyprocta" [label="Dasyprocta"]
+			"32 Aepyceros" [label="Aepyceros"]
+			"56 Pecari" [label="Pecari"]
+			"47 Loxodonta" [label="Loxodonta"]
+			"48 Madoqua" [label="Madoqua"]
+			"43 Equus" [label="Equus"]
+			"36 Bos" [label="Bos"]
+			"59 Puma" [label="Puma"]
+			"60 Syncerus" [label="Syncerus"]
+			"46 Leopardus" [label="Leopardus"]
+			"38 Cephalophus" [label="Cephalophus"]
+			"54 Panthera" [label="Panthera"]
+			"37 Camelus" [label="Camelus"]
+			"45 Giraffa" [label="Giraffa"]
+			"64 Urocyon" [label="Urocyon"]
+			"35 Atherurus" [label="Atherurus"]
+			"55 Papio" [label="Papio"]
+			"40 Cricetomys" [label="Cricetomys"]
+			"33 Allochrocebus" [label="Allochrocebus"]
+			"51 Muntiacus" [label="Muntiacus"]
+			"49 Mazama" [label="Mazama"]
+			"53 Odocoileus" [label="Odocoileus"]
+			"52 Nasua" [label="Nasua"]
+			"44 Funisciurus" [label="Funisciurus"]
+			//edge
+			"64 Urocyon" -> "100 Urocyon cinereoargenteus"
+			"47 Loxodonta" -> "82 Loxodonta africana"
+			"36 Bos" -> "70 Bos taurus"
+			"45 Giraffa" -> "80 Giraffa camelopardalis"
+			"51 Muntiacus" -> "87 Muntiacus muntjak"
+			"35 Atherurus" -> "69 Atherurus africanus"
+			"33 Allochrocebus" -> "67 Allochrocebus lhoesti"
+			"60 Syncerus" -> "96 Syncerus caffer"
+			"42 Dasyprocta" -> "76 Dasyprocta punctata"
+			"49 Mazama" -> "85 Mazama temama"
+			"62 Tayassu" -> "98 Tayassu pecari"
+			"54 Panthera" -> "90 Panthera onca"
+			"40 Cricetomys" -> "74 Cricetomys gambianus"
+			"43 Equus" -> "78 Equus quagga"
+			"37 Camelus" -> "71 Camelus dromedarius"
+			"41 Cuniculus" -> "75 Cuniculus paca"
+			"38 Cephalophus" -> "72 Cephalophus nigrifrons"
+			"59 Puma" -> "95 Puma concolor"
+			"52 Nasua" -> "88 Nasua narica"
+			"56 Pecari" -> "92 Pecari tajacu"
+			"48 Madoqua" -> "83 Madoqua guentheri"
+			"53 Odocoileus" -> "89 Odocoileus virginianus"
+			"44 Funisciurus" -> "79 Funisciurus carruthersi"
+			"49 Mazama" -> "84 Mazama pandora"
+			"46 Leopardus" -> "81 Leopardus pardalis"
+			"61 Tapirus" -> "97 Tapirus bairdii"
+			"43 Equus" -> "77 Equus grevyi"
+			"55 Papio" -> "91 Papio anubis"
+			"32 Aepyceros" -> "66 Aepyceros melampus"
+		//}
+		//subgraph "layer 4"{
+			node [width="0", fontsize=5]
+			//node
+			"78 Equus quagga" [label="Equus quagga"]
+			"77 Equus grevyi" [label="Equus grevyi"]
+			"95 Puma concolor" [label="Puma concolor"]
+			"79 Funisciurus carruthersi" [label="Funisciurus carruthersi"]
+			"80 Giraffa camelopardalis" [label="Giraffa camelopardalis"]
+			"96 Syncerus caffer" [label="Syncerus caffer"]
+			"92 Pecari tajacu" [label="Pecari tajacu"]
+			"97 Tapirus bairdii" [label="Tapirus bairdii"]
+			"81 Leopardus pardalis" [label="Leopardus pardalis"]
+			"98 Tayassu pecari" [label="Tayassu pecari"]
+			"66 Aepyceros melampus" [label="Aepyceros melampus"]
+			"82 Loxodonta africana" [label="Loxodonta africana"]
+			"83 Madoqua guentheri" [label="Madoqua guentheri"]
+			"67 Allochrocebus lhoesti" [label="Allochrocebus lhoesti"]
+			"100 Urocyon cinereoargenteus" [label="Urocyon cinereoargenteus"]
+			"85 Mazama temama" [label="Mazama temama"]
+			"69 Atherurus africanus" [label="Atherurus africanus"]
+			"84 Mazama pandora" [label="Mazama pandora"]
+			"70 Bos taurus" [label="Bos taurus"]
+			"71 Camelus dromedarius" [label="Camelus dromedarius"]
+			"87 Muntiacus muntjak" [label="Muntiacus muntjak"]
+			"72 Cephalophus nigrifrons" [label="Cephalophus nigrifrons"]
+			"88 Nasua narica" [label="Nasua narica"]
+			"89 Odocoileus virginianus" [label="Odocoileus virginianus"]
+			"90 Panthera onca" [label="Panthera onca"]
+			"74 Cricetomys gambianus" [label="Cricetomys gambianus"]
+			"75 Cuniculus paca" [label="Cuniculus paca"]
+			"91 Papio anubis" [label="Papio anubis"]
+			"76 Dasyprocta punctata" [label="Dasyprocta punctata"]
+			//edge
+		//}
+	}
+	//root 1 Mammalia ends
+	//style settings
+	rankdir = TB;
+}

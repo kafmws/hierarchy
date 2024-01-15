@@ -1,3 +1,4 @@
+from itertools import accumulate
 import sys
 sys.path.extend(['/root/projects/readings/CLIP', '/root/projects/readings'])
 
@@ -6,12 +7,13 @@ import torch
 import pickle
 from tqdm import tqdm
 from CLIP.clip import clip
-from typing import List, Tuple, Any
 from torch.utils.data import DataLoader
+from typing import List, Tuple, Any, Iterable
 
 from utils import set_seed
-from prompts import clsname2prompt
+from hierarchical.hierarchy import get_hierarchy
 from dataset import DATASET, FEAT_DATASET, DATA_DIR
+from prompts import clsname2prompt, hierarchical_prompt
 
 # config
 seed = 42
@@ -97,7 +99,7 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
         only (int, optional): Test all kinds of prompts or which only. Defaults to None (test all).
         dump (bool, optional): Whether save the logits or not. Defaults to True.
     """
-    
+
     split = 'val'
     dataset_name = 'imagenet1k'
     root = DATA_DIR['imagenet1kfeature']
@@ -161,17 +163,104 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
                 pickle.dump(obj=data, file=file)
 
 
-def hierarchical_inference():
-    prompts = clsname2prompt(dataset='iwildcam')
-    # TODO hierarchical match
-    pass
+def hierarchical_inference(only=None, text_fusion=False):
+    
+    split = 'test'
+    dataset_name = 'iwildcam36'
+    root = DATA_DIR['iwildcam36feature']
+    dataset = FEAT_DATASET[dataset_name](root=root, split=split, arch='clip', model=model_name)
+    # loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
+    print(f'preparing {dataset_name} {split} logits...')
+    
+    feat_output_dir = f'{output_dir}/clip/{model_name.replace("/", "-")}'
+    os.makedirs(feat_output_dir, exist_ok=True)
+    
+    sample_logits = []  # [path, target, feature]
+    path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
+
+    h = get_hierarchy(dataset_name)
+    n_classes = len(dataset.classes)
+    hierarchy_size = len(h)
+    text_inputs, layer_cnt = hierarchical_prompt(h)
+    _layer_cnt = list(accumulate([0] + layer_cnt))
+    
+    def layer_clip(t, layer):
+        return t[_layer_cnt[layer]: _layer_cnt[layer] + layer_cnt[layer]]
+    
+    leaves = h.get_leaves()
+    leaves.sort(key=lambda node: node.inlayer_idx)
+    # print([leaf.inlayer_idx for leaf in leaves])  # check node order
+    hierarchical_targets = []
+    for leaf in leaves:
+        layer_targets = [[] for _ in range(h.n_layer)]
+        for node_path in leaf.get_path():
+            for layer, node in enumerate(node_path):
+                layer_targets[layer].append(node.inlayer_idx)
+            # target_path = [node.inlayer_idx for node in node_path]
+        hierarchical_targets.append(layer_targets)
+    # hierarchical_targets = [[[node.inlayer_idx for node in node_path] for node_path in leaf.get_path()] for leaf in leaves]
+    
+    if only:
+        text_inputs = text_inputs[only:only + 1]
+
+    for i, texts in enumerate(text_inputs):
+        
+        text_features = encode_text_batch(texts=texts, n_classes=hierarchy_size, text_fusion=text_fusion, device=device)
+        
+        correct = [0] * len(layer_cnt)
+        with torch.no_grad():
+            for images, targets, paths in tqdm(dataset, ncols=60, dynamic_ncols=True):
+                
+                # layerify target
+                
+                # remap target idx from classname
+                # import json
+                # with open('/root/projects/readings/work/hierarchical/iwildcam36/tree_desc.json', 'r') as file:
+                #     tree = json.load(file)
+                # name = paths.split('/')[4].replace('_', ' ')
+                # name = name[0:1].upper() + name[1:]
+                # targets[0] = tree[name]['inlayer_idx']
+                
+                layer_targets = hierarchical_targets[targets[0]]
+                targets = torch.LongTensor(layer_targets)
+                
+                targets: torch.Tensor = targets.to(device)
+                image_features: torch.Tensor = images.to(device)
+                image_features /= image_features.norm(dim=-1, keepdim=True)
+                logits = image_features @ text_features.T
+                similarity = (100.0 * logits).softmax(dim=-1)
+                # for path, target, _logits, in zip(paths, targets, logits):
+                #     sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
+                for layer in range(0, h.n_layer):
+                    predicts = layer_clip(similarity, layer).topk(1, dim=-1).indices
+                    correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+                
+        for layer in range(0, h.n_layer):
+            print(f'accuracy@{h.layermap[layer + 1]:12s}: {correct[layer] / len(dataset):.2f}%')
+
+
+def debug():
+    split = 'test'
+    dataset_name = 'iwildcam36'
+    root = DATA_DIR['iwildcam36feature']
+    dataset = FEAT_DATASET[dataset_name](root=root, split=split, arch='clip', model=model_name)
+    # loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
+    print(f'preparing {dataset_name} {split} logits...')
+    
+    feat_output_dir = f'{output_dir}/clip/{model_name.replace("/", "-")}'
+    os.makedirs(feat_output_dir, exist_ok=True)
+    
+    sample_logits = []  # [path, target, feature]
+    path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
+    
+    
 
 
 if __name__ == '__main__':
     # collect_image_features()
-    collect_clip_logits(text_fusion=True, dump=False)
+    # collect_clip_logits(text_fusion=True, dump=False)
     # collect_clip_logits(text_fusion=True, only=3, dump=False)
-    # hierarchical_inference()
+    hierarchical_inference()
     
 
 def benchmark_torchsave_pickledump():

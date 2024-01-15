@@ -1,6 +1,7 @@
 import os
 import pandas as pd
-from hierarchy.hierarchy import Hierarchy, get_hierarchy
+from torch import layer_norm
+from hierarchical.hierarchy import Hierarchy, get_hierarchy
 
 imagenet_classes = ["tench", "goldfish", "great white shark", "tiger shark", "hammerhead shark", "electric ray", "stingray", "rooster", "hen", "ostrich",
                     "brambling", "goldfinch", "house finch", "junco", "indigo bunting", "American robin", "bulbul", "jay", "magpie", "chickadee",
@@ -258,16 +259,39 @@ def imagenet_prompts(classnames):
     return prompt2target
 
 
+# def iwildcam36_prompts(h: Hierarchy):
+#     prompts = []
+#     layer_cnt = [0] * (h.n_layer + 1)
+#     for i in range(len(h.nodes)):
+#         node = h.getNode(i)
+#         prompts.append(node.prompt('a photo of a {}'))
+#         layer_cnt[node.layer] += 1
+#     layer_cnt.append(sum(layer_cnt))
+#     return [prompts], layer_cnt
+
+
 def iwildcam36_prompts(h: Hierarchy):
-    return [h.getNode(i).prompt('a photo of a {}') for i in range(len(h.nodes))]
+    prompts = []
+    layer_cnt = []
+    roots = h.get_roots()
+    
+    while len(roots) != 0:
+        todo = []
+        roots.sort(key=lambda node: node.inlayer_idx)
+        for root in roots:
+            todo.extend(root.children)
+            prompts.append(root.prompt('a photo of a {}'))
+        layer_cnt.append(len(roots))
+        roots = todo
+    
+    return [prompts], layer_cnt
 
 
-def hierarchical_prompts(dataset: str):
-    h = get_hierarchy(dataset)
+def hierarchical_prompt(h):
     return {
         'imagenet1k': None,
         'iwildcam36': iwildcam36_prompts(h),
-    }[dataset]
+    }[h.dataset]
 
 
 def clsname2prompt(dataset, classnames):
@@ -275,3 +299,17 @@ def clsname2prompt(dataset, classnames):
     return {
         'imagenet1k': imagenet_prompts,
     }[dataset](classnames)
+
+
+if __name__ == '__main__':
+    
+    
+    from hierarchical.hierarchy import get_hierarchy
+    
+    h = get_hierarchy('iwildcam36')
+    prompts, layer_cnt = iwildcam36_prompts(h)
+    prompts2, layer_cnt2 = iwildcam36_prompts(h)
+    
+    print(prompts == prompts2)
+    print(layer_cnt == layer_cnt2)
+    
