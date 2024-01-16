@@ -1,3 +1,4 @@
+from ctypes import pointer
 from itertools import accumulate
 import sys
 sys.path.extend(['/root/projects/readings/CLIP', '/root/projects/readings'])
@@ -163,7 +164,7 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
                 pickle.dump(obj=data, file=file)
 
 
-def hierarchical_inference(only=None, text_fusion=False):
+def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
     
     split = 'test'
     dataset_name = 'iwildcam36'
@@ -179,23 +180,32 @@ def hierarchical_inference(only=None, text_fusion=False):
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
     h = get_hierarchy(dataset_name)
-    n_classes = len(dataset.classes)
     hierarchy_size = len(h)
-    text_inputs, layer_cnt = hierarchical_prompt(h)
-    _layer_cnt = list(accumulate([0] + layer_cnt))
-    
-    def layer_clip(t, layer):
-        return t[_layer_cnt[layer]: _layer_cnt[layer] + layer_cnt[layer]]
+    n_classes = len(dataset.classes)
+    idx_offset = hierarchy_size - n_classes
+    text_inputs, pointers, layer_cnt = hierarchical_prompt(h)
+    layer_mask, _idx = [], list(range(hierarchy_size))
+    for cnt in layer_cnt:
+        mask = torch.zeros(1, hierarchy_size)
+        mask[0][_idx[:cnt]] = 1
+        layer_mask.append(mask.to(device))
+        _idx = _idx[cnt:]
+    for node in range(hierarchy_size):
+        for layer in range(len(pointers[node])):
+            if len(pointers[node][layer]):
+                mask = torch.zeros(1, hierarchy_size)
+                mask[0][pointers[node][layer]] = 1
+                pointers[node][layer] = mask.to(device)
     
     leaves = h.get_leaves()
-    leaves.sort(key=lambda node: node.inlayer_idx)
+    leaves.sort(key=lambda node: node.idx)
     # print([leaf.inlayer_idx for leaf in leaves])  # check node order
     hierarchical_targets = []
     for leaf in leaves:
         layer_targets = [[] for _ in range(h.n_layer)]
         for node_path in leaf.get_path():
             for layer, node in enumerate(node_path):
-                layer_targets[layer].append(node.inlayer_idx)
+                layer_targets[layer].append(node.idx)  # global_idx
             # target_path = [node.inlayer_idx for node in node_path]
         hierarchical_targets.append(layer_targets)
     # hierarchical_targets = [[[node.inlayer_idx for node in node_path] for node_path in leaf.get_path()] for leaf in leaves]
@@ -207,7 +217,9 @@ def hierarchical_inference(only=None, text_fusion=False):
         
         text_features = encode_text_batch(texts=texts, n_classes=hierarchy_size, text_fusion=text_fusion, device=device)
         
-        correct = [0] * len(layer_cnt)
+        preds, labels = [], []
+        hi_correct = [0] * len(layer_cnt)
+        zs_correct = [0] * len(layer_cnt)
         with torch.no_grad():
             for images, targets, paths in tqdm(dataset, ncols=60, dynamic_ncols=True):
                 
@@ -232,35 +244,43 @@ def hierarchical_inference(only=None, text_fusion=False):
                 # for path, target, _logits, in zip(paths, targets, logits):
                 #     sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
                 for layer in range(0, h.n_layer):
-                    predicts = layer_clip(similarity, layer).topk(1, dim=-1).indices
-                    correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+                    masked_similarity = similarity * layer_mask[layer]
+                    predicts = masked_similarity.topk(1, dim=-1).indices
+                    zs_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
                 
+                # layer-by-layer matching
+                if selected_layers:
+                    for layer in selected_layers:
+                        if layer == selected_layers[0]:
+                            mask = layer_mask[layer]
+                        else:
+                            mask = pointers[predicts.item()][layer]
+                        predicts = (similarity * mask).topk(1, dim=-1).indices
+                        hi_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+        
+        print('zeroshot:')
         for layer in range(0, h.n_layer):
-            print(f'accuracy@{h.layermap[layer + 1]:12s}: {correct[layer] / len(dataset):.2f}%')
-
-
-def debug():
-    split = 'test'
-    dataset_name = 'iwildcam36'
-    root = DATA_DIR['iwildcam36feature']
-    dataset = FEAT_DATASET[dataset_name](root=root, split=split, arch='clip', model=model_name)
-    # loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
-    print(f'preparing {dataset_name} {split} logits...')
-    
-    feat_output_dir = f'{output_dir}/clip/{model_name.replace("/", "-")}'
-    os.makedirs(feat_output_dir, exist_ok=True)
-    
-    sample_logits = []  # [path, target, feature]
-    path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
-    
-    
+            print(f'accuracy@{h.layermap[layer + 1]:12s}: {zs_correct[layer] / len(dataset) * 100:.2f}%')
+        
+        if selected_layers:
+            print('hierarchical inference:')
+            for layer in selected_layers:
+                print(f'accuracy@{h.layermap[layer + 1]:12s}: {hi_correct[layer] / len(dataset) * 100:.2f}%')
 
 
 if __name__ == '__main__':
     # collect_image_features()
     # collect_clip_logits(text_fusion=True, dump=False)
     # collect_clip_logits(text_fusion=True, only=3, dump=False)
-    hierarchical_inference()
+    
+    hierarchical_inference(selected_layers=[0, 1, 2, 3, 4])
+    hierarchical_inference(selected_layers=[0, 1, 4])
+    hierarchical_inference(selected_layers=[0, 3, 4])
+    hierarchical_inference(selected_layers=[0, 4])
+    hierarchical_inference(selected_layers=[1, 4])
+    hierarchical_inference(selected_layers=[2, 4])
+    hierarchical_inference(selected_layers=[3, 4])
+    hierarchical_inference(selected_layers=[4])
     
 
 def benchmark_torchsave_pickledump():

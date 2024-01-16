@@ -271,7 +271,16 @@ def imagenet_prompts(classnames):
 
 
 def iwildcam36_prompts(h: Hierarchy):
+    """_summary_
+
+    Args:
+        h (Hierarchy): hierarchy object for the hierarchical label set.
+
+    Returns:
+        ([prompts], pointers, layer_cnt) Tuple[List[List[str]], List[List[Int]], List[Int]]: _description_
+    """
     prompts = []
+    pointers = []
     layer_cnt = []
     roots = h.get_roots()
     
@@ -281,13 +290,20 @@ def iwildcam36_prompts(h: Hierarchy):
         for root in roots:
             todo.extend(root.children)
             prompts.append(root.prompt('a photo of a {}'))
+            
+            # convert List[List[Node]] to List[List[global index]]
+            descendants = root.hierarchical_descendants()
+            pointer = [[node.id for node in layer] for layer in descendants]
+            assert len(pointer) == len(descendants)
+            pointers.append(pointer)
+            
         layer_cnt.append(len(roots))
         roots = todo
     
-    return [prompts], layer_cnt
+    return [prompts], pointers, layer_cnt
 
 
-def hierarchical_prompt(h):
+def hierarchical_prompt(h: Hierarchy):
     return {
         'imagenet1k': None,
         'iwildcam36': iwildcam36_prompts(h),

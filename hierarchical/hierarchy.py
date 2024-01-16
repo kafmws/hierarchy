@@ -8,16 +8,16 @@ sys.path.append(os.path.dirname(__file__))
 
 class Node:
     
-    def __init__(self, id: str, name: str, idx: int = None, layer: int = None):
+    def __init__(self, id: str | int, name: str, idx: int = None, layer: int = None):
         """class definition in hierarchy.
 
         Args:
-            id (str): unique in the hierarchy.
+            id (str | int): unique in the hierarchy.
             name (str): description of the class, text label.
             idx (str): class idx of the dataset, default is -1.
             layer (int): layer the node belongs to.
         """
-        self.id = str(id)
+        self.id = id
         self.name = name
         self.parents: Set[Node] = set()
         self.children: Set[Node] = set()
@@ -72,6 +72,24 @@ class Node:
     
     def is_leaf(self) -> bool:
         return len(self.children) == 0
+    
+    def hierarchical_descendants(self) -> List[List['Node']]:
+        """return all descendant nodes at lyaer `layer`.
+        Return:
+            descendants (List[List[Node]]): descendants[layer] = descendants_at_layer.
+        """
+        assert self.layer, f'node {str(self)}.layer is None!'
+        descendants = [[]] * self.layer
+        
+        cur = self.children
+        while len(cur) != 0:
+            nextlayer = set()
+            for node in cur:
+                nextlayer.update(node.children)
+            descendants.append(list(cur))
+            cur = nextlayer
+        return descendants
+        
     
     def printHiearchy(self):
         print([str(p) for p in self.parents])
