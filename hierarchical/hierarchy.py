@@ -73,6 +73,11 @@ class Node:
     def is_leaf(self) -> bool:
         return len(self.children) == 0
     
+    def get_root(self):
+        if not self.is_root():
+            return list(self.parents)[0].get_root()
+        return self
+    
     def hierarchical_descendants(self) -> List[List['Node']]:
         """return all descendant nodes at lyaer `layer`.
         Return:
@@ -89,12 +94,6 @@ class Node:
             descendants.append(list(cur))
             cur = nextlayer
         return descendants
-        
-    
-    def printHiearchy(self):
-        print([str(p) for p in self.parents])
-        print(self.id)
-        print([str(p) for p in self.children])
 
 
 NodeClass = TypeVar('NodeClass', bound=Node)
@@ -102,12 +101,12 @@ NodeClass = TypeVar('NodeClass', bound=Node)
 
 class Hierarchy(Generic[NodeClass]):
     
-    def __init__(self, node_class: Type[NodeClass], dataset: str = None):
+    def __init__(self, node_class: Type[NodeClass], dataset: str = None, htype='tree'):
+        self.type = htype
+        self.n_layer = None
         self.dataset = dataset
         self.node_class = node_class
         self.nodes: Dict[str, NodeClass] = {}  # nodes['id'] = node: Node
-        self.n_layer = None
-        self.dataset = dataset
     
     def __contains__(self, id) -> bool:
         return id in self.nodes

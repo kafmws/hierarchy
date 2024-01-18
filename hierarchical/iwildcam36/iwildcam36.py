@@ -4,7 +4,6 @@ import json
 
 os.chdir(os.path.dirname(__file__))
 sys.path.append(os.path.dirname(os.path.abspath(os.curdir)))
-# print('in iwildcam36.py ' + str(sys.path))
 
 from hierarchy import Hierarchy, Node
 
@@ -49,10 +48,10 @@ class IWildCamNode(Node):
         self.inlayer_idx = inlayer_idx
         self.layername = layername
     
-    def prompt(self, template: str = None) -> str:
-        """return prompt for this node"""
-        prompt = template.format(self.name) if template is not None else self.name
-        return prompt
+    # def prompt(self, template: str = None) -> str:
+    #     """return prompt for this node"""
+    #     prompt = template.format(self.name) if template is not None else self.name
+    #     return prompt
 
 
 h: Hierarchy[IWildCamNode] = Hierarchy(IWildCamNode)

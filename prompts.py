@@ -271,13 +271,14 @@ def imagenet_prompts(classnames):
 
 
 def iwildcam36_prompts(h: Hierarchy):
-    """_summary_
+    """return prompt for each class in the hierarchy.
 
     Args:
         h (Hierarchy): hierarchy object for the hierarchical label set.
 
     Returns:
-        ([prompts], pointers, layer_cnt) Tuple[List[List[str]], List[List[Int]], List[Int]]: _description_
+        [prompts], pointers, layer_cnt (Tuple[List[List[str]], List[List[Int]], List[Int]]): 
+            group of prompts, pointers[idx][layer] = descendants, cnts of each layer.
     """
     prompts = []
     pointers = []
@@ -289,7 +290,22 @@ def iwildcam36_prompts(h: Hierarchy):
         roots.sort(key=lambda node: node.inlayer_idx)
         for root in roots:
             todo.extend(root.children)
-            prompts.append(root.prompt('a photo of a {}'))
+            if root.is_leaf():
+                prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name} , in the wild.')
+            elif root.is_root():
+                # prompts.append(f'a photo of a {root.name}.')
+                
+                # describe next layer.
+                # desp = ', or '.join(c.name for c in root.children)
+                desp = ', '.join(c.name for c in root.children)
+                prompts.append(f'a photo of a {root.name} such as {desp}.')
+            else:
+                
+                # describe next layer.
+                desp = ', '.join(c.name for c in root.children)
+                # describe prev layer.
+                parent = list(root.parents)[0]
+                prompts.append(f'a photo of a {root.name}, a kind of {parent.name}, such as {desp}.')
             
             # convert List[List[Node]] to List[List[global index]]
             descendants = root.hierarchical_descendants()

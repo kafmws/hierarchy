@@ -171,7 +171,7 @@ def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
     root = DATA_DIR['iwildcam36feature']
     dataset = FEAT_DATASET[dataset_name](root=root, split=split, arch='clip', model=model_name)
     # loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
-    print(f'preparing {dataset_name} {split} logits...')
+    # print(f'preparing {dataset_name} {split} logits...')
     
     feat_output_dir = f'{output_dir}/clip/{model_name.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
@@ -221,18 +221,10 @@ def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
         hi_correct = [0] * len(layer_cnt)
         zs_correct = [0] * len(layer_cnt)
         with torch.no_grad():
-            for images, targets, paths in tqdm(dataset, ncols=60, dynamic_ncols=True):
+            # for images, targets, paths in tqdm(dataset, ncols=60, dynamic_ncols=True):
+            for images, targets, paths in dataset:
                 
-                # layerify target
-                
-                # remap target idx from classname
-                # import json
-                # with open('/root/projects/readings/work/hierarchical/iwildcam36/tree_desc.json', 'r') as file:
-                #     tree = json.load(file)
-                # name = paths.split('/')[4].replace('_', ' ')
-                # name = name[0:1].upper() + name[1:]
-                # targets[0] = tree[name]['inlayer_idx']
-                
+                # layerify target                
                 layer_targets = hierarchical_targets[targets[0]]
                 targets = torch.LongTensor(layer_targets)
                 
@@ -243,10 +235,6 @@ def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
                 similarity = (100.0 * logits).softmax(dim=-1)
                 # for path, target, _logits, in zip(paths, targets, logits):
                 #     sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
-                for layer in range(0, h.n_layer):
-                    masked_similarity = similarity * layer_mask[layer]
-                    predicts = masked_similarity.topk(1, dim=-1).indices
-                    zs_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
                 
                 # layer-by-layer matching
                 if selected_layers:
@@ -257,15 +245,29 @@ def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
                             mask = pointers[predicts.item()][layer]
                         predicts = (similarity * mask).topk(1, dim=-1).indices
                         hi_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+                else:
+                    for layer in range(0, h.n_layer):
+                        masked_similarity = similarity * layer_mask[layer]
+                        predicts = masked_similarity.topk(1, dim=-1).indices
+                        zs_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
         
-        print('zeroshot:')
-        for layer in range(0, h.n_layer):
-            print(f'accuracy@{h.layermap[layer + 1]:12s}: {zs_correct[layer] / len(dataset) * 100:.2f}%')
+        # if selected_layers:
+        #     print('hierarchical inference:')
+        #     for layer in selected_layers:
+        #         print(f'accuracy@{h.layermap[layer + 1]:12s}: {hi_correct[layer] / len(dataset) * 100:.2f}%')
+        # else:
+        #     print('zeroshot:')
+        #     for layer in range(0, h.n_layer):
+        #         print(f'accuracy@{h.layermap[layer + 1]:12s}: {zs_correct[layer] / len(dataset) * 100:.2f}%')
         
+        # latex output
         if selected_layers:
-            print('hierarchical inference:')
-            for layer in selected_layers:
-                print(f'accuracy@{h.layermap[layer + 1]:12s}: {hi_correct[layer] / len(dataset) * 100:.2f}%')
+            row = model_name[:-2] + ' HI     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
+            res = ['{:.2f}'.format(hi_correct[idx] * 100 / len(dataset)) if idx in selected_layers else '-' for idx in range(len(layer_cnt))]
+        else:
+            row = model_name[:-2] + ' ZS     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
+            res = ['{:.2f}'.format(zs_correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
+        print(row.format(*res))
 
 
 if __name__ == '__main__':
@@ -273,9 +275,16 @@ if __name__ == '__main__':
     # collect_clip_logits(text_fusion=True, dump=False)
     # collect_clip_logits(text_fusion=True, only=3, dump=False)
     
+    hierarchical_inference()
     hierarchical_inference(selected_layers=[0, 1, 2, 3, 4])
+    hierarchical_inference(selected_layers=[1, 2, 3, 4])
+    hierarchical_inference(selected_layers=[0, 2, 3, 4])
+    hierarchical_inference(selected_layers=[0, 1, 3, 4])
+    hierarchical_inference(selected_layers=[0, 1, 2, 4])
     hierarchical_inference(selected_layers=[0, 1, 4])
+    hierarchical_inference(selected_layers=[0, 2, 4])
     hierarchical_inference(selected_layers=[0, 3, 4])
+    hierarchical_inference(selected_layers=[2, 3, 4])
     hierarchical_inference(selected_layers=[0, 4])
     hierarchical_inference(selected_layers=[1, 4])
     hierarchical_inference(selected_layers=[2, 4])
