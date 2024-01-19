@@ -13,23 +13,22 @@ from typing import List, Tuple, Any, Iterable
 
 from utils import set_seed
 from hierarchical.hierarchy import get_hierarchy
-from dataset import DATASET, FEAT_DATASET, DATA_DIR
+from dataset import get_dataset, get_feature_dataset
 from prompts import clsname2prompt, hierarchical_prompt
 
 # config
 seed = 42
-model_name = 'ViT-L/14@336px'
+model_name = 'clip'
+arch = 'ViT-L/14@336px'
 # datasets = {'imagenet1k': ['val']}
 datasets = {'iwildcam36': ['train']}
 output_dir = '/root/projects/readings/work/feature_dataset'
 
-for ds in datasets:
-    assert ds in DATASET, f'{ds} should be registered entry in __DATASET__'
 set_seed(42)
 
 # Load the model
-device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
-model, preprocess = clip.load(model_name, device)
+device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+model, preprocess = clip.load(arch, device)
 
 
 def collect_image_features():
@@ -37,11 +36,11 @@ def collect_image_features():
     for dataset_name, splits in datasets.items():
         for split in splits:
             
-            feat_output_dir = f'{output_dir}/clip/{model_name.replace("/", "-")}'
+            feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
             os.makedirs(feat_output_dir, exist_ok=True)
             
             print(f'preparing {dataset_name} {split} features...')
-            dataset = DATASET[dataset_name](split, preprocess)
+            dataset = get_dataset(dataset_name=dataset_name, split=split, transform=preprocess)
             loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
 
             sample_features = []  # [path, target, feature]
@@ -57,9 +56,9 @@ def collect_image_features():
             
             data = {
                 'fname': f'{dataset_name}_{split}_features.pkl',
+                'model': f'{model_name}:{arch}',
                 'features': sample_features,
                 'transform': preprocess,
-                'model': model_name,
             }
 
             # torch.save(obj=data, f=os.path.join(feat_output_dir, data['fname'] + '.pth'))
@@ -101,14 +100,11 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
         dump (bool, optional): Whether save the logits or not. Defaults to True.
     """
 
-    split = 'val'
-    dataset_name = 'imagenet1k'
-    root = DATA_DIR['imagenet1kfeature']
-    dataset = FEAT_DATASET[dataset_name](root=root, split=split, arch='clip', model=model_name)
+    dataset = get_feature_dataset(dataset_name='imagenet1k', split='val', model=model_name, arch=arch)
     loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
-    print(f'preparing {dataset_name} {split} logits...')
+    print(f'preparing {dataset.dataset_name} {dataset.split} logits...')
     
-    feat_output_dir = f'{output_dir}/clip/{model_name.replace("/", "-")}'
+    feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
     
     sample_logits = []  # [path, target, feature]
@@ -116,7 +112,7 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
 
     # best prompt #3 w/o ensembling, #4 w/ ensembling
     n_classes = len(dataset.classes)
-    text_inputs = clsname2prompt(dataset_name, dataset.classes)
+    text_inputs = clsname2prompt(dataset.dataset_name, dataset.classes)
     if only:
         text_inputs = text_inputs[only:only + 1]
 
@@ -152,10 +148,10 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
         
         if dump:
             data = {
-                'fname': f'{dataset_name}_{split}_logits.pkl',
+                'fname': f'{dataset.dataset_name}_{dataset.split}_logits.pkl',
+                'model': f'{model_name}:{arch}',
                 'text_features': text_features,
                 'logits': sample_logits,
-                'model': model_name,
                 'texts': texts,
                 'seed': seed,
             }
@@ -164,27 +160,20 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
                 pickle.dump(obj=data, file=file)
 
 
-def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
+def hierarchical_inference(dataset, selected_layers=None):
     
-    split = 'test'
-    dataset_name = 'iwildcam36'
-    root = DATA_DIR['iwildcam36feature']
-    dataset = FEAT_DATASET[dataset_name](root=root, split=split, arch='clip', model=model_name)
-    # loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
-    # print(f'preparing {dataset_name} {split} logits...')
-    
-    feat_output_dir = f'{output_dir}/clip/{model_name.replace("/", "-")}'
+    feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
     
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
-    h = get_hierarchy(dataset_name)
+    h = get_hierarchy(dataset.dataset_name)
     hierarchy_size = len(h)
     n_classes = len(dataset.classes)
-    idx_offset = hierarchy_size - n_classes
     text_inputs, pointers, layer_cnt = hierarchical_prompt(h)
     layer_mask, _idx = [], list(range(hierarchy_size))
+    idx_offset = list(accumulate(layer_cnt))
     for cnt in layer_cnt:
         mask = torch.zeros(1, hierarchy_size)
         mask[0][_idx[:cnt]] = 1
@@ -206,16 +195,13 @@ def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
         for node_path in leaf.get_path():
             for layer, node in enumerate(node_path):
                 layer_targets[layer].append(node.idx)  # global_idx
-            # target_path = [node.inlayer_idx for node in node_path]
         hierarchical_targets.append(layer_targets)
-    # hierarchical_targets = [[[node.inlayer_idx for node in node_path] for node_path in leaf.get_path()] for leaf in leaves]
-    
-    if only:
-        text_inputs = text_inputs[only:only + 1]
 
     for i, texts in enumerate(text_inputs):
         
-        text_features = encode_text_batch(texts=texts, n_classes=hierarchy_size, text_fusion=text_fusion, device=device)
+        print(f'for prompts {i}#')
+        
+        text_features = encode_text_batch(texts=texts, n_classes=hierarchy_size, text_fusion=False, device=device)
         
         preds, labels = [], []
         hi_correct = [0] * len(layer_cnt)
@@ -238,18 +224,26 @@ def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
                 
                 # layer-by-layer matching
                 if selected_layers:
-                    for layer in selected_layers:
-                        if layer == selected_layers[0]:
-                            mask = layer_mask[layer]
-                        else:
-                            mask = pointers[predicts.item()][layer]
-                        predicts = (similarity * mask).topk(1, dim=-1).indices
-                        hi_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+                    for selected_layer in selected_layers:
+                        for layer in selected_layer:
+                            if layer == selected_layer[0]:
+                                mask = layer_mask[layer]
+                            else:
+                                mask = pointers[predicts.item()][layer]
+                            predicts = (similarity * mask).topk(1, dim=-1).indices
+                            hi_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+                        row = arch[:-2] + ' HI     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
+                        res = ['{:.2f}'.format(hi_correct[idx] * 100 / len(dataset)) if idx in selected_layers else '-' for idx in range(len(layer_cnt))]
+                        print(row.format(*res))
                 else:
                     for layer in range(0, h.n_layer):
                         masked_similarity = similarity * layer_mask[layer]
                         predicts = masked_similarity.topk(1, dim=-1).indices
                         zs_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+                        
+                    row = arch[:-2] + ' ZS     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
+                    res = ['{:.2f}'.format(zs_correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
+                    print(row.format(*res))
         
         # if selected_layers:
         #     print('hierarchical inference:')
@@ -261,13 +255,7 @@ def hierarchical_inference(only=None, text_fusion=False, selected_layers=None):
         #         print(f'accuracy@{h.layermap[layer + 1]:12s}: {zs_correct[layer] / len(dataset) * 100:.2f}%')
         
         # latex output
-        if selected_layers:
-            row = model_name[:-2] + ' HI     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
-            res = ['{:.2f}'.format(hi_correct[idx] * 100 / len(dataset)) if idx in selected_layers else '-' for idx in range(len(layer_cnt))]
-        else:
-            row = model_name[:-2] + ' ZS     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
-            res = ['{:.2f}'.format(zs_correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
-        print(row.format(*res))
+        
 
 
 if __name__ == '__main__':
@@ -275,22 +263,29 @@ if __name__ == '__main__':
     # collect_clip_logits(text_fusion=True, dump=False)
     # collect_clip_logits(text_fusion=True, only=3, dump=False)
     
-    hierarchical_inference()
-    hierarchical_inference(selected_layers=[0, 1, 2, 3, 4])
-    hierarchical_inference(selected_layers=[1, 2, 3, 4])
-    hierarchical_inference(selected_layers=[0, 2, 3, 4])
-    hierarchical_inference(selected_layers=[0, 1, 3, 4])
-    hierarchical_inference(selected_layers=[0, 1, 2, 4])
-    hierarchical_inference(selected_layers=[0, 1, 4])
-    hierarchical_inference(selected_layers=[0, 2, 4])
-    hierarchical_inference(selected_layers=[0, 3, 4])
-    hierarchical_inference(selected_layers=[2, 3, 4])
-    hierarchical_inference(selected_layers=[0, 4])
-    hierarchical_inference(selected_layers=[1, 4])
-    hierarchical_inference(selected_layers=[2, 4])
-    hierarchical_inference(selected_layers=[3, 4])
-    hierarchical_inference(selected_layers=[4])
+    iwildcam36test = get_feature_dataset(dataset_name='iwildcam36', split='test', model=model_name, arch=arch)
+    print(f'loading {iwildcam36test.dataset_name} {iwildcam36test.split} feature...')
     
+    hierarchical_inference(iwildcam36test)
+    hierarchical_inference(dataset=iwildcam36test,
+                           selected_layers=[
+                               [0, 1, 2, 3, 4],
+                               [1, 2, 3, 4],
+                               [0, 2, 3, 4],
+                               [0, 1, 3, 4],
+                               [0, 1, 2, 4],
+                               [0, 1, 4],
+                               [0, 2, 4],
+                               [0, 3, 4],
+                               [2, 3, 4],
+                               [0, 4],
+                               [1, 4],
+                               [2, 4],
+                               [3, 4],
+                               [4],
+    ])
+
+
 
 def benchmark_torchsave_pickledump():
     # comparsion between torch.load vs. pickle.load

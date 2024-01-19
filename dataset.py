@@ -2,11 +2,10 @@ import sys
 sys.path.append('/root/projects/readings')
 
 import os
-import CLIP
 import torch
 import pickle
-from typing import Callable, Optional, Tuple, Any
-from torch.utils.data import Dataset
+from typing import Callable, Iterable, Optional, Tuple, Any
+from torch.utils.data import Dataset, ConcatDataset
 from torchvision.datasets import CIFAR100, ImageNet, ImageFolder
 
 DATA_DIR = {
@@ -52,9 +51,9 @@ class _ImageNet(ImageNet):
 class ImageNetFeatureDataset(ImageNet):
     """Dataset of ImageNet-1k's CLIP features, modified from `torchvision.datasets.ImageNet`.
     """
-    def __init__(self, split, arch, model, root=DATA_DIR['imagenet1kfeature']) -> Dataset:
+    def __init__(self, split, model, arch, root=DATA_DIR['imagenet1kfeature']) -> Dataset:
         super().__init__(root=DATA_DIR['imagenet1k'], split=split)
-        self.featfile = os.path.join(root, arch.lower(), model.replace('/', '-'), f'imagenet1k_{split}_features.pkl')
+        self.featfile = os.path.join(root, model.lower(), arch.replace('/', '-'), f'imagenet1k_{split}_features.pkl')
         assert os.path.isfile(self.featfile), f'featrue file {self.featfile} not found'
         with open(self.featfile, 'rb') as file:
             self.feature_data = pickle.load(file)
@@ -81,17 +80,17 @@ class IWildCam(ImageFolder):
         path, _ = self.samples[index]
         return sample, target, path
     
-    def IWildCam(split, transform):
-        dataset = IWildCam(root=DATA_DIR['iwildcam36'], split=split, transform=transform)
+    def IWildCam(split, transform, root):
+        dataset = IWildCam(root=root, split=split, transform=transform)
         return dataset
 
 
 class IWildCamFeatureDataset(IWildCam):
     """Dataset of ImageNet-1k's CLIP features, modified from `torchvision.datasets.ImageNet`.
     """
-    def __init__(self, split, arch, model, root=DATA_DIR['iwildcam36feature']) -> Dataset:
+    def __init__(self, split, model, arch, root) -> Dataset:
         super().__init__(root=DATA_DIR['iwildcam36'], split=split)
-        self.featfile = os.path.join(root, arch.lower(), model.replace('/', '-'), f'iwildcam36_{split}_features.pkl')
+        self.featfile = os.path.join(root, model.lower(), arch.replace('/', '-'), f'iwildcam36_{split}_features.pkl')
         assert os.path.isfile(self.featfile), f'featrue file {self.featfile} not found'
         with open(self.featfile, 'rb') as file:
             self.feature_data = pickle.load(file)
@@ -118,15 +117,39 @@ FEAT_DATASET = {
 }
 
 
+def get_dataset(dataset_name, split, transform, root=None):
+    if root is None:
+        root = DATA_DIR['iwildcam36']
+    dataset = DATASET[dataset_name](root=root, split=split, transform=transform)
+    dataset.split = split
+    dataset.transform = transform
+    dataset.dataset_name = dataset_name
+    return dataset
+
+
+def get_feature_dataset(dataset_name, split, model, arch, root=None):
+    if root is None:
+        root = DATA_DIR[f'{dataset_name}feature']
+    if not isinstance(split, str) and isinstance(split, Iterable):
+        datasets = [get_feature_dataset(dataset_name, s, model, arch, root) for s in split]
+        dataset = ConcatDataset(datasets=datasets)
+    else:
+        dataset = FEAT_DATASET[dataset_name](root=root, split=split, model=model, arch=arch)
+    dataset.split = split
+    dataset.dataset_name = dataset_name
+    dataset.featurizer = f'{model}:{arch}'
+    return dataset
+
+
 if __name__ == '__main__':
     
     def test_iwildcam36():
         from clip_analysis import preprocess
-        dataset = DATASET['iwildcam36']('train', preprocess)
+        dataset = get_dataset(dataset_name='iwildcam36', split='train', transform=preprocess)
         print(dataset[0])
     
     def test_feauture_dataset():
-        ds_feature = FEAT_DATASET['imagenet1k'](split='val', arch='clip', model='ViT-B/32')
+        ds_feature = get_feature_dataset(dataset_name='imagenet1k', split='val', model='clip', arch='ViT-B/32')
         with open('wnid2idx.txt', 'w') as file:
             for i, wnid in enumerate(ds_feature.wnids):
                 file.write(f'{i}\t{wnid}\n')
@@ -143,6 +166,7 @@ if __name__ == '__main__':
         
         print(f'wnid: {ds_feature.wnids[745], ds_feature.classes[745]}')
 
-    # test_iwildcam36()
-    ds_feature = FEAT_DATASET['iwildcam36'](split='test', arch='clip', model='ViT-L/14@336px')
+    test_iwildcam36()
+    # test_feauture_dataset()
+    ds_feature = get_feature_dataset(dataset_name='iwildcam36', split='test', model='clip', arch='ViT-L/14@336px')
     print(ds_feature[0])
