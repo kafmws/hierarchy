@@ -7,7 +7,7 @@ from torchvision.datasets import CIFAR100
 
 from utils import set_seed
 from dataset import DATASET
-from work.prompts import imagenet_classes, imagenet_templates
+from prompts import imagenet_classes, imagenet_templates
 
 set_seed(42)
 
@@ -17,7 +17,6 @@ model, preprocess = clip.load('ViT-B/32', device)
 
 
 def cifar100():
-
     # Download the dataset
     cifar100 = CIFAR100(root=os.path.expanduser("~/data/vision_datasets/"), download=True, train=False)
 
@@ -44,7 +43,6 @@ def cifar100():
 
 
 def imagenet():
-    
     def zeroshot_classifier(classnames, templates):
         with torch.no_grad():
             zeroshot_weights = []
@@ -63,23 +61,23 @@ def imagenet():
         pred = output.topk(max(topk), 1, True, True)[1].t()  # [max(k), batchsize]
         correct = pred.eq(target.view(1, -1).expand_as(pred))
         return [float(correct[:k].reshape(-1).float().sum(0, keepdim=True).cpu().numpy()) for k in topk]
-    
+
     dataset_name = 'imagenet1k'
     split = 'val'
     dataset = DATASET[dataset_name](split, preprocess)
     loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
     zeroshot_weights = zeroshot_classifier(imagenet_classes, imagenet_templates)
-    
+
     with torch.no_grad():
-        top1, top5, n = 0., 0., 0.
+        top1, top5, n = 0.0, 0.0, 0.0
         for i, (images, target, path) in enumerate(tqdm(loader)):
             images = images.cuda()
             target = target.cuda()
-            
+
             # predict
             image_features = model.encode_image(images)
             image_features /= image_features.norm(dim=-1, keepdim=True)
-            logits = 100. * image_features @ zeroshot_weights
+            logits = 100.0 * image_features @ zeroshot_weights
 
             # measure accuracy
             acc1, acc5 = accuracy(logits, target, topk=(1, 5))

@@ -1,4 +1,10 @@
 [tool.black]
 line-length = 128
-ignore = F401, E402, F403, W503, W504, W293
+include = '\.pyi?$'
+skip-string-normalization = true
 target-version = ['py311']
+
+
+[tool.isort]
+profile = "black"
+line_length = 128

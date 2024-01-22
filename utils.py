@@ -67,9 +67,7 @@ class SmoothedValue:
         return self.deque[-1]
 
     def __str__(self):
-        return self.fmt.format(
-            median=self.median, avg=self.avg, global_avg=self.global_avg, max=self.max, value=self.value
-        )
+        return self.fmt.format(median=self.median, avg=self.avg, global_avg=self.global_avg, max=self.max, value=self.value)
 
 
 class MetricLogger:
@@ -269,8 +267,11 @@ def init_distributed_mode(args):
     args.dist_backend = "nccl"
     print(f"| distributed init (rank {args.rank}): {args.dist_url}", flush=True)
     torch.distributed.init_process_group(
-        backend=args.dist_backend, init_method=args.dist_url, world_size=args.world_size,
-        rank=args.rank, timeout=datetime.timedelta(minutes=120)
+        backend=args.dist_backend,
+        init_method=args.dist_url,
+        world_size=args.world_size,
+        rank=args.rank,
+        timeout=datetime.timedelta(minutes=120),
     )
     torch.distributed.barrier()
     setup_for_distributed(args.rank == 0)
@@ -304,9 +305,7 @@ def average_checkpoints(inputs):
         if params_keys is None:
             params_keys = model_params_keys
         elif params_keys != model_params_keys:
-            raise KeyError(
-                f"For checkpoint {f}, expected list of params: {params_keys}, but found: {model_params_keys}"
-            )
+            raise KeyError(f"For checkpoint {f}, expected list of params: {params_keys}, but found: {model_params_keys}")
         for k in params_keys:
             p = model_params[k]
             if isinstance(p, torch.HalfTensor):
@@ -529,12 +528,9 @@ def gather_dict(input_dict, concat=True):
     return gathered_dict
 
 
-from contextlib import contextmanager
-
 @contextmanager
 def main_process_first():
-    """Decorator to make all processes in distributed training wait for each local_master to do something.
-    """
+    """Decorator to make all processes in distributed training wait for each local_master to do something."""
     if is_dist_avail_and_initialized() and not is_main_process():
         torch.distributed.barrier()
     yield
@@ -548,9 +544,9 @@ class ParseKwargs(argparse.Action):
         setattr(namespace, self.dest, dict())
         for value in values:
             key, value_str = value.split('=')
-            if value_str.replace('-','').isnumeric():
+            if value_str.replace('-', '').isnumeric():
                 processed_val = int(value_str)
-            elif value_str.replace('-','').replace('.','').isnumeric():
+            elif value_str.replace('-', '').replace('.', '').isnumeric():
                 processed_val = float(value_str)
             elif value_str in ['True', 'true']:
                 processed_val = True
@@ -563,7 +559,7 @@ class ParseKwargs(argparse.Action):
 
 def str2bool(v):
     """
-    Converts string to bool type; enables command line 
+    Converts string to bool type; enables command line
     arguments in the format of '--arg1 true --arg2 false'
     """
     if isinstance(v, bool):
@@ -574,33 +570,34 @@ def str2bool(v):
         return False
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
-    
+
 
 def set_seed(seed, cuda_deterministic=True):
     random.seed(seed)
-    os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
+    torch.manual_seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
     if cuda_deterministic:  # slower, more reproducible
-        torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
+        torch.backends.cudnn.deterministic = True
     else:  # faster, less reproducible
-        torch.backends.cudnn.deterministic = False
         torch.backends.cudnn.benchmark = True
+        torch.backends.cudnn.deterministic = False
     if torch.cuda.is_available():  # GPU operation have separate seed
         torch.cuda.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)
 
 
 class GaussianBlur(object):
-            def __init__(self, p):
-                self.p = p
+    def __init__(self, p):
+        self.p = p
 
-            def __call__(self, img):
-                if random.random() < self.p:
-                    sigma = random.random() * 1.9 + 0.1
-                    return img.filter(ImageFilter.GaussianBlur(sigma))
-                else:
-                    return img
+    def __call__(self, img):
+        if random.random() < self.p:
+            sigma = random.random() * 1.9 + 0.1
+            return img.filter(ImageFilter.GaussianBlur(sigma))
+        else:
+            return img
 
 
 class Solarization(object):

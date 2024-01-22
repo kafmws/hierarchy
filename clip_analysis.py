@@ -1,44 +1,46 @@
-from ctypes import pointer
-from itertools import accumulate
-import sys
-sys.path.extend(['/root/projects/readings/CLIP', '/root/projects/readings'])
-
 import os
+import sys
+
+# for PYTHONPATH
+sys.path.extend(['/root/projects/readings', '/root/projects/readings/work'])
+
+# for reproducibility
+from utils import set_seed
+
+seed = 42
+set_seed(seed)
+
 import torch
 import pickle
 from tqdm import tqdm
 from CLIP.clip import clip
+from itertools import accumulate
 from torch.utils.data import DataLoader
 from typing import List, Tuple, Any, Iterable
 
-from utils import set_seed
 from hierarchical.hierarchy import get_hierarchy
 from dataset import get_dataset, get_feature_dataset
-from prompts import clsname2prompt, hierarchical_prompt
+from prompts import clsname2prompt, hierarchical_prompt, iwildcam36_prompts
 
 # config
-seed = 42
 model_name = 'clip'
 arch = 'ViT-L/14@336px'
 # datasets = {'imagenet1k': ['val']}
-datasets = {'iwildcam36': ['train']}
+# datasets = {'iwildcam36': ['train']}
+datasets = {'animal90': ['test']}
 output_dir = '/root/projects/readings/work/feature_dataset'
 
-set_seed(42)
-
 # Load the model
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
 model, preprocess = clip.load(arch, device)
 
 
 def collect_image_features():
-    
     for dataset_name, splits in datasets.items():
         for split in splits:
-            
             feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
             os.makedirs(feat_output_dir, exist_ok=True)
-            
+
             print(f'preparing {dataset_name} {split} features...')
             dataset = get_dataset(dataset_name=dataset_name, split=split, transform=preprocess)
             loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
@@ -51,9 +53,13 @@ def collect_image_features():
                 for images, targets, paths in tqdm(loader, ncols=60, dynamic_ncols=True):
                     images = images.to(device)
                     image_features = model.encode_image(images)
-                    for path, target, feature, in zip(paths, targets, image_features):
+                    for (
+                        path,
+                        target,
+                        feature,
+                    ) in zip(paths, targets, image_features):
                         sample_features.append((path[path_prefix_len:], target.item(), feature.cpu().numpy()))
-            
+
             data = {
                 'fname': f'{dataset_name}_{split}_features.pkl',
                 'model': f'{model_name}:{arch}',
@@ -70,7 +76,7 @@ def encode_text_batch(texts: List[str], n_classes, text_fusion, device):
     multiple = len(texts) / n_classes
     assert multiple == int(multiple)
     multiple = int(multiple)
-    
+
     text_features = []
     # calculate text features
     with torch.no_grad():
@@ -79,7 +85,7 @@ def encode_text_batch(texts: List[str], n_classes, text_fusion, device):
         if _batch[-1] < len(tokens):
             _batch.append(len(tokens))
         for endi in range(1, len(_batch)):
-            batch_text_features = model.encode_text(tokens[_batch[endi - 1]:_batch[endi]])
+            batch_text_features = model.encode_text(tokens[_batch[endi - 1] : _batch[endi]])
             batch_text_features /= batch_text_features.norm(dim=-1, keepdim=True)
             if text_fusion:
                 batch_text_features = batch_text_features.mean(dim=0)
@@ -87,7 +93,9 @@ def encode_text_batch(texts: List[str], n_classes, text_fusion, device):
                 batch_text_features = [batch_text_features]
             text_features.extend(batch_text_features)
     text_features = torch.stack(text_features, dim=0)
-    assert text_features.shape[0] == n_classes if text_fusion else len(tokens), f'{text_features.shape[0]} != {n_classes if text_fusion else len(tokens)}'
+    assert (
+        text_features.shape[0] == n_classes if text_fusion else len(tokens)
+    ), f'{text_features.shape[0]} != {n_classes if text_fusion else len(tokens)}'
     return text_features
 
 
@@ -103,10 +111,10 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
     dataset = get_feature_dataset(dataset_name='imagenet1k', split='val', model=model_name, arch=arch)
     loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
     print(f'preparing {dataset.dataset_name} {dataset.split} logits...')
-    
+
     feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
-    
+
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
@@ -114,13 +122,12 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
     n_classes = len(dataset.classes)
     text_inputs = clsname2prompt(dataset.dataset_name, dataset.classes)
     if only:
-        text_inputs = text_inputs[only:only + 1]
+        text_inputs = text_inputs[only : only + 1]
 
     for i, texts in enumerate(text_inputs):
-        
         text_features = encode_text_batch(texts=texts, n_classes=n_classes, text_fusion=text_fusion, device=device)
         # if not len(texts) > n_classes and not text_fusion:  # multiple == 1 also performs norm
-            # text_features /= text_features.norm(dim=-1, keepdim=True)
+        #     text_features /= text_features.norm(dim=-1, keepdim=True)
 
         correct = 0
         with torch.no_grad():
@@ -130,22 +137,28 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
                 image_features /= image_features.norm(dim=-1, keepdim=True)
                 logits = image_features @ text_features.T
                 similarity = (100.0 * logits).softmax(dim=-1)
-                for path, target, _logits, in zip(paths, targets, logits):
+                for (
+                    path,
+                    target,
+                    _logits,
+                ) in zip(paths, targets, logits):
                     sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
                 predicts = similarity.topk(1, dim=1).indices.squeeze(dim=1)
-                if not text_fusion and len(texts) > n_classes:  # multiple template for each class and not fuse the text embedding
-                    predicts = (predicts / (len(texts) / n_classes))
-                
+                if (
+                    not text_fusion and len(texts) > n_classes
+                ):  # multiple template for each class and not fuse the text embedding
+                    predicts = predicts / (len(texts) / n_classes)
+
                 """ correct two `sunglasses` classes, which trivially contributes to 0.06% accuracy"""
                 # predicts = torch.where(predicts == 836, 1000, predicts)
                 # predicts = torch.where(predicts == 837, 1000, predicts)
                 # targets = torch.where(targets == 836, 1000, targets)
                 # targets = torch.where(targets == 837, 1000, targets)
-                
+
                 correct += sum(torch.eq(targets, predicts)).item()
-        
+
         print(f'accuracy of prompt #{i}: {correct / len(dataset) * 100: .2f}')
-        
+
         if dump:
             data = {
                 'fname': f'{dataset.dataset_name}_{dataset.split}_logits.pkl',
@@ -155,16 +168,15 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
                 'texts': texts,
                 'seed': seed,
             }
-            
+
             with open(os.path.join(feat_output_dir, data['fname']), 'wb') as file:
                 pickle.dump(obj=data, file=file)
 
 
 def hierarchical_inference(dataset, selected_layers=None):
-    
     feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
-    
+
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
@@ -185,7 +197,7 @@ def hierarchical_inference(dataset, selected_layers=None):
                 mask = torch.zeros(1, hierarchy_size)
                 mask[0][pointers[node][layer]] = 1
                 pointers[node][layer] = mask.to(device)
-    
+
     leaves = h.get_leaves()
     leaves.sort(key=lambda node: node.idx)
     # print([leaf.inlayer_idx for leaf in leaves])  # check node order
@@ -198,22 +210,19 @@ def hierarchical_inference(dataset, selected_layers=None):
         hierarchical_targets.append(layer_targets)
 
     for i, texts in enumerate(text_inputs):
-        
         print(f'for prompts {i}#')
-        
+
         text_features = encode_text_batch(texts=texts, n_classes=hierarchy_size, text_fusion=False, device=device)
-        
+
         preds, labels = [], []
-        hi_correct = [0] * len(layer_cnt)
-        zs_correct = [0] * len(layer_cnt)
+        correct = [0] * len(layer_cnt) if not selected_layers else [[0] * len(layer_cnt) for _ in range(len(selected_layers))]
         with torch.no_grad():
             # for images, targets, paths in tqdm(dataset, ncols=60, dynamic_ncols=True):
             for images, targets, paths in dataset:
-                
-                # layerify target                
+                # layerify target
                 layer_targets = hierarchical_targets[targets[0]]
                 targets = torch.LongTensor(layer_targets)
-                
+
                 targets: torch.Tensor = targets.to(device)
                 image_features: torch.Tensor = images.to(device)
                 image_features /= image_features.norm(dim=-1, keepdim=True)
@@ -221,30 +230,23 @@ def hierarchical_inference(dataset, selected_layers=None):
                 similarity = (100.0 * logits).softmax(dim=-1)
                 # for path, target, _logits, in zip(paths, targets, logits):
                 #     sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
-                
+
                 # layer-by-layer matching
                 if selected_layers:
-                    for selected_layer in selected_layers:
+                    for i, selected_layer in enumerate(selected_layers):
                         for layer in selected_layer:
                             if layer == selected_layer[0]:
                                 mask = layer_mask[layer]
                             else:
                                 mask = pointers[predicts.item()][layer]
                             predicts = (similarity * mask).topk(1, dim=-1).indices
-                            hi_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
-                        row = arch[:-2] + ' HI     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
-                        res = ['{:.2f}'.format(hi_correct[idx] * 100 / len(dataset)) if idx in selected_layers else '-' for idx in range(len(layer_cnt))]
-                        print(row.format(*res))
+                            correct[i][layer] += sum(torch.eq(targets[layer], predicts)).item()
                 else:
                     for layer in range(0, h.n_layer):
                         masked_similarity = similarity * layer_mask[layer]
                         predicts = masked_similarity.topk(1, dim=-1).indices
-                        zs_correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
-                        
-                    row = arch[:-2] + ' ZS     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
-                    res = ['{:.2f}'.format(zs_correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
-                    print(row.format(*res))
-        
+                        correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+
         # if selected_layers:
         #     print('hierarchical inference:')
         #     for layer in selected_layers:
@@ -253,38 +255,50 @@ def hierarchical_inference(dataset, selected_layers=None):
         #     print('zeroshot:')
         #     for layer in range(0, h.n_layer):
         #         print(f'accuracy@{h.layermap[layer + 1]:12s}: {zs_correct[layer] / len(dataset) * 100:.2f}%')
-        
+
         # latex output
-        
+        if selected_layers:
+            row = arch[:-2] + ' HI     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
+            for i, selected_layer in enumerate(selected_layers):
+                res = [
+                    '{:.2f}'.format(correct[i][idx] * 100 / len(dataset)) if idx in selected_layer else '-'
+                    for idx in range(len(layer_cnt))
+                ]
+                print(row.format(*res))
+        else:
+            row = arch[:-2] + ' ZS     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
+            res = ['{:.2f}'.format(correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
+            print(row.format(*res))
 
 
 if __name__ == '__main__':
     # collect_image_features()
     # collect_clip_logits(text_fusion=True, dump=False)
     # collect_clip_logits(text_fusion=True, only=3, dump=False)
-    
+
     iwildcam36test = get_feature_dataset(dataset_name='iwildcam36', split='test', model=model_name, arch=arch)
     print(f'loading {iwildcam36test.dataset_name} {iwildcam36test.split} feature...')
-    
-    hierarchical_inference(iwildcam36test)
-    hierarchical_inference(dataset=iwildcam36test,
-                           selected_layers=[
-                               [0, 1, 2, 3, 4],
-                               [1, 2, 3, 4],
-                               [0, 2, 3, 4],
-                               [0, 1, 3, 4],
-                               [0, 1, 2, 4],
-                               [0, 1, 4],
-                               [0, 2, 4],
-                               [0, 3, 4],
-                               [2, 3, 4],
-                               [0, 4],
-                               [1, 4],
-                               [2, 4],
-                               [3, 4],
-                               [4],
-    ])
 
+    a = hierarchical_inference(iwildcam36test)
+    b = hierarchical_inference(
+        dataset=iwildcam36test,
+        selected_layers=[
+            [0, 1, 2, 3, 4],
+            [1, 2, 3, 4],
+            [0, 2, 3, 4],
+            [0, 1, 3, 4],
+            [0, 1, 2, 4],
+            [0, 1, 4],
+            [0, 2, 4],
+            [0, 3, 4],
+            [2, 3, 4],
+            [0, 4],
+            [1, 4],
+            [2, 4],
+            [3, 4],
+            [4],
+        ],
+    )
 
 
 def benchmark_torchsave_pickledump():
@@ -292,6 +306,7 @@ def benchmark_torchsave_pickledump():
     # torch loading time:  16.87s
     # pickle loading time:  3.20s
     import timeit
+
     start_time = timeit.default_timer()
     data = torch.load('work/feature_dataset/clip/ViT-B-32_pre/imagenet1k_val_features.pth')
     data = torch.load('work/feature_dataset/clip/ViT-B-32_pre/imagenet1k_train_features.pth')

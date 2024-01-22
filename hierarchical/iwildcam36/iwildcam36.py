@@ -2,6 +2,7 @@ import os
 import sys
 import json
 
+curdir = os.path.abspath(os.curdir)
 os.chdir(os.path.dirname(__file__))
 sys.path.append(os.path.dirname(os.path.abspath(os.curdir)))
 
@@ -23,7 +24,6 @@ layermap.update({id: name for name, id in layermap.items()})
 
 
 class IWildCamNode(Node):
-    
     def __init__(self, id: str, name: str, inlayer_idx: int, layer: int, layername: str):
         """class definition in hierarchy.
 
@@ -47,7 +47,7 @@ class IWildCamNode(Node):
         self.english_name = None
         self.inlayer_idx = inlayer_idx
         self.layername = layername
-    
+
     # def prompt(self, template: str = None) -> str:
     #     """return prompt for this node"""
     #     prompt = template.format(self.name) if template is not None else self.name
@@ -61,11 +61,9 @@ for parent in tree.keys():
     p_glabal_idx = tree[parent]['global_idx']
     p_inlayer_idx = tree[parent]['inlayer_idx']
     p_layername = tree[parent]['layer']
-    p_node: IWildCamNode = h.getNode(id=p_glabal_idx,
-                                     name=parent,
-                                     inlayer_idx=p_inlayer_idx,
-                                     layer=layermap[p_layername],
-                                     layername=p_layername)
+    p_node: IWildCamNode = h.get_node(
+        id=p_glabal_idx, name=parent, inlayer_idx=p_inlayer_idx, layer=layermap[p_layername], layername=p_layername
+    )
     if p_layername == 'species':
         p_node.english_name = tree[parent]['sub_node'][1].lower()
         p_node.description = tree[parent]['sub_node'][2]
@@ -74,13 +72,13 @@ for parent in tree.keys():
         c_glabal_idx = tree[child]['global_idx']
         c_inlayer_idx = tree[child]['inlayer_idx']
         c_layername = tree[child]['layer']
-        c_node = h.getNode(id=c_glabal_idx,
-                           name=child,
-                           inlayer_idx=c_inlayer_idx,
-                           layer=layermap[c_layername],
-                           layername=c_layername)
+        c_node = h.get_node(
+            id=c_glabal_idx, name=child, inlayer_idx=c_inlayer_idx, layer=layermap[c_layername], layername=c_layername
+        )
         h.add_edge(p_node, c_node)
 
 if __name__ == '__main__':
-    # h.export_graphviz_layerh(dotfile='iwildcam74.dot', ranksep=1)
-    h.export_graphviz(dotfile='iwildcam36.dot', scale=0.8)
+    # h.export_graphviz_layerh(dotfile='./iwildcam74.dot', ranksep=1)
+    h.export_graphviz(dotfile='./iwildcam36.dot', scale=0.8)
+
+os.chdir(curdir)

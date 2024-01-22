@@ -1,13 +1,12 @@
 import os
 import sys
 from graphviz import Digraph
-from typing import Callable, Dict, Generic, Set, List, Tuple, Type, TypeVar, cast
+from typing import Callable, Dict, Generic, Set, List, Tuple, Type, TypeVar
 
 sys.path.append(os.path.dirname(__file__))
 
 
 class Node:
-    
     def __init__(self, id: str | int, name: str, idx: int = None, layer: int = None):
         """class definition in hierarchy.
 
@@ -19,45 +18,53 @@ class Node:
         """
         self.id = id
         self.name = name
-        self.parents: Set[Node] = set()
-        self.children: Set[Node] = set()
+        self._parents: Set[Node] = set()
+        self._children: Set[Node] = set()
         self.idx = idx
         self.layer = layer
-        
+
         self.layer_path: List[List[Node]] = None
-        
+
     def addParent(self, p):
         assert isinstance(p, Node)
-        self.parents.add(p)
-        
+        self._parents.add(p)
+
     def addChild(self, c):
         assert isinstance(c, Node)
-        self.children.add(c)
-    
+        self._children.add(c)
+
     def __str__(self):
         return self.id + ' ' + self.name
-    
+
     @property
     def dotid(self):
         return str(self)
-    
+
     @property
     def dotlabel(self):
         return self.name
-    
+
+    @property
+    def parents(self) -> List:
+        return sorted(self._parents, key=lambda node: node.id)
+
+    @property
+    def children(self) -> List:
+        return sorted(self._children, key=lambda node: node.id)
+
     def to_json(self) -> Dict[str, Dict] | None:
         children = {child.name: child.to_json() for child in self.children}
         if len(children) == 0:
             return None
         return children
-    
+
     def get_path(self) -> List[List['Node']]:
         if self.layer_path is not None:
             return self.layer_path
         if self.is_root():
             self.layer_path = [[self]]
             return self.layer_path
-        
+
         self.layer_path = []
         for p in self.parents:
             paths = p.get_path()
@@ -66,18 +73,18 @@ class Node:
                 path.append(self)
                 self.layer_path.append(path)
         return self.layer_path
-    
+
     def is_root(self) -> bool:
-        return len(self.parents) == 0
-    
+        return len(self._parents) == 0
+
     def is_leaf(self) -> bool:
-        return len(self.children) == 0
-    
+        return len(self._children) == 0
+
     def get_root(self):
         if not self.is_root():
-            return list(self.parents)[0].get_root()
+            return self.parents[0].get_root()
         return self
-    
+
     def hierarchical_descendants(self) -> List[List['Node']]:
         """return all descendant nodes at lyaer `layer`.
         Return:
@@ -85,7 +92,7 @@ class Node:
         """
         assert self.layer, f'node {str(self)}.layer is None!'
         descendants = [[]] * self.layer
-        
+
         cur = self.children
         while len(cur) != 0:
             nextlayer = set()
@@ -99,44 +106,67 @@ class Node:
 NodeClass = TypeVar('NodeClass', bound=Node)
 
 
+class Attributes(Generic[NodeClass]):
+    """A group of atrributes of a kind of complete partition of deepest layer classes"""
+
+    def __init__(self, name):
+        self.name = name
+        self.attrs: List[NodeClass] = []
+
+    def add_attribute(self, node: NodeClass):
+        self.attrs.append(node)
+
+
 class Hierarchy(Generic[NodeClass]):
-    
     def __init__(self, node_class: Type[NodeClass], dataset: str = None, htype='tree'):
+        """the representation of the hierachical labels.
+
+        Args:
+            node_class (Type[NodeClass]): the class represents classes of the hierarchy.
+            dataset (str, optional): dataset name of the hierarchical labels. Defaults to None.
+            htype (str, optional): defined in `['tree', 'attr', 'hybird']`. Defaults to 'tree'.
+        """
         self.type = htype
         self.n_layer = None
         self.dataset = dataset
         self.node_class = node_class
+
         self.nodes: Dict[str, NodeClass] = {}  # nodes['id'] = node: Node
-    
+        self.attributes: List[Attributes] = []
+
     def __contains__(self, id) -> bool:
         return id in self.nodes
-    
+
     def __len__(self) -> int:
         return len(self.nodes)
 
-    def getNode(self, id: str, **kwargs) -> NodeClass:
+    def get_node(self, id: str, **kwargs) -> NodeClass:
         if id not in self.nodes:
             assert 'name' in kwargs, 'name should not be None when add new node'
             self.nodes[id] = self.node_class(id, **kwargs)
         node = self.nodes[id]
         return node
-    
+
     def add_edge(self, p: str | NodeClass, c: str | NodeClass):
         if isinstance(p, str):
             assert p in self
-            p = self.getNode(p)
+            p = self.get_node(p)
         if isinstance(c, str):
             assert c in self
-            c = self.getNode(c)
+            c = self.get_node(c)
         p.addChild(c)
         c.addParent(p)
-    
+
+    def add_attributes(self, attr_group: Attributes):
+        assert self.type in ['attr', 'hybird'], f'defined hierarchy type {self.type} not support attributes.'
+        self.attributes.append(attr_group)
+
     def get_roots(self) -> List[NodeClass]:
         return [node for node in self.nodes.values() if node.is_root()]
-    
+
     def get_leaves(self) -> List[NodeClass]:
         return [node for node in self.nodes.values() if node.is_leaf()]
-    
+
     def get_nodes_edges(self, root: NodeClass) -> Tuple[List[NodeClass], List[Tuple[NodeClass, NodeClass]]]:
         """return nodes and edges of subtree of Node `root`, compatible with graph.
         Args:
@@ -146,7 +176,7 @@ class Hierarchy(Generic[NodeClass]):
         """
         nodes, edges = self.get_layer_nodes_edges(root)
         return [node for ls in nodes for node in ls], [edge for ls in edges for edge in ls]
-    
+
     def get_layer_nodes_edges(self, root: NodeClass) -> Tuple[List[List[NodeClass]], List[List[Tuple[NodeClass, NodeClass]]]]:
         """return nodes and edges of subtree of Node `root` by layer, compatible with graph.
         Args:
@@ -156,7 +186,7 @@ class Hierarchy(Generic[NodeClass]):
         """
         nodes: List[Set[NodeClass]] = list()
         edges: List[Set[Tuple(NodeClass, NodeClass)]] = list()
-        
+
         cur = set([root])
         while len(cur):
             todo: Set[NodeClass] = set()
@@ -169,92 +199,83 @@ class Hierarchy(Generic[NodeClass]):
             cur = todo
             edges.append(curedges)
         return [list(s) for s in nodes], [list(s) for s in edges]
-    
+
     def _export_graphviz(self, roots: NodeClass | List[NodeClass] = None, dotfile='tree.dot', dotname: Callable = None):
         if roots is None:
             roots = self.get_roots()
         if isinstance(roots, self.node_class):
             roots = [roots]
-        
+
         # output dot file
         with open(dotfile, 'w') as file:
-            file.write(f'strict digraph "{dotfile.split(".dot")[0]}"'' {\n')
-            
+            file.write(f'strict digraph "{dotfile.split(".dot")[0]}"' ' {\n')
+
             # foreach root
             for root in roots:
-                
                 file.write(f'\t//root {root.dotid} begins\n')
-                file.write(f'\tsubgraph "{root.dotid}"'' {\n')
-                
+                file.write(f'\tsubgraph "{root.dotid}"' ' {\n')
+
                 nodes, edges = self.get_nodes_edges(root)
-                
+
                 # generate each node, from up to down, layer-by-layer
                 file.write('\t\t//node\n')
                 for node in nodes:
                     file.write(f'\t\t"{node.dotid}" [label="{node.dotlabel}"]\n')
-                
+
                 # record each edge, from up to down, layer-by-layer
                 file.write('\t\t//edge\n')
                 for pnode, cnode in edges:
                     file.write(f'\t\t"{pnode.dotid}" -> "{cnode.dotid}"\n')
 
                 file.write('\t}\n\t//root {root.dotid} ends\n')
-                
+
             # style settings
             file.write('\t//style settings\n')
             file.write('\trankdir = TB;\n')
             file.write('}\n')
-        
+
         os.system(f'dot {dotfile} -T svg -O')
 
-    def export_graphviz_layerh(self,
-                               dotfile='tree.dot',
-                               roots: Node | List[Node] = None,
-                               ranksep: float = 1):
+    def export_graphviz_layerh(self, dotfile='tree.dot', roots: Node | List[Node] = None, ranksep: float = 1):
         if roots is None:
             roots = self.get_roots()
         if isinstance(roots, Node):
             roots = [roots]
-        
+
         # output dot file
         with open(dotfile, 'w') as file:
-            file.write(f'strict digraph "{dotfile.split(".dot")[0]}"'' {\n')
-            
+            file.write(f'strict digraph "{dotfile.split(".dot")[0]}"' ' {\n')
+
             file.write(f'\n\tranksep={ranksep}\n')
-            
+
             # foreach root
             for root in roots:
-                
                 file.write(f'\t//root {root.dotid} begins\n')
-                file.write(f'\tsubgraph "{root.dotid}"'' {\n')
-                
+                file.write(f'\tsubgraph "{root.dotid}"' ' {\n')
+
                 nodes, edges = self.get_nodes_edges(root)
-                
+
                 # generate each node, from up to down, layer-by-layer
                 file.write('\t\t//node\n')
                 for node in nodes:
                     # file.write(f'\t\t"{node.dotid}" [label="{node.dotlabel}", scale="{pow(scale, node.layer)}"]\n')
                     file.write(f'\t\t"{node.dotid}" [label="{node.dotlabel}", width="{pow(ranksep, node.layer)}"]\n')
-                
+
                 # record each edge, from up to down, layer-by-layer
                 file.write('\t\t//edge\n')
                 for pnode, cnode in edges:
                     file.write(f'\t\t"{pnode.dotid}" -> "{cnode.dotid}"\n')
 
-                file.write('\t}'f'\n\t//root {root.dotid} ends\n')
-                
+                file.write('\t}' f'\n\t//root {root.dotid} ends\n')
+
             # style settings
             file.write('\t//style settings\n')
             file.write('\trankdir = TB;\n')
             file.write('}\n')
-        
+
         os.system(f'dot {dotfile} -T svg -O')
 
-    def export_graphviz(self,
-                        dotfile='tree.dot',
-                        roots: Node | List[Node] = None,
-                        ranksep: float = 1,
-                        scale: float = 0.95):
+    def export_graphviz(self, dotfile='./tree.dot', roots: Node | List[Node] = None, ranksep: float = 1, scale: float = 0.95):
         """_summary_
 
         Args:
@@ -263,67 +284,63 @@ class Hierarchy(Generic[NodeClass]):
             dotname (Callable, optional): _description_. Defaults to None.
             scale (float, optional): factory to control node size in each layer, `width=scale**layer`. Defaults to 1.
         """
-        
+
         if roots is None:
             roots = self.get_roots()
         if isinstance(roots, Node):
             roots = [roots]
-        
+
         # output dot file
         with open(dotfile, 'w') as file:
-            file.write(f'strict digraph "{dotfile.split(".dot")[0]}"'' {\n')
-            
+            file.write(f'strict digraph "{dotfile.split(".dot")[0]}"' ' {\n')
+
             file.write(f'\n\tranksep = {ranksep}\n')
-            
+
             # foreach root
             for root in roots:
-                
                 file.write(f'\t//root {root.dotid} begins\n')
-                file.write(f'\tsubgraph "{root.dotid}"'' {\n')
-                
+                file.write(f'\tsubgraph "{root.dotid}"' ' {\n')
+
                 nodes, edges = self.get_layer_nodes_edges(root)
-                
-                assert len(nodes) == len(edges), f'len(nodes)({len(nodes)}) != len(edges){len(edges)}, note that last edge list is always empty.'
+
+                assert len(nodes) == len(
+                    edges
+                ), f'len(nodes)({len(nodes)}) != len(edges){len(edges)}, note that last edge list is always empty.'
                 for layer, (layernodes, layeredges) in enumerate(zip(nodes, edges)):
-                    
-                    file.write(f'\t\t//subgraph "layer {layer}"''{\n')
+                    file.write(f'\t\t//subgraph "layer {layer}"' '{\n')
                     file.write(f'\t\t\tnode [width="{int(pow(scale, layer))}", fontsize={int(14 * pow(scale, layer))}]\n')
                     # file.write(f'\t\t\tnode [fontsize={14 * pow(scale, layer)}' + (', shape="none"'if layer == 4 else '') + ']\n')
-                    
+
                     # generate each node, from up to down, layer-by-layer
                     file.write('\t\t\t//node\n')
                     for node in layernodes:
                         file.write(f'\t\t\t"{node.dotid}" [label="{node.dotlabel}"]\n')
-                
+
                     # record each edge, from up to down, layer-by-layer
                     file.write('\t\t\t//edge\n')
                     for pnode, cnode in layeredges:
                         file.write(f'\t\t\t"{pnode.dotid}" -> "{cnode.dotid}"\n')
-                    
+
                     file.write('\t\t//}\n')
 
-                file.write('\t}'f'\n\t//root {root.dotid} ends\n')
-                
+                file.write('\t}' f'\n\t//root {root.dotid} ends\n')
+
             # style settings
             file.write('\t//style settings\n')
             file.write('\trankdir = TB;\n')
             file.write('}\n')
-        
+
         os.system(f'dot {dotfile} -T svg -O')
 
 
 def get_hierarchy(dataset: str) -> Hierarchy:
-    
     from iwildcam36.iwildcam36 import h as iwildcam
-    
-    h = {
-        'iwildcam36': iwildcam
-    }[dataset]
+
+    h = {'iwildcam36': iwildcam}[dataset]
     h.dataset = dataset
     return h
 
 
 if __name__ == '__main__':
-    
     hierarchy = get_hierarchy('iwildcam36')
     print(hierarchy)
