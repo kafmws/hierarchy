@@ -12,13 +12,12 @@ from hierarchy import Hierarchy, Node
 with open('tree_desc.json', 'r') as file:
     tree = json.load(file)
 
-# TODO: start from 0
 layermap = {
-    'class': 1,
-    'order': 2,
-    'family': 3,
-    'genus': 4,
-    'species': 5,
+    'class': 0,
+    'order': 1,
+    'family': 2,
+    'genus': 3,
+    'species': 4,
 }
 
 layermap.update({id: name for name, id in layermap.items()})
