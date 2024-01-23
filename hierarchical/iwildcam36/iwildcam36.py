@@ -12,6 +12,7 @@ from hierarchy import Hierarchy, Node
 with open('tree_desc.json', 'r') as file:
     tree = json.load(file)
 
+# TODO: start from 0
 layermap = {
     'class': 1,
     'order': 2,
@@ -33,8 +34,8 @@ class IWildCamNode(Node):
             inlayer_idx (int): index of current layer of the hierarchy.
             layer (int): layer index, for `layer=4` (species), node owns
                 additional english name and description.
-            layer (str): layer name, refer```
-                    layer = {
+            layername (str): layer name, refer```
+                    layermap = {
                         'class': 1,
                         'order': 2,
                         'family': 3,
@@ -43,7 +44,7 @@ class IWildCamNode(Node):
                     }
                 ```.
         """
-        super().__init__(id, name.lower(), id, layer)
+        super().__init__(id, name.lower(), layer)
         self.english_name = None
         self.inlayer_idx = inlayer_idx
         self.layername = layername

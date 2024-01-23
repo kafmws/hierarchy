@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(__file__))
 
 
 class Node:
-    def __init__(self, id: str | int, name: str, idx: int = None, layer: int = None):
+    def __init__(self, id: str | int, name: str, layer: int = None):
         """class definition in hierarchy.
 
         Args:
@@ -18,10 +18,9 @@ class Node:
         """
         self.id = id
         self.name = name
+        self.layer = layer
         self._parents: Set[Node] = set()
         self._children: Set[Node] = set()
-        self.idx = idx
-        self.layer = layer
 
         self.layer_path: List[List[Node]] = None
 
@@ -34,7 +33,7 @@ class Node:
         self._children.add(c)
 
     def __str__(self):
-        return self.id + ' ' + self.name
+        return str(self.id) + ' ' + self.name
 
     @property
     def dotid(self):
@@ -90,8 +89,8 @@ class Node:
         Return:
             descendants (List[List[Node]]): descendants[layer] = descendants_at_layer.
         """
-        assert self.layer, f'node {str(self)}.layer is None!'
-        descendants = [[]] * self.layer
+        assert self.layer is not None, f'node `{str(self)}.layer` is None!'
+        descendants = [[]] * (self.layer + 1)
 
         cur = self.children
         while len(cur) != 0:
@@ -116,6 +115,15 @@ class Attributes(Generic[NodeClass]):
     def add_attribute(self, node: NodeClass):
         self.attrs.append(node)
 
+    def __len__(self):
+        return len(self.attrs)
+
+    def __contains__(self, node: NodeClass | str) -> bool:
+        for attr in self.attrs:
+            if node == attr or node == attr.name:
+                return True
+        return False
+
 
 class Hierarchy(Generic[NodeClass]):
     def __init__(self, node_class: Type[NodeClass], dataset: str = None, htype='tree'):
@@ -134,8 +142,11 @@ class Hierarchy(Generic[NodeClass]):
         self.nodes: Dict[str, NodeClass] = {}  # nodes['id'] = node: Node
         self.attributes: List[Attributes] = []
 
-    def __contains__(self, id) -> bool:
-        return id in self.nodes
+    def __contains__(self, node: NodeClass | str) -> bool:
+        for id, node in self.nodes.items():
+            if node == id or node == node:
+                return True
+        return False
 
     def __len__(self) -> int:
         return len(self.nodes)
@@ -199,6 +210,11 @@ class Hierarchy(Generic[NodeClass]):
             cur = todo
             edges.append(curedges)
         return [list(s) for s in nodes], [list(s) for s in edges]
+
+    def get_layer_nodes(self, layer: int) -> List[NodeClass]:
+        assert layer >= 0 and layer < self.n_layer, f'`layer` {layer} must in [0, {h.n_layer}) of the hierarchy.'
+        layernodes = [node for id, node in self.nodes.items() if node.layer == layer]
+        return sorted(layernodes, key=lambda node: node.inlayer_idx)
 
     def _export_graphviz(self, roots: NodeClass | List[NodeClass] = None, dotfile='tree.dot', dotname: Callable = None):
         if roots is None:
@@ -334,9 +350,10 @@ class Hierarchy(Generic[NodeClass]):
 
 
 def get_hierarchy(dataset: str) -> Hierarchy:
-    from iwildcam36.iwildcam36 import h as iwildcam
+    from iwildcam36.iwildcam36 import h as h_iwildcam
+    from animal90.animal90 import h as h_animal
 
-    h = {'iwildcam36': iwildcam}[dataset]
+    h = {'iwildcam36': h_iwildcam, 'animal90': h_animal}[dataset]
     h.dataset = dataset
     return h
 

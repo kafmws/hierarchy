@@ -20,6 +20,7 @@ class Animal(ImageFolder):
     ):
         super().__init__(os.path.join(root, split), transform, target_transform)
         self.split = split
+        self.n_classes = len(self.classes)
 
     def __getitem__(self, index) -> Tuple[Any, Any, Any]:
         sample, target = super().__getitem__(index=index)
@@ -56,6 +57,6 @@ class AnimalFeatureDataset(Animal):
         if self.transform is not None:
             feature = self.transform(feature)
         if self.target_transform is not None:
-            target = self.target_transform(target)
+            target = self.target_transform([target])
 
         return feature, target, imgpath

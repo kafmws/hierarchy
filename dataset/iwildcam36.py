@@ -18,6 +18,7 @@ class IWildCam(ImageFolder):
     ):
         super().__init__(os.path.join(root, split), transform, target_transform)
         self.split = split
+        self.n_classes = len(self.classes)
 
     def __getitem__(self, index) -> Tuple[Any, Any, Any]:
         sample, target = super().__getitem__(index=index)

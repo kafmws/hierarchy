@@ -43,14 +43,14 @@ def get_dataset(dataset_name, split, transform, root=None):
     return dataset
 
 
-def get_feature_dataset(dataset_name, split, model, arch, root=None):
+def get_feature_dataset(dataset_name, split, model, arch, root=None, **kwargs):
     if root is None:
         root = DATA_DIR[f'{dataset_name}feature']
     if not isinstance(split, str) and isinstance(split, Iterable):
-        datasets = [get_feature_dataset(dataset_name, s, model, arch, root) for s in split]
+        datasets = [get_feature_dataset(dataset_name, s, model, arch, root, **kwargs) for s in split]
         dataset = ConcatDataset(datasets=datasets)
     else:
-        dataset = FEAT_DATASET[dataset_name](root=root, split=split, model=model, arch=arch)
+        dataset = FEAT_DATASET[dataset_name](root=root, split=split, model=model, arch=arch, **kwargs)
     dataset.split = split
     dataset.dataset_name = dataset_name
     dataset.featurizer = f'{model}:{arch}'

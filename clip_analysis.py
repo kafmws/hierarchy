@@ -12,10 +12,12 @@ set_seed(seed)
 
 import torch
 import pickle
+import numpy as np
 from tqdm import tqdm
 from CLIP.clip import clip
 from itertools import accumulate
 from torch.utils.data import DataLoader
+from torchvision.transforms import Compose
 from typing import List, Tuple, Any, Iterable
 
 from hierarchical.hierarchy import get_hierarchy
@@ -180,42 +182,27 @@ def hierarchical_inference(dataset, selected_layers=None):
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
-    h = get_hierarchy(dataset.dataset_name)
-    hierarchy_size = len(h)
-    n_classes = len(dataset.classes)
-    text_inputs, pointers, layer_cnt = hierarchical_prompt(h)
-    layer_mask, _idx = [], list(range(hierarchy_size))
-    idx_offset = list(accumulate(layer_cnt))
-    for cnt in layer_cnt:
-        mask = torch.zeros(1, hierarchy_size)
-        mask[0][_idx[:cnt]] = 1
-        layer_mask.append(mask.to(device))
-        _idx = _idx[cnt:]
-    for node in range(hierarchy_size):
-        for layer in range(len(pointers[node])):
-            if len(pointers[node][layer]):
-                mask = torch.zeros(1, hierarchy_size)
-                mask[0][pointers[node][layer]] = 1
-                pointers[node][layer] = mask.to(device)
+    n_classes = dataset.n_classes
+    text_inputs, pointers, layer_mask, hierarchical_targets, layer_cnt = hierarchical_prompt(dataset.dataset_name)
+    for i in range(len(pointers)):
+        for j in range(len(pointers[i])):
+            pointers[i][j] = pointers[i][j].to(device)
+    layer_mask = torch.from_numpy(layer_mask).to(device)
+    layer_offset = list(accumulate(layer_cnt))
 
-    leaves = h.get_leaves()
-    leaves.sort(key=lambda node: node.idx)
-    # print([leaf.inlayer_idx for leaf in leaves])  # check node order
-    hierarchical_targets = []
-    for leaf in leaves:
-        layer_targets = [[] for _ in range(h.n_layer)]
-        for node_path in leaf.get_path():
-            for layer, node in enumerate(node_path):
-                layer_targets[layer].append(node.idx)  # global_idx
-        hierarchical_targets.append(layer_targets)
-
+    row = arch[:-2] + (' HI' if selected_layers else ' ZS') + \
+                        '     &' + '&'.join(['{:^9}'] * len(layer_cnt)) + '\\\\'
+    
     for i, texts in enumerate(text_inputs):
         print(f'for prompts {i}#')
 
-        text_features = encode_text_batch(texts=texts, n_classes=hierarchy_size, text_fusion=False, device=device)
+        text_features = encode_text_batch(texts=texts, n_classes=layer_offset[-1], text_fusion=False, device=device)
 
         preds, labels = [], []
-        correct = [0] * len(layer_cnt) if not selected_layers else [[0] * len(layer_cnt) for _ in range(len(selected_layers))]
+        if not selected_layers:
+            correct = [0] * len(layer_cnt)
+        else:
+            correct = [[0] * len(layer_cnt) for _ in range(len(selected_layers))]
         with torch.no_grad():
             # for images, targets, paths in tqdm(dataset, ncols=60, dynamic_ncols=True):
             for images, targets, paths in dataset:
@@ -242,23 +229,13 @@ def hierarchical_inference(dataset, selected_layers=None):
                             predicts = (similarity * mask).topk(1, dim=-1).indices
                             correct[i][layer] += sum(torch.eq(targets[layer], predicts)).item()
                 else:
-                    for layer in range(0, h.n_layer):
+                    for layer in range(0, len(layer_cnt)):
                         masked_similarity = similarity * layer_mask[layer]
                         predicts = masked_similarity.topk(1, dim=-1).indices
                         correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
 
-        # if selected_layers:
-        #     print('hierarchical inference:')
-        #     for layer in selected_layers:
-        #         print(f'accuracy@{h.layermap[layer + 1]:12s}: {hi_correct[layer] / len(dataset) * 100:.2f}%')
-        # else:
-        #     print('zeroshot:')
-        #     for layer in range(0, h.n_layer):
-        #         print(f'accuracy@{h.layermap[layer + 1]:12s}: {zs_correct[layer] / len(dataset) * 100:.2f}%')
-
         # latex output
         if selected_layers:
-            row = arch[:-2] + ' HI     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
             for i, selected_layer in enumerate(selected_layers):
                 res = [
                     '{:.2f}'.format(correct[i][idx] * 100 / len(dataset)) if idx in selected_layer else '-'
@@ -266,7 +243,6 @@ def hierarchical_inference(dataset, selected_layers=None):
                 ]
                 print(row.format(*res))
         else:
-            row = arch[:-2] + ' ZS     &{:^9}&{:^9}&{:^9}&{:^9}&{:^9}\\\\'
             res = ['{:.2f}'.format(correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
             print(row.format(*res))
 
@@ -276,29 +252,48 @@ if __name__ == '__main__':
     # collect_clip_logits(text_fusion=True, dump=False)
     # collect_clip_logits(text_fusion=True, only=3, dump=False)
 
-    iwildcam36test = get_feature_dataset(dataset_name='iwildcam36', split='test', model=model_name, arch=arch)
-    print(f'loading {iwildcam36test.dataset_name} {iwildcam36test.split} feature...')
+    clip_transform = Compose([torch.HalfTensor])
+    clip_target_transform = Compose([torch.LongTensor])
 
-    a = hierarchical_inference(iwildcam36test)
-    b = hierarchical_inference(
-        dataset=iwildcam36test,
-        selected_layers=[
-            [0, 1, 2, 3, 4],
-            [1, 2, 3, 4],
-            [0, 2, 3, 4],
-            [0, 1, 3, 4],
-            [0, 1, 2, 4],
-            [0, 1, 4],
-            [0, 2, 4],
-            [0, 3, 4],
-            [2, 3, 4],
-            [0, 4],
-            [1, 4],
-            [2, 4],
-            [3, 4],
-            [4],
-        ],
-    )
+    def test_iwildcam():
+        dataset = get_feature_dataset(dataset_name='iwildcam36', split='test', model=model_name, arch=arch)
+        print(f'loading {dataset.dataset_name} {dataset.split} feature...')
+
+        hierarchical_inference(dataset)
+        hierarchical_inference(
+            dataset=dataset,
+            selected_layers=[
+                [0, 1, 2, 3, 4],
+                [1, 2, 3, 4],
+                [0, 2, 3, 4],
+                [0, 1, 3, 4],
+                [0, 1, 2, 4],
+                [0, 1, 4],
+                [0, 2, 4],
+                [0, 3, 4],
+                [2, 3, 4],
+                [0, 4],
+                [1, 4],
+                [2, 4],
+                [3, 4],
+                [4],
+            ],
+        )
+
+    def test_animal():
+        dataset = get_feature_dataset(
+            dataset_name='animal90',
+            split='test',
+            model=model_name,
+            arch=arch,
+            transform=clip_transform,
+            target_transform=clip_target_transform,
+        )
+        print(f'loading {dataset.dataset_name} {dataset.split} feature...')
+
+        hierarchical_inference(dataset)
+
+    test_animal()
 
 
 def benchmark_torchsave_pickledump():

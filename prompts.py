@@ -1,6 +1,7 @@
 import os
+import torch
+import numpy as np
 import pandas as pd
-from torch import layer_norm
 from hierarchical.hierarchy import Hierarchy, get_hierarchy
 
 from dataset.imagenet1k import imagenet_classes, imagenet_templates, imagenet_templates_subset
@@ -61,20 +62,23 @@ def imagenet_prompts(classnames):
 
 
 def iwildcam36_prompts(h: Hierarchy):
-    """return prompt for each class in the hierarchy.
+    """return prompt for each class in the hierarchy. iwildcam36 hierarchy is of tree structure.
 
     Args:
         h (Hierarchy): hierarchy object for the hierarchical label set.
 
     Returns:
-        [prompts], pointers, layer_cnt (Tuple[List[List[str]], List[List[Int]], List[Int]]):
-            group of prompts, pointers[idx][layer] = descendants, cnts of each layer.
+        prompts (List[List[str]):  group of prompts.
+        pointers (List[List[torch.LongTensor]]): pointers[cls_idx][layer] = index of descendants.
+        layer_mask (np.ndarray): layer_mask[layer] = mask of specified layer for directly caculate result on the layer.
+        hierarchical_targets (List[List[Int]]): hierarchical_targets[leaves_cls_idx][layer] = targets of each layer of the leaf classes.
+        layer_cnt (List[Int]): cnts of each layer.
     """
     prompts = []
     pointers = []
     layer_cnt = []
-    roots = h.get_roots()
 
+    roots = h.get_roots()
     while len(roots) != 0:
         todo = []
         roots.sort(key=lambda node: node.inlayer_idx)
@@ -98,21 +102,102 @@ def iwildcam36_prompts(h: Hierarchy):
 
             # convert List[List[Node]] to List[List[global index]]
             descendants = root.hierarchical_descendants()
-            pointer = [[node.id for node in layer] for layer in descendants]
+            pointer = [torch.LongTensor([node.id for node in layer]) for layer in descendants]
             assert len(pointer) == len(descendants)
             pointers.append(pointer)
 
         layer_cnt.append(len(roots))
         roots = todo
 
-    return [prompts], pointers, layer_cnt
+    hierarchy_size = len(h)
+    layer_mask, _idx = [], list(range(hierarchy_size))
+    for cnt in layer_cnt:
+        mask = np.zeros((1, hierarchy_size))
+        mask[0][_idx[:cnt]] = 1
+        layer_mask.append(mask)
+        _idx = _idx[cnt:]
+    for node in range(hierarchy_size):
+        for layer in range(len(pointers[node])):
+            if len(pointers[node][layer]):
+                mask = torch.zeros(1, hierarchy_size)
+                mask[0][pointers[node][layer]] = 1
+                pointers[node][layer] = mask
+    layer_mask = np.array(layer_mask)
+
+    leaves = h.get_leaves()
+    leaves.sort(key=lambda node: node.inlayer_idx)
+    # print([leaf.inlayer_idx for leaf in leaves])  # check node order
+    hierarchical_targets = []
+    for leaf in leaves:
+        layer_targets = [[] for _ in range(h.n_layer)]
+        for node_path in leaf.get_path():
+            for layer, node in enumerate(node_path):
+                layer_targets[layer].append(node.id)  # global_idx
+        hierarchical_targets.append(layer_targets)
+
+    return [prompts], pointers, layer_mask, hierarchical_targets, layer_cnt
 
 
-def hierarchical_prompt(h: Hierarchy):
+def animal_prompts(h: Hierarchy):
+    prompts = []
+    pointers = []
+    layer_cnt = []
+
+    for layer in range(h.n_layer):
+        nodes = h.get_layer_nodes(layer)
+
+        for node in nodes:
+            # prompt
+            prompts.append(f'a photo of a {node.name}.')
+
+            # convert List[List[Node]] to List[List[global index]]
+            descendants = node.hierarchical_descendants()
+            pointer = [torch.LongTensor([node.id for node in layer]) for layer in descendants]
+            assert len(pointer) == len(descendants)
+            pointers.append(pointer)
+
+        layer_cnt.append(len(nodes))
+
+    hierarchy_size = len(h)
+    layer_mask, _idx = [], list(range(hierarchy_size))
+    for cnt in layer_cnt:
+        mask = np.zeros((1, hierarchy_size))
+        mask[0][_idx[:cnt]] = 1
+        layer_mask.append(mask)
+        _idx = _idx[cnt:]
+    for node in range(hierarchy_size):
+        for layer in range(len(pointers[node])):
+            if len(pointers[node][layer]):
+                mask = torch.zeros(1, hierarchy_size)
+                mask[0][pointers[node][layer]] = 1
+                pointers[node][layer] = mask
+    layer_mask = np.array(layer_mask)
+
+    leaves = h.get_leaves()
+    leaves.sort(key=lambda node: node.inlayer_idx)
+    # print([leaf.inlayer_idx for leaf in leaves])  # check node order
+    hierarchical_targets = []
+    for leaf in leaves:
+        layer_targets = [[] for _ in range(h.n_layer)]
+        layer_targets[-1].append(leaf.id)  # add leaf index at leaf layer
+        for node_path in leaf.get_path():
+            for layer, node in enumerate(node_path[:-1]):  # drop leaf layer for excluding repeated leaf node
+                layer_targets[node.layer].append(node.id)  # global_idx
+        hierarchical_targets.append(layer_targets)
+
+    return [prompts], pointers, layer_mask, hierarchical_targets, layer_cnt
+
+
+def hierarchical_prompt(dataset_name):
+    h: Hierarchy = get_hierarchy(dataset_name)
+
     return {
         'imagenet1k': None,
-        'iwildcam36': iwildcam36_prompts(h),
-    }[h.dataset]
+        'iwildcam36': iwildcam36_prompts,
+        'animal90': animal_prompts,
+    }[
+        dataset_name
+    ](h)
 
 
 def clsname2prompt(dataset, classnames):
@@ -124,9 +209,5 @@ def clsname2prompt(dataset, classnames):
 
 
 if __name__ == '__main__':
-    h = get_hierarchy('iwildcam36')
-    prompts, layer_cnt = iwildcam36_prompts(h)
-    prompts2, layer_cnt2 = iwildcam36_prompts(h)
-
-    print(prompts == prompts2)
-    print(layer_cnt == layer_cnt2)
+    # h = get_hierarchy('animal90')
+    prompts, pointers, layer_mask, hierarchical_targets, layer_cnt = hierarchical_prompt('animal90')
