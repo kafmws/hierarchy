@@ -130,15 +130,13 @@ class AnimalNode(Node):
 
 
 meta = pd.read_csv('taxonomy.csv')
-h = Hierarchy(node_class=AnimalNode, dataset='animal90', htype='attr')
 attr_names = ['habitat', 'class']
 class_names = ['english name']
-h.layermap = {}
+h = Hierarchy(node_class=AnimalNode, n_layer=len(attr_names) + len(class_names), dataset='animal90', htype='attr')
+h.layer_map = {}
 
 # define attributes
 name2id = {}
-h.n_layer = len(attr_names) + len(class_names)  # 3
-h.layer_cnt = []
 for layer, attr_name in enumerate(attr_names):
     attr_group = Attributes(attr_name)
     attrs = meta[attr_name].unique().tolist()
@@ -147,13 +145,12 @@ for layer, attr_name in enumerate(attr_names):
         attr_group.add_attribute(attr_node)
         name2id[attr] = len(name2id)
     h.add_attributes(attr_group)
-    h.layer_cnt.append(len(attr_group))
-    h.layermap[attr_name] = len(h.layermap)
+    h.layer_map[attr_name] = len(h.layer_map)
 
 
 # define classes and related attributes
 for keyword in class_names:
-    layer = len(h.layermap)
+    layer = len(h.layer_map)
     for i in range(len(meta)):
         speices = meta.iloc[i][keyword]
         node = h.get_node(id=len(h), name=speices, inlayer_idx=i, layer=layer, layername=keyword)
@@ -161,7 +158,8 @@ for keyword in class_names:
             attr = meta.iloc[i][attr_name]
             attr_node = h.get_node(id=name2id[attr], name=attr)
             h.add_edge(attr_node, node)
-    h.layer_cnt.append(len(attr_group))
-    h.layermap[keyword] = len(h.layermap)
+    h.layer_map[keyword] = len(h.layer_map)
+
+h.layer2name = {id: name for name, id in h.layer_map.items()}
 
 os.chdir(curdir)

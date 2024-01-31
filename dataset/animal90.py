@@ -2,8 +2,8 @@ import os
 import torch
 import pickle
 from torch.utils.data import Dataset
-from typing import Callable, Tuple, Any
 from torchvision.datasets import ImageFolder
+from typing import Callable, Tuple, Any, Optional
 
 from dataset import DATA_DIR
 
@@ -11,12 +11,14 @@ from dataset import DATA_DIR
 class Animal(ImageFolder):
     """dataset class for animal90."""
 
+    dataset_name = 'animal90'
+
     def __init__(
         self,
         root: str,
         split: str,
-        transform: Callable[..., Any] | None = None,
-        target_transform: Callable[..., Any] | None = None,
+        transform: Optional[Callable] = None,
+        target_transform: Optional[Callable] = None,
     ):
         super().__init__(os.path.join(root, split), transform, target_transform)
         self.split = split
@@ -27,17 +29,13 @@ class Animal(ImageFolder):
         path, _ = self.samples[index]
         return sample, target, path
 
-    def Animal(split, transform, root):
-        dataset = Animal(root=root, split=split, transform=transform)
-        return dataset
-
 
 class AnimalFeatureDataset(Animal):
     """Dataset of Animal90's pre-computed features."""
 
     def __init__(self, split, model, arch, root, transform=None, target_transform=None) -> Dataset:
-        super().__init__(root=DATA_DIR['animal90'], split=split)
-        self.featfile = os.path.join(root, model.lower(), arch.replace('/', '-'), f'animal90_{split}_features.pkl')
+        super().__init__(root=DATA_DIR[Animal.dataset_name], split=split)
+        self.featfile = os.path.join(root, model.lower(), arch.replace('/', '-'), f'{self.dataset_name}_{split}_features.pkl')
         assert os.path.isfile(self.featfile), f'featrue file {self.featfile} not found'
         with open(self.featfile, 'rb') as file:
             self.feature_data = pickle.load(file)
@@ -57,6 +55,6 @@ class AnimalFeatureDataset(Animal):
         if self.transform is not None:
             feature = self.transform(feature)
         if self.target_transform is not None:
-            target = self.target_transform([target])
+            target = self.target_transform(target)
 
         return feature, target, imgpath

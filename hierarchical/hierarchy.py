@@ -7,18 +7,19 @@ sys.path.append(os.path.dirname(__file__))
 
 
 class Node:
-    def __init__(self, id: str | int, name: str, layer: int = None):
+    def __init__(self, id: str | int, name: str, layer: int = None, inlayer_idx: int = None):
         """class definition in hierarchy.
 
         Args:
             id (str | int): unique in the hierarchy.
             name (str): description of the class, text label.
-            idx (str): class idx of the dataset, default is -1.
+            inlayer_idx (str): class idx of the layer of the node.
             layer (int): layer the node belongs to.
         """
         self.id = id
         self.name = name
         self.layer = layer
+        self.inlayer_idx = inlayer_idx
         self._parents: Set[Node] = set()
         self._children: Set[Node] = set()
 
@@ -126,18 +127,20 @@ class Attributes(Generic[NodeClass]):
 
 
 class Hierarchy(Generic[NodeClass]):
-    def __init__(self, node_class: Type[NodeClass], dataset: str = None, htype='tree'):
+    def __init__(self, node_class: Type[NodeClass], n_layer: int, dataset: str = None, htype='tree'):
         """the representation of the hierachical labels.
 
         Args:
             node_class (Type[NodeClass]): the class represents classes of the hierarchy.
+            n_layer (int): the total layer number of the hierarchy.
             dataset (str, optional): dataset name of the hierarchical labels. Defaults to None.
             htype (str, optional): defined in `['tree', 'attr', 'hybird']`. Defaults to 'tree'.
         """
         self.type = htype
-        self.n_layer = None
         self.dataset = dataset
+        self.n_layer = n_layer
         self.node_class = node_class
+        self.layer_cnt = [0] * n_layer  # node count of each layer
 
         self.nodes: Dict[str, NodeClass] = {}  # nodes['id'] = node: Node
         self.attributes: List[Attributes] = []
@@ -153,8 +156,9 @@ class Hierarchy(Generic[NodeClass]):
 
     def get_node(self, id: str, **kwargs) -> NodeClass:
         if id not in self.nodes:
-            assert 'name' in kwargs, 'name should not be None when add new node'
-            self.nodes[id] = self.node_class(id, **kwargs)
+            assert all(k in kwargs for k in ('name', 'layer')), '`name` and `layer` should not be None when add new node'
+            self.nodes[id] = self.node_class(id=id, **kwargs)
+            self.layer_cnt[kwargs['layer']] += 1
         node = self.nodes[id]
         return node
 
@@ -212,7 +216,7 @@ class Hierarchy(Generic[NodeClass]):
         return [list(s) for s in nodes], [list(s) for s in edges]
 
     def get_layer_nodes(self, layer: int) -> List[NodeClass]:
-        assert layer >= 0 and layer < self.n_layer, f'`layer` {layer} must in [0, {h.n_layer}) of the hierarchy.'
+        assert layer >= 0 and layer < self.n_layer, f'`layer` {layer} must in [0, {self.n_layer}) of the hierarchy.'
         layernodes = [node for id, node in self.nodes.items() if node.layer == layer]
         return sorted(layernodes, key=lambda node: node.inlayer_idx)
 
@@ -352,8 +356,9 @@ class Hierarchy(Generic[NodeClass]):
 def get_hierarchy(dataset: str) -> Hierarchy:
     from iwildcam36.iwildcam36 import h as h_iwildcam
     from animal90.animal90 import h as h_animal
+    from aircraft.aircraft import h as h_aircraft
 
-    h = {'iwildcam36': h_iwildcam, 'animal90': h_animal}[dataset]
+    h = {'iwildcam36': h_iwildcam, 'animal90': h_animal, 'aircraft': h_aircraft}[dataset]
     h.dataset = dataset
     return h
 

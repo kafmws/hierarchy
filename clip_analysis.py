@@ -16,9 +16,12 @@ import numpy as np
 from tqdm import tqdm
 from CLIP.clip import clip
 from itertools import accumulate
+from matplotlib import pyplot as plt
 from torch.utils.data import DataLoader
 from torchvision.transforms import Compose
-from typing import List, Tuple, Any, Iterable
+from typing import Counter, List, Tuple, Any, Iterable
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 from hierarchical.hierarchy import get_hierarchy
 from dataset import get_dataset, get_feature_dataset
@@ -29,8 +32,15 @@ model_name = 'clip'
 arch = 'ViT-L/14@336px'
 # datasets = {'imagenet1k': ['val']}
 # datasets = {'iwildcam36': ['train']}
-datasets = {'animal90': ['test']}
-output_dir = '/root/projects/readings/work/feature_dataset'
+# datasets = {'animal90': ['test']}
+datasets = {'aircraft': ['test']}
+output_dir = '/root/projects/readings/work'
+
+feat_output_dir = os.path.join(output_dir, 'feature_dataset', model_name, arch.replace("/", "-"))
+os.makedirs(feat_output_dir, exist_ok=True)
+
+pic_output_dir = os.path.join(output_dir, 'pic')
+os.makedirs(pic_output_dir, exist_ok=True)
 
 # Load the model
 device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
@@ -40,9 +50,6 @@ model, preprocess = clip.load(arch, device)
 def collect_image_features():
     for dataset_name, splits in datasets.items():
         for split in splits:
-            feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
-            os.makedirs(feat_output_dir, exist_ok=True)
-
             print(f'preparing {dataset_name} {split} features...')
             dataset = get_dataset(dataset_name=dataset_name, split=split, transform=preprocess)
             loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
@@ -114,9 +121,6 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
     loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
     print(f'preparing {dataset.dataset_name} {dataset.split} logits...')
 
-    feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
-    os.makedirs(feat_output_dir, exist_ok=True)
-
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
@@ -175,39 +179,43 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
                 pickle.dump(obj=data, file=file)
 
 
-def hierarchical_inference(dataset, selected_layers=None):
+def hierarchical_inference(dataset, selected_layers=None, detailed=False):
     feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
 
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
-    n_classes = dataset.n_classes
-    text_inputs, pointers, layer_mask, hierarchical_targets, layer_cnt = hierarchical_prompt(dataset.dataset_name)
+    text_inputs, pointers, layer_mask, hierarchical_targets, classnames, h = hierarchical_prompt(dataset.dataset_name)
+    layer_cnt, layer2name = h.layer_cnt, h.layer2name
     for i in range(len(pointers)):
         for j in range(len(pointers[i])):
             pointers[i][j] = pointers[i][j].to(device)
     layer_mask = torch.from_numpy(layer_mask).to(device)
-    layer_offset = list(accumulate(layer_cnt))
+    layer_offset = [0] + list(accumulate(layer_cnt))
 
-    row = arch[:-2] + (' HI' if selected_layers else ' ZS') + \
-                        '     &' + '&'.join(['{:^9}'] * len(layer_cnt)) + '\\\\'
-    
+    row = arch[:-2] + (' HI' if selected_layers else ' ZS') + '     &' + '&'.join(['{:^9}'] * len(layer_cnt)) + '\\\\'
+
     for i, texts in enumerate(text_inputs):
         print(f'for prompts {i}#')
 
         text_features = encode_text_batch(texts=texts, n_classes=layer_offset[-1], text_fusion=False, device=device)
 
-        preds, labels = [], []
+        # collect all results
         if not selected_layers:
             correct = [0] * len(layer_cnt)
+            preds = [[] for _ in range(len(layer_cnt))]
+            labels = [[] for _ in range(len(layer_cnt))]
         else:
             correct = [[0] * len(layer_cnt) for _ in range(len(selected_layers))]
+            preds = [[[] for _ in range(len(layer_cnt))] for _ in range(len(selected_layers))]
+            labels = [[[] for _ in range(len(layer_cnt))] for _ in range(len(selected_layers))]
+
         with torch.no_grad():
             # for images, targets, paths in tqdm(dataset, ncols=60, dynamic_ncols=True):
             for images, targets, paths in dataset:
                 # layerify target
-                layer_targets = hierarchical_targets[targets[0]]
+                layer_targets = hierarchical_targets[targets]
                 targets = torch.LongTensor(layer_targets)
 
                 targets: torch.Tensor = targets.to(device)
@@ -228,13 +236,19 @@ def hierarchical_inference(dataset, selected_layers=None):
                                 mask = pointers[predicts.item()][layer]
                             predicts = (similarity * mask).topk(1, dim=-1).indices
                             correct[i][layer] += sum(torch.eq(targets[layer], predicts)).item()
+
+                            preds[i][layer].append(predicts.item() - layer_offset[layer])
+                            labels[i][layer].append(targets[layer].item() - layer_offset[layer])
                 else:
                     for layer in range(0, len(layer_cnt)):
                         masked_similarity = similarity * layer_mask[layer]
                         predicts = masked_similarity.topk(1, dim=-1).indices
                         correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
 
-        # latex output
+                        preds[layer].append(predicts.item() - layer_offset[layer])
+                        labels[layer].append(targets[layer].item() - layer_offset[layer])
+
+        # latex accuracy output
         if selected_layers:
             for i, selected_layer in enumerate(selected_layers):
                 res = [
@@ -246,16 +260,39 @@ def hierarchical_inference(dataset, selected_layers=None):
             res = ['{:.2f}'.format(correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
             print(row.format(*res))
 
+        # detailed results
+        if detailed:
+            if selected_layers:
+                for i, selected_layer in enumerate(selected_layers):
+                    pass
+            else:
+                for layer in range(0, len(layer_cnt)):
+                    report = classification_report(y_true=labels[layer], y_pred=preds[layer], target_names=classnames[layer])
+                    # print(report)
+
+                    # debug
+                    diff = np.where(np.array(labels[layer]) != np.array(preds[layer]))
+                    errs = np.array(dataset.targets)[diff]
+                    errs = list(map(lambda idx: dataset.classes[idx], errs))
+                    cnt = list(Counter(errs).items())
+                    cnt.sort(key=lambda item: item[1], reverse=True)
+                    print(cnt)
+
+                    cm = confusion_matrix(y_true=labels[layer], y_pred=preds[layer], normalize='true')
+                    disp = ConfusionMatrixDisplay(cm, display_labels=classnames[layer])
+                    disp.plot(cmap='Blues', values_format='.2%', text_kw={'size': 6})
+                    figpath = os.path.join(pic_output_dir, f'{dataset.dataset_name}_{layer2name[layer]}.png')
+                    title = f'confusion matrix of {layer2name[layer]} layer'
+                    plt.title(label=title)
+                    plt.tight_layout()
+                    plt.savefig(figpath, dpi=300)
+
 
 if __name__ == '__main__':
-    # collect_image_features()
-    # collect_clip_logits(text_fusion=True, dump=False)
-    # collect_clip_logits(text_fusion=True, only=3, dump=False)
-
     clip_transform = Compose([torch.HalfTensor])
-    clip_target_transform = Compose([torch.LongTensor])
+    clip_target_transform = Compose([torch.as_tensor])
 
-    def test_iwildcam():
+    def test_iwildcam36():
         dataset = get_feature_dataset(dataset_name='iwildcam36', split='test', model=model_name, arch=arch)
         print(f'loading {dataset.dataset_name} {dataset.split} feature...')
 
@@ -280,7 +317,7 @@ if __name__ == '__main__':
             ],
         )
 
-    def test_animal():
+    def test_animal90():
         dataset = get_feature_dataset(
             dataset_name='animal90',
             split='test',
@@ -293,7 +330,36 @@ if __name__ == '__main__':
 
         hierarchical_inference(dataset)
 
-    test_animal()
+    def test_aircraft():
+        dataset = get_feature_dataset(
+            dataset_name='aircraft',
+            split='test',
+            model=model_name,
+            arch=arch,
+            transform=clip_transform,
+            target_transform=clip_target_transform,
+        )
+        print(f'loading {dataset.dataset_name} {dataset.split} feature...')
+
+        hierarchical_inference(dataset)
+        hierarchical_inference(
+            dataset=dataset,
+            selected_layers=[
+                [0, 1, 2],
+                [0, 1],
+                [0, 2],
+                [1, 2],
+                [2],
+            ],
+        )
+
+    # test_iwildcam36()
+    # test_animal90()
+    test_aircraft()
+
+    # collect_image_features()
+    # collect_clip_logits(text_fusion=True, dump=False)
+    # collect_clip_logits(text_fusion=True, only=3, dump=False)
 
 
 def benchmark_torchsave_pickledump():

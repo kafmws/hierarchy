@@ -12,15 +12,13 @@ from hierarchy import Hierarchy, Node
 with open('tree_desc.json', 'r') as file:
     tree = json.load(file)
 
-layermap = {
+layer_map = {
     'class': 0,
     'order': 1,
     'family': 2,
     'genus': 3,
     'species': 4,
 }
-
-layermap.update({id: name for name, id in layermap.items()})
 
 
 class IWildCamNode(Node):
@@ -34,12 +32,12 @@ class IWildCamNode(Node):
             layer (int): layer index, for `layer=4` (species), node owns
                 additional english name and description.
             layername (str): layer name, refer```
-                    layermap = {
-                        'class': 1,
-                        'order': 2,
-                        'family': 3,
-                        'genus': 4,
-                        'species': 5,
+                    layer_map = {
+                        'class': 0,
+                        'order': 1,
+                        'family': 2,
+                        'genus': 3,
+                        'species': 4,
                     }
                 ```.
         """
@@ -54,15 +52,15 @@ class IWildCamNode(Node):
     #     return prompt
 
 
-h: Hierarchy[IWildCamNode] = Hierarchy(IWildCamNode)
-h.layermap = layermap
-h.n_layer = len(layermap) // 2
+h: Hierarchy[IWildCamNode] = Hierarchy(node_class=IWildCamNode, n_layer=len(layer_map), dataset='iwildcam36', htype='tree')
+h.layer_map = layer_map
+h.layer2name = {id: name for name, id in layer_map.items()}
 for parent in tree.keys():
     p_glabal_idx = tree[parent]['global_idx']
     p_inlayer_idx = tree[parent]['inlayer_idx']
     p_layername = tree[parent]['layer']
     p_node: IWildCamNode = h.get_node(
-        id=p_glabal_idx, name=parent, inlayer_idx=p_inlayer_idx, layer=layermap[p_layername], layername=p_layername
+        id=p_glabal_idx, name=parent, inlayer_idx=p_inlayer_idx, layer=layer_map[p_layername], layername=p_layername
     )
     if p_layername == 'species':
         p_node.english_name = tree[parent]['sub_node'][1].lower()
@@ -73,7 +71,7 @@ for parent in tree.keys():
         c_inlayer_idx = tree[child]['inlayer_idx']
         c_layername = tree[child]['layer']
         c_node = h.get_node(
-            id=c_glabal_idx, name=child, inlayer_idx=c_inlayer_idx, layer=layermap[c_layername], layername=c_layername
+            id=c_glabal_idx, name=child, inlayer_idx=c_inlayer_idx, layer=layer_map[c_layername], layername=c_layername
         )
         h.add_edge(p_node, c_node)
 

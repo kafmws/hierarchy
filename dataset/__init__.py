@@ -3,33 +3,37 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from typing import Iterable
+from typing import Iterable, DefaultDict
 from torch.utils.data import ConcatDataset
 
-DATA_DIR = {
-    'imagenet1k': '/data/imagenet_sets/in1k/',
-    'iwildcam36': '/data/wilds_sq336_36/',
-    'animal90': '/data/kafm/vision_datasets/animal90/',
-    'imagenet1kfeature': '/root/projects/readings/work/feature_dataset',
-    'iwildcam36feature': '/root/projects/readings/work/feature_dataset',
-    'animal90feature': '/root/projects/readings/work/feature_dataset',
-    'imagenet1kfeature_benchmark': '/root/projects/readings/work/feature_dataset_benchmark',
-}
+DATA_DIR = DefaultDict(
+    lambda: '/root/projects/readings/work/feature_dataset',
+    {
+        'imagenet1k': '/data/imagenet_sets/in1k/',
+        'iwildcam36': '/data/wilds_sq336_36/',
+        'animal90': '/data/kafm/vision_datasets/animal90/',
+        'aircraft': '/data/kafm/vision_datasets/',
+        'imagenet1kfeature_benchmark': '/root/projects/readings/work/feature_dataset_benchmark',
+    },
+)
 
 from dataset.animal90 import Animal, AnimalFeatureDataset
 from dataset.iwildcam36 import IWildCam, IWildCamFeatureDataset
 from dataset.imagenet1k import _ImageNet, ImageNetFeatureDataset
+from dataset.aircraft import FGVCAircraft, FGVCAircraftFeature
 
 DATASET = {
     'imagenet1k': _ImageNet.ImageNet,
-    'iwildcam36': IWildCam.IWildCam,
-    'animal90': Animal.Animal,
+    'iwildcam36': IWildCam,
+    'animal90': Animal,
+    'aircraft': FGVCAircraft,
 }
 
 FEAT_DATASET = {
     'imagenet1k': ImageNetFeatureDataset,
     'iwildcam36': IWildCamFeatureDataset,
     'animal90': AnimalFeatureDataset,
+    'aircraft': FGVCAircraftFeature,
 }
 
 
@@ -60,6 +64,15 @@ def get_feature_dataset(dataset_name, split, model, arch, root=None, **kwargs):
 if __name__ == '__main__':
     from clip_analysis import preprocess
 
+    def test_aircraft():
+        dataset = get_dataset(dataset_name='aircraft', split='test', transform=preprocess)
+        print(dataset[0])
+        print(f'len: {len(dataset)}')
+
+        ds_feature = get_feature_dataset(dataset_name='aircraft', split='test', model='clip', arch='ViT-L/14@336px')
+        print(ds_feature[0])
+        print(f'len: {len(ds_feature)}')
+
     def test_iwildcam36():
         dataset = get_dataset(dataset_name='iwildcam36', split='test', transform=preprocess)
         print(dataset[0])
@@ -88,7 +101,8 @@ if __name__ == '__main__':
 
         print(f'wnid: {ds_feature.wnids[745], ds_feature.classes[745]}')
 
-    test_iwildcam36()
+    # test_iwildcam36()
+    test_aircraft()
     # test_feauture_dataset()
     # ds_feature = get_feature_dataset(dataset_name='iwildcam36', split='test', model='clip', arch='ViT-L/14@336px')
     # print(ds_feature[0])

@@ -72,11 +72,12 @@ def iwildcam36_prompts(h: Hierarchy):
         pointers (List[List[torch.LongTensor]]): pointers[cls_idx][layer] = index of descendants.
         layer_mask (np.ndarray): layer_mask[layer] = mask of specified layer for directly caculate result on the layer.
         hierarchical_targets (List[List[Int]]): hierarchical_targets[leaves_cls_idx][layer] = targets of each layer of the leaf classes.
-        layer_cnt (List[Int]): cnts of each layer.
+        classnames (List[List[str]]): classnames of each layer.
+        h (Hierarchy): label hierarchy of the dataset.
     """
     prompts = []
     pointers = []
-    layer_cnt = []
+    layer_cnt = h.layer_cnt
 
     roots = h.get_roots()
     while len(roots) != 0:
@@ -105,16 +106,17 @@ def iwildcam36_prompts(h: Hierarchy):
             pointer = [torch.LongTensor([node.id for node in layer]) for layer in descendants]
             assert len(pointer) == len(descendants)
             pointers.append(pointer)
-
-        layer_cnt.append(len(roots))
         roots = todo
 
+    layer_mask = []
+    classnames = []
     hierarchy_size = len(h)
-    layer_mask, _idx = [], list(range(hierarchy_size))
+    _idx = list(range(hierarchy_size))
     for cnt in layer_cnt:
         mask = np.zeros((1, hierarchy_size))
         mask[0][_idx[:cnt]] = 1
         layer_mask.append(mask)
+        classnames.append([h.get_node(id=idx).name for idx in _idx[:cnt]])
         _idx = _idx[cnt:]
     for node in range(hierarchy_size):
         for layer in range(len(pointers[node])):
@@ -135,20 +137,52 @@ def iwildcam36_prompts(h: Hierarchy):
                 layer_targets[layer].append(node.id)  # global_idx
         hierarchical_targets.append(layer_targets)
 
-    return [prompts], pointers, layer_mask, hierarchical_targets, layer_cnt
+    return [prompts], pointers, layer_mask, hierarchical_targets, classnames, h
 
 
 def animal_prompts(h: Hierarchy):
+    """return prompt for each class in the hierarchy. hierarchy of animal90 is of attribute structure.
+    Note that the options in layer 2 are determined by the combination of attribute layer 0 and 1.
+
+    Args:
+        h (Hierarchy): hierarchy object for the hierarchical label set.
+
+    Returns:
+        prompts (List[List[str]):  group of prompts.
+        pointers (List[List[torch.LongTensor]]): pointers[cls_idx][layer] = index of descendants.
+        layer_mask (np.ndarray): layer_mask[layer] = mask of specified layer for directly caculate result on the layer.
+        hierarchical_targets (List[List[Int]]): hierarchical_targets[leaves_cls_idx][layer] = targets of each layer of the leaf classes.
+        classnames (List[List[str]]): classnames of each layer.
+        h (Hierarchy): label hierarchy of the dataset.
+    """
     prompts = []
     pointers = []
-    layer_cnt = []
+    layer_cnt = h.layer_cnt
 
     for layer in range(h.n_layer):
         nodes = h.get_layer_nodes(layer)
 
         for node in nodes:
-            # prompt
-            prompts.append(f'a photo of a {node.name}.')
+            # ViT-L/14@336 ZS     &  81.63  &  86.91  &  97.91  \\
+            # if layer == 0 and node.name[0] in ['a', 'e', 'i', 'o', 'u']:
+            #     prompts.append(f'a photo of an {node.name}.')
+            # else:
+            #     prompts.append(f'a photo of a {node.name}.')
+
+            # ViT-L/14@336 ZS     &  85.22  &  88.39  &  97.91  \\
+            if layer == 0:
+                if node.name[0] in ['a', 'e', 'i', 'o', 'u']:
+                    prompts.append(f'a photo of an {node.name} animal.')
+                else:
+                    prompts.append(f'a photo of a {node.name} animal.')
+            else:
+                if node.name[0] in ['a', 'e', 'i', 'o', 'u']:
+                    prompts.append(f'a photo of an {node.name}.')
+                else:
+                    prompts.append(f'a photo of a {node.name}.')
+
+            # ViT-L/14@336 ZS     &  83.00  &  86.91  &  97.91  \\
+            # prompts.append(f'a photo of a {node.name}.')
 
             # convert List[List[Node]] to List[List[global index]]
             descendants = node.hierarchical_descendants()
@@ -156,14 +190,15 @@ def animal_prompts(h: Hierarchy):
             assert len(pointer) == len(descendants)
             pointers.append(pointer)
 
-        layer_cnt.append(len(nodes))
-
+    layer_mask = []
+    classnames = []
     hierarchy_size = len(h)
-    layer_mask, _idx = [], list(range(hierarchy_size))
+    _idx = list(range(hierarchy_size))
     for cnt in layer_cnt:
         mask = np.zeros((1, hierarchy_size))
         mask[0][_idx[:cnt]] = 1
         layer_mask.append(mask)
+        classnames.append([h.get_node(id=idx).name for idx in _idx[:cnt]])
         _idx = _idx[cnt:]
     for node in range(hierarchy_size):
         for layer in range(len(pointers[node])):
@@ -185,7 +220,98 @@ def animal_prompts(h: Hierarchy):
                 layer_targets[node.layer].append(node.id)  # global_idx
         hierarchical_targets.append(layer_targets)
 
-    return [prompts], pointers, layer_mask, hierarchical_targets, layer_cnt
+    return [prompts], pointers, layer_mask, hierarchical_targets, classnames, h
+
+
+def aircraft_prompts(h: Hierarchy):
+    """return prompt for each class in the hierarchy. fgvc_aircraft hierarchy is of tree structure.
+
+    Args:
+        h (Hierarchy): hierarchy object for the hierarchical label set.
+
+    Returns:
+        prompts (List[List[str]):  group of prompts.
+        pointers (List[List[torch.LongTensor]]): pointers[cls_idx][layer] = index of descendants.
+        layer_mask (np.ndarray): layer_mask[layer] = mask of specified layer for directly caculate result on the layer.
+        hierarchical_targets (List[List[Int]]): hierarchical_targets[leaves_cls_idx][layer] = targets of each layer of the leaf classes.
+        classnames (List[List[str]]): classnames of each layer.
+        h (Hierarchy): label hierarchy of the dataset.
+    """
+    prompts = []
+    pointers = []
+    layer_cnt = h.layer_cnt
+
+    roots = h.get_roots()
+    while len(roots) != 0:
+        todo = []
+        roots.sort(key=lambda node: node.inlayer_idx)
+        for root in roots:
+            todo.extend(root.children)
+            # if root.is_leaf():
+            #     prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name} , in the wild.')
+            # elif root.is_root():
+            #     # prompts.append(f'a photo of a {root.name}.')
+
+            #     # describe next layer.
+            #     # desp = ', or '.join(c.name for c in root.children)
+            #     desp = ', '.join(c.name for c in root.children)
+            #     prompts.append(f'a photo of a {root.name} such as {desp}.')
+            # else:
+            #     # describe next layer.
+            #     desp = ', '.join(c.name for c in root.children)
+            #     # describe prev layer.
+            #     parent = root.parents[0]
+            #     prompts.append(f'a photo of a {root.name}, a kind of {parent.name}, such as {desp}.')
+
+            # prompt 2
+            # if root.name[0].lower() in ['a', 'e', 'i', 'o', 'u']:
+            #     prompts.append(f'a photo of an {root.name} aircraft.')
+            # else:
+            #     prompts.append(f'a photo of a {root.name} aircraft.')
+
+            # prompt 3
+            # prompts.append(f'a photo of a {root.name}, a type of aircraft.')
+
+            # prompt 4
+            prompts.append(f'a photo of a {root.name}, a type of airplane.')
+
+            # convert List[List[Node]] to List[List[global index]]
+            descendants = root.hierarchical_descendants()
+            pointer = [torch.LongTensor([node.id for node in layer]) for layer in descendants]
+            assert len(pointer) == len(descendants)
+            pointers.append(pointer)
+        roots = todo
+
+    layer_mask = []
+    classnames = []
+    hierarchy_size = len(h)
+    _idx = list(range(hierarchy_size))
+    for cnt in layer_cnt:
+        mask = np.zeros((1, hierarchy_size))
+        mask[0][_idx[:cnt]] = 1
+        layer_mask.append(mask)
+        classnames.append([h.get_node(id=idx).name for idx in _idx[:cnt]])
+        _idx = _idx[cnt:]
+    for node in range(hierarchy_size):
+        for layer in range(len(pointers[node])):
+            if len(pointers[node][layer]):
+                mask = torch.zeros(1, hierarchy_size)
+                mask[0][pointers[node][layer]] = 1
+                pointers[node][layer] = mask
+    layer_mask = np.array(layer_mask)
+
+    leaves = h.get_leaves()
+    leaves.sort(key=lambda node: node.inlayer_idx)
+    # print([leaf.inlayer_idx for leaf in leaves])  # check node order
+    hierarchical_targets = []
+    for leaf in leaves:
+        layer_targets = [[] for _ in range(h.n_layer)]
+        for node_path in leaf.get_path():
+            for layer, node in enumerate(node_path):
+                layer_targets[layer].append(node.id)  # global_idx
+        hierarchical_targets.append(layer_targets)
+
+    return [prompts], pointers, layer_mask, hierarchical_targets, classnames, h
 
 
 def hierarchical_prompt(dataset_name):
@@ -195,6 +321,7 @@ def hierarchical_prompt(dataset_name):
         'imagenet1k': None,
         'iwildcam36': iwildcam36_prompts,
         'animal90': animal_prompts,
+        'aircraft': aircraft_prompts,
     }[
         dataset_name
     ](h)
@@ -210,4 +337,4 @@ def clsname2prompt(dataset, classnames):
 
 if __name__ == '__main__':
     # h = get_hierarchy('animal90')
-    prompts, pointers, layer_mask, hierarchical_targets, layer_cnt = hierarchical_prompt('animal90')
+    prompts, pointers, layer_mask, hierarchical_targets, classnames, h = hierarchical_prompt('animal90')
