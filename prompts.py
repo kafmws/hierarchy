@@ -85,8 +85,14 @@ def iwildcam36_prompts(h: Hierarchy):
         roots.sort(key=lambda node: node.inlayer_idx)
         for root in roots:
             todo.extend(root.children)
+            
+            # # # vanilla zeroshot
+            # prompts.append(f'a photo of a {root.english_name}.')
+            # # prompt engineering
+            # prompts.append(f'a photo of a {root.english_name} in the wild.')
+            
             if root.is_leaf():
-                prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name} , in the wild.')
+                prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name}, in the wild.')
             elif root.is_root():
                 # prompts.append(f'a photo of a {root.name}.')
 
@@ -108,23 +114,31 @@ def iwildcam36_prompts(h: Hierarchy):
             pointers.append(pointer)
         roots = todo
 
+    isa_mask = []
     layer_mask = []
     classnames = []
+    layer_isa_mask = []
     hierarchy_size = len(h)
     _idx = list(range(hierarchy_size))
     for cnt in layer_cnt:
-        mask = np.zeros((1, hierarchy_size))
-        mask[0][_idx[:cnt]] = 1
-        layer_mask.append(mask)
+        mask = np.zeros(hierarchy_size)
+        mask[_idx[:cnt]] = 1
+        layer_mask.append(mask.flatten())
         classnames.append([h.get_node(id=idx).name for idx in _idx[:cnt]])
         _idx = _idx[cnt:]
     for node in range(hierarchy_size):
+        layer_isa_mask.append([])
+        global_mask = np.zeros(hierarchy_size)
         for layer in range(len(pointers[node])):
+            mask = np.zeros(hierarchy_size)
             if len(pointers[node][layer]):
-                mask = torch.zeros(1, hierarchy_size)
-                mask[0][pointers[node][layer]] = 1
-                pointers[node][layer] = mask
+                mask[pointers[node][layer]] = 1
+            layer_isa_mask[node].append(mask)
+            global_mask += mask
+        isa_mask.append(global_mask)
+    isa_mask = np.array(isa_mask)
     layer_mask = np.array(layer_mask)
+    layer_isa_mask = np.array(layer_isa_mask)
 
     leaves = h.get_leaves()
     leaves.sort(key=lambda node: node.inlayer_idx)
@@ -137,7 +151,8 @@ def iwildcam36_prompts(h: Hierarchy):
                 layer_targets[layer].append(node.id)  # global_idx
         hierarchical_targets.append(layer_targets)
 
-    return [prompts], pointers, layer_mask, hierarchical_targets, classnames, h
+    masks = (isa_mask, layer_isa_mask, layer_mask,)
+    return [prompts], masks, hierarchical_targets, classnames, h
 
 
 def animal_prompts(h: Hierarchy):
@@ -282,23 +297,31 @@ def aircraft_prompts(h: Hierarchy):
             pointers.append(pointer)
         roots = todo
 
+    isa_mask = []
     layer_mask = []
     classnames = []
+    layer_isa_mask = []
     hierarchy_size = len(h)
     _idx = list(range(hierarchy_size))
     for cnt in layer_cnt:
-        mask = np.zeros((1, hierarchy_size))
-        mask[0][_idx[:cnt]] = 1
+        mask = np.zeros(hierarchy_size)
+        mask[_idx[:cnt]] = 1
         layer_mask.append(mask)
         classnames.append([h.get_node(id=idx).name for idx in _idx[:cnt]])
         _idx = _idx[cnt:]
     for node in range(hierarchy_size):
+        layer_isa_mask.append([])
+        global_mask = np.zeros(hierarchy_size)
         for layer in range(len(pointers[node])):
+            mask = np.zeros(hierarchy_size)
             if len(pointers[node][layer]):
-                mask = torch.zeros(1, hierarchy_size)
-                mask[0][pointers[node][layer]] = 1
-                pointers[node][layer] = mask
+                mask[pointers[node][layer]] = 1
+            layer_isa_mask[node].append(mask)
+            global_mask += mask
+        isa_mask.append(global_mask)
+    isa_mask = np.array(isa_mask)
     layer_mask = np.array(layer_mask)
+    layer_isa_mask = np.array(layer_isa_mask)
 
     leaves = h.get_leaves()
     leaves.sort(key=lambda node: node.inlayer_idx)
@@ -311,7 +334,8 @@ def aircraft_prompts(h: Hierarchy):
                 layer_targets[layer].append(node.id)  # global_idx
         hierarchical_targets.append(layer_targets)
 
-    return [prompts], pointers, layer_mask, hierarchical_targets, classnames, h
+    masks = (isa_mask, layer_isa_mask, layer_mask,)
+    return [prompts], masks, hierarchical_targets, classnames, h
 
 
 def hierarchical_prompt(dataset_name):
