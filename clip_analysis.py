@@ -3,7 +3,9 @@ import sys
 import timeit
 
 # for PYTHONPATH
-sys.path.extend(['/root/projects/readings', '/root/projects/readings/work'])
+project_root = os.path.abspath(os.path.dirname(__file__))
+sys.path.extend([project_root])
+assert '/root/projects/readings/work' == project_root
 
 # for reproducibility
 from utils import set_seed
@@ -15,7 +17,6 @@ import torch
 import pickle
 import numpy as np
 from tqdm import tqdm
-from CLIP.clip import clip
 from itertools import accumulate
 from matplotlib import pyplot as plt
 from torch.utils.data import DataLoader
@@ -24,18 +25,19 @@ from typing import Counter, List, Tuple, Any, Iterable
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
+from models import get_model
 from hierarchical.hierarchy import get_hierarchy
 from dataset import get_dataset, get_feature_dataset
 from prompts import clsname2prompt, hierarchical_prompt, iwildcam36_prompts
 
 # config
-model_name = 'clip'
-arch = 'ViT-L/14@336px'
+# model_name, arch = 'openai_clip', 'ViT-L/14@336px'
+model_name, arch = 'eva_clip', 'EVA02-CLIP-L-14-336'
 # datasets = {'imagenet1k': ['val']}
-# datasets = {'iwildcam36': ['train']}
+datasets = {'iwildcam36': ['test'], 'aircraft': ['test']}
 # datasets = {'animal90': ['test']}
-datasets = {'aircraft': ['test']}
-output_dir = '/root/projects/readings/work'
+# datasets = {'aircraft': ['test']}
+output_dir = project_root
 
 feat_output_dir = os.path.join(output_dir, 'feature_dataset', model_name, arch.replace("/", "-"))
 os.makedirs(feat_output_dir, exist_ok=True)
@@ -44,8 +46,9 @@ pic_output_dir = os.path.join(output_dir, 'pic')
 os.makedirs(pic_output_dir, exist_ok=True)
 
 # Load the model
-device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
-model, preprocess = clip.load(arch, device)  # TODO: add model
+device = 'cuda:3' if torch.cuda.is_available() else 'cpu'
+model, tokenizer, preprocess = get_model(model_name, arch)
+model = model.to(device)
 
 
 def collect_image_features():
@@ -53,7 +56,7 @@ def collect_image_features():
         for split in splits:
             print(f'preparing {dataset_name} {split} features...')
             dataset = get_dataset(dataset_name=dataset_name, split=split, transform=preprocess)
-            loader = DataLoader(dataset, batch_size=256, shuffle=False, drop_last=False, num_workers=2)
+            loader = DataLoader(dataset, batch_size=64, shuffle=False, drop_last=False, num_workers=2)
 
             sample_features = []  # [path, target, feature]
             path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
@@ -90,12 +93,12 @@ def encode_text_batch(texts: List[str], n_classes, text_fusion, device):
     text_features = []
     # calculate text features
     with torch.no_grad():
-        tokens = clip.tokenize(texts).to(device)  # tokenize
+        tokens = tokenizer(texts).to(device)  # tokenize
         _batch = list(range(0, len(tokens), multiple))
         if _batch[-1] < len(tokens):
             _batch.append(len(tokens))
         for endi in range(1, len(_batch)):
-            batch_text_features = model.encode_text(tokens[_batch[endi - 1] : _batch[endi]])
+            batch_text_features = model.encode_text(tokens[_batch[endi - 1]: _batch[endi]])
             batch_text_features /= batch_text_features.norm(dim=-1, keepdim=True)
             if text_fusion:
                 batch_text_features = batch_text_features.mean(dim=0)
@@ -228,6 +231,7 @@ def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, deta
                 targets: torch.Tensor = targets.to(device)
                 image_features: torch.Tensor = images.to(device)
                 image_features /= image_features.norm(dim=-1, keepdim=True)
+                print(image_features.data)
                 logits = image_features @ text_features.T
                 similarity = (100.0 * logits).softmax(dim=-1)
                 similarity += 1e-6  # for logic consistency, considered all zero logits
@@ -240,6 +244,9 @@ def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, deta
                         consistent = True  # for soft decision only
                         topk, predicts, last_pred = None, None, None  # satisfies the code analyzer
                         for layer in selected_layer:
+                            
+                            if i == 13:
+                                print('debug')
                             
                             if layer == selected_layer[0]:  # the first thinking at 1st layer
                                 mask = layer_mask[layer]
@@ -390,7 +397,7 @@ if __name__ == '__main__':
 
     test_iwildcam36()
     # test_animal90()
-    # test_aircraft()
+    test_aircraft()
 
     # collect_image_features()
     # collect_clip_logits(text_fusion=True, dump=False)
