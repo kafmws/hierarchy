@@ -41,7 +41,8 @@ class IWildCamNode(Node):
                     }
                 ```.
         """
-        super().__init__(id, name.lower(), layer)
+        # super().__init__(id, name.lower(), layer)
+        super().__init__(id, name, layer)
         self.english_name = None
         self.inlayer_idx = inlayer_idx
         self.layername = layername

@@ -13,28 +13,32 @@ from eva_clip import create_model_and_transforms, get_tokenizer
 from clip import clip
 
 
-def openai_clip(arch: str):
-    model, preprocess = clip.load(arch, 'cpu')
+def openai_clip(arch: str, device):
+    model, preprocess = clip.load(arch, device)
     tokenizer = clip.tokenize
     return model, tokenizer, preprocess
 
 
-def eva_clip(arch: str):
+def eva_clip(arch: str, device):
     """EVA-CLIP"""
     # arch = "EVA02-CLIP-B-16"  # in eva_clip.pretrained._PRETRAINED
     pretrained = "eva_clip"  # or "/path/to/EVA02_CLIP_B_psz16_s8B.pt"  source of weights
-    
+
     tokenizer = get_tokenizer(arch)  # auto truncate
-    model, _, preprocess = create_model_and_transforms(arch, pretrained, force_custom_clip=True)
-    
+    model, _, preprocess = create_model_and_transforms(
+        arch, pretrained, force_custom_clip=True, precision='fp16', device=device
+    )
+
     # image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
     # text = tokenizer(["a diagram", "a dog", "a cat"]).to(device)
-    
+    def ToHalf(x: torch.Tensor):
+        return x.half()
+
+    preprocess.transforms.append(ToHalf)
     return model, tokenizer, preprocess
 
 
-def hf_clips(arch_or_path: str):
-
+def hf_clips(arch_or_path: str, device):
     # arch_or_path = "BAAI/EVA-CLIP-8B"  # or /path/to/local/EVA-CLIP-8B
 
     # you can also directly use the image processor by torchvision
@@ -58,40 +62,41 @@ def hf_clips(arch_or_path: str):
     #     ]
     # )
 
-    model = AutoModel.from_pretrained(
-        arch_or_path,
-        torch_dtype=torch.float16,
-        trust_remote_code=True).eval()
+    model = AutoModel.from_pretrained(arch_or_path, torch_dtype=torch.float16, trust_remote_code=True).to(device).eval()
     image_size = model.config.vision_config.image_size
     print(f'input image size for {arch_or_path}: {image_size}')
-    
+
     _tokenizer = CLIPTokenizer.from_pretrained(arch_or_path)
     _preprocess = CLIPImageProcessor(size={"shortest_edge": image_size}, do_center_crop=True, crop_size=image_size)
-    
+
     # input_ids = _tokenizer(["a diagram", "a dog", "a cat"], return_tensors="pt", padding=True).input_ids.to('cuda')
     # input_pixels = _preprocess(images=Image.open(image_path), return_tensors="pt", padding=True).pixel_values.to('cuda')
-    
+
     def tokenizer(texts: List[str], context_length: int = 77):
         return _tokenizer(texts, return_tensors="pt", padding=True, context_length=context_length).input_ids
-    
+
     def preprocess(images):
         return _preprocess(images=images, return_tensors="pt", padding=True).pixel_values
-    
+
     return model, tokenizer, preprocess
 
 
 class ConvNet(torch.nn.Module):
-    
     pass
 
 
-def get_model(model_name: str, arch: str):
+def get_model(model_name: str, arch: str, device):
     m = {
         'openai_clip': openai_clip,
         'eva_clip': eva_clip,
     }
-    
+
     load = m[model_name] if model_name in m else hf_clips
-    model, tokenizer, preprocess = load(arch)
-    
+    model, tokenizer, preprocess = load(arch, device)
+
     return model, tokenizer, preprocess
+
+
+if __name__ == '__main__':
+    model, tokenizer, preprocess = get_model(model_name='eva_clip', arch='EVA02-CLIP-L-14-336', device='cuda')
+    print(preprocess)

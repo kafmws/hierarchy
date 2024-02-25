@@ -5,7 +5,6 @@ import timeit
 # for PYTHONPATH
 project_root = os.path.abspath(os.path.dirname(__file__))
 sys.path.extend([project_root])
-assert '/root/projects/readings/work' == project_root
 
 # for reproducibility
 from utils import set_seed
@@ -28,32 +27,40 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from models import get_model
 from hierarchical.hierarchy import get_hierarchy
 from dataset import get_dataset, get_feature_dataset
-from prompts import clsname2prompt, hierarchical_prompt, iwildcam36_prompts
+from prompts import clsname2prompt, hierarchical_prompt
 
 # config
-# model_name, arch = 'openai_clip', 'ViT-L/14@336px'
-model_name, arch = 'eva_clip', 'EVA02-CLIP-L-14-336'
-# datasets = {'imagenet1k': ['val']}
-datasets = {'iwildcam36': ['test'], 'aircraft': ['test']}
-# datasets = {'animal90': ['test']}
-# datasets = {'aircraft': ['test']}
-output_dir = project_root
+# OPENAI-CLIP
+model_name, arch = 'openai_clip', 'ViT-L/14@336px'
 
+# EVA-CLIP  大小写敏感
+# model_name, arch = 'eva_clip', 'EVA01-CLIP-g-14'
+# model_name, arch = 'eva_clip', 'EVA02-CLIP-L-14-336'
+# model_name, arch = 'eva_clip', 'EVA02-CLIP-bigE-14-plus'
+
+# EVA-CLIP-8B
+# model_name, arch = 'eva_clip_8B', 'BAAI/EVA-CLIP-8B'
+device = 'cuda:5' if torch.cuda.is_available() else 'cpu'
+
+# datasets = {'imagenet1k': ['val']}
+datasets = {'iwildcam36': ['test'], 'aircraft': ['test'], 'animal90': ['test']}
+
+output_dir = project_root
 feat_output_dir = os.path.join(output_dir, 'feature_dataset', model_name, arch.replace("/", "-"))
 os.makedirs(feat_output_dir, exist_ok=True)
 
 pic_output_dir = os.path.join(output_dir, 'pic')
 os.makedirs(pic_output_dir, exist_ok=True)
 
-# Load the model
-device = 'cuda:3' if torch.cuda.is_available() else 'cpu'
-model, tokenizer, preprocess = get_model(model_name, arch)
-model = model.to(device)
 
-
-def collect_image_features():
+def collect_image_features(model):
     for dataset_name, splits in datasets.items():
         for split in splits:
+            output_filepath = os.path.join(feat_output_dir, f'{dataset_name}_{split}_features.pkl')
+            if os.path.isfile(output_filepath):
+                print(f'{output_filepath} exists, skip!')
+                continue
+
             print(f'preparing {dataset_name} {split} features...')
             dataset = get_dataset(dataset_name=dataset_name, split=split, transform=preprocess)
             loader = DataLoader(dataset, batch_size=64, shuffle=False, drop_last=False, num_workers=2)
@@ -65,6 +72,7 @@ def collect_image_features():
             with torch.no_grad():
                 for images, targets, paths in tqdm(loader, ncols=60, dynamic_ncols=True):
                     images = images.to(device)
+                    # with torch.amp.autocast('cuda'):
                     image_features = model.encode_image(images)
                     for (
                         path,
@@ -77,15 +85,16 @@ def collect_image_features():
                 'fname': f'{dataset_name}_{split}_features.pkl',
                 'model': f'{model_name}:{arch}',
                 'features': sample_features,
-                'transform': preprocess,
+                'transform': str(preprocess),
             }
 
             # torch.save(obj=data, f=os.path.join(feat_output_dir, data['fname'] + '.pth'))
-            with open(os.path.join(feat_output_dir, data['fname']), 'wb') as file:
+            with open(output_filepath, 'wb') as file:
                 pickle.dump(obj=data, file=file)
 
 
-def encode_text_batch(texts: List[str], n_classes, text_fusion, device):
+def encode_text_batch(model, tokenizer, texts: List[str], n_classes, text_fusion, device):
+    # print(texts)  # TODO: 查看tokenizer中大小写到底有没有变化
     multiple = len(texts) / n_classes
     assert multiple == int(multiple)
     multiple = int(multiple)
@@ -98,7 +107,7 @@ def encode_text_batch(texts: List[str], n_classes, text_fusion, device):
         if _batch[-1] < len(tokens):
             _batch.append(len(tokens))
         for endi in range(1, len(_batch)):
-            batch_text_features = model.encode_text(tokens[_batch[endi - 1]: _batch[endi]])
+            batch_text_features = model.encode_text(tokens[_batch[endi - 1] : _batch[endi]])
             batch_text_features /= batch_text_features.norm(dim=-1, keepdim=True)
             if text_fusion:
                 batch_text_features = batch_text_features.mean(dim=0)
@@ -112,7 +121,7 @@ def encode_text_batch(texts: List[str], n_classes, text_fusion, device):
     return text_features
 
 
-def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
+def collect_clip_logits(tokenizer, text_fusion=False, only: int = None, dump=False):
     """CLIP zero-shot inference with multiple prompts.
 
     Args:
@@ -135,7 +144,9 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
         text_inputs = text_inputs[only : only + 1]
 
     for i, texts in enumerate(text_inputs):
-        text_features = encode_text_batch(texts=texts, n_classes=n_classes, text_fusion=text_fusion, device=device)
+        text_features = encode_text_batch(
+            model, tokenizer, texts=texts, n_classes=n_classes, text_fusion=text_fusion, device=device
+        )
         # if not len(texts) > n_classes and not text_fusion:  # multiple == 1 also performs norm
         #     text_features /= text_features.norm(dim=-1, keepdim=True)
 
@@ -183,17 +194,19 @@ def collect_clip_logits(text_fusion=False, only: int = None, dump=False):
                 pickle.dump(obj=data, file=file)
 
 
-def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, detailed=False):
+def hierarchical_inference(tokenizer, dataset, selected_layers=None, n_thought_path=1, detailed=False):
     # soft_decision = True
     soft_decision = n_thought_path > 1
-    
+
     feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
 
     sample_logits = []  # [path, target, feature]
     path_prefix_len = len(dataset.root) + len(dataset.split) + len('/')
 
-    text_inputs, (isa_mask, layer_isa_mask, layer_mask), hierarchical_targets, classnames, h = hierarchical_prompt(dataset.dataset_name)
+    text_inputs, (isa_mask, layer_isa_mask, layer_mask), hierarchical_targets, classnames, h = hierarchical_prompt(
+        dataset.dataset_name
+    )
     layer_cnt, layer2name = h.layer_cnt, h.layer2name
     isa_mask = torch.from_numpy(isa_mask).to(device)
     layer_mask = torch.from_numpy(layer_mask).to(device)
@@ -206,7 +219,9 @@ def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, deta
     for i, texts in enumerate(text_inputs):
         print(f'for prompts {i}#')
 
-        text_features = encode_text_batch(texts=texts, n_classes=layer_offset[-1], text_fusion=False, device=device)
+        text_features = encode_text_batch(
+            model, tokenizer, texts=texts, n_classes=layer_offset[-1], text_fusion=False, device=device
+        )
 
         # collect all results
         if not selected_layers:
@@ -231,23 +246,21 @@ def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, deta
                 targets: torch.Tensor = targets.to(device)
                 image_features: torch.Tensor = images.to(device)
                 image_features /= image_features.norm(dim=-1, keepdim=True)
-                print(image_features.data)
                 logits = image_features @ text_features.T
                 similarity = (100.0 * logits).softmax(dim=-1)
                 similarity += 1e-6  # for logic consistency, considered all zero logits
                 # for path, target, _logits, in zip(paths, targets, logits):
                 #     sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
-                
+
                 # thinking in hierarchy
                 if selected_layers:
                     for i, selected_layer in enumerate(selected_layers):
                         consistent = True  # for soft decision only
                         topk, predicts, last_pred = None, None, None  # satisfies the code analyzer
                         for layer in selected_layer:
-                            
-                            if i == 13:
-                                print('debug')
-                            
+                            # if i == 13:
+                            #     print('debug')
+
                             if layer == selected_layer[0]:  # the first thinking at 1st layer
                                 mask = layer_mask[layer]
                             else:  # thoughts based on last thought
@@ -265,20 +278,21 @@ def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, deta
                                     mask = layer_isa_mask[predicts.item()][layer]
                             last_pred = predicts
                             # topk = (similarity * mask).topk(n_thought_path, dim=-1)
-                            topk = (similarity * mask).topk(sum(mask > 0) if soft_decision else 1, dim=-1)
+                            # topk = (similarity * mask).topk((int(sum(mask > 0) / 2) + 1) if soft_decision else 1, dim=-1)
+                            topk = (similarity * mask).topk(int(sum(mask > 0)) if soft_decision else 1, dim=-1)
                             predicts = topk.indices
                             if last_pred is not None:
                                 consistent = isa_mask[last_pred[0]][predicts[0]]
                                 # if not consistent:
-                                    # print(f'{paths}: {flat_classnames[last_pred[0]]}/{last_pred[0]}=>{flat_classnames[predicts[0]]}/{predicts[0]}')
+                                # print(f'{paths}: {flat_classnames[last_pred[0]]}/{last_pred[0]}=>{flat_classnames[predicts[0]]}/{predicts[0]}')
                             correct[i][layer] += sum(torch.eq(targets[layer], predicts[0])).item()
 
                             preds[i][layer].append(predicts[0] - layer_offset[layer])
                             labels[i][layer].append(targets[layer].item() - layer_offset[layer])
-                
+
                         # compute hiearchical consistency for soft decision
                         consistency[i] += consistent
-                        
+
                 else:
                     for layer in range(0, len(layer_cnt)):
                         masked_similarity = similarity * layer_mask[layer]
@@ -289,7 +303,7 @@ def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, deta
                         labels[layer].append(targets[layer].item() - layer_offset[layer])
         end_time = timeit.default_timer()
         print(f'{dataset.dataset_name} hiearchical inference time: {end_time - start_time :.2f}s')
-        
+
         # latex accuracy output
         if selected_layers:
             for i, selected_layer in enumerate(selected_layers):
@@ -331,15 +345,23 @@ def hierarchical_inference(dataset, selected_layers=None, n_thought_path=1, deta
 
 
 if __name__ == '__main__':
+    # Load the model
+    model, tokenizer, preprocess = get_model(model_name, arch, device)
+
     clip_transform = Compose([torch.HalfTensor])
     clip_target_transform = Compose([torch.as_tensor])
+
+    collect_image_features(model)
+    # collect_clip_logits(tokenizer, text_fusion=True, dump=False)
+    # collect_clip_logits(tokenizer, text_fusion=True, only=3, dump=False)
 
     def test_iwildcam36():
         dataset = get_feature_dataset(dataset_name='iwildcam36', split='test', model=model_name, arch=arch)
         print(f'loading {dataset.dataset_name} {dataset.split} feature...')
 
-        hierarchical_inference(dataset)
+        hierarchical_inference(tokenizer, dataset)
         hierarchical_inference(
+            tokenizer,
             dataset=dataset,
             selected_layers=[
                 [0, 1, 2, 3, 4],
@@ -370,7 +392,7 @@ if __name__ == '__main__':
         )
         print(f'loading {dataset.dataset_name} {dataset.split} feature...')
 
-        hierarchical_inference(dataset)
+        hierarchical_inference(tokenizer, dataset)
 
     def test_aircraft():
         dataset = get_feature_dataset(
@@ -383,8 +405,9 @@ if __name__ == '__main__':
         )
         print(f'loading {dataset.dataset_name} {dataset.split} feature...')
 
-        hierarchical_inference(dataset)
+        hierarchical_inference(tokenizer, dataset)
         hierarchical_inference(
+            tokenizer,
             dataset=dataset,
             selected_layers=[
                 [0, 1, 2],
@@ -396,12 +419,8 @@ if __name__ == '__main__':
         )
 
     test_iwildcam36()
-    # test_animal90()
     test_aircraft()
-
-    # collect_image_features()
-    # collect_clip_logits(text_fusion=True, dump=False)
-    # collect_clip_logits(text_fusion=True, only=3, dump=False)
+    test_animal90()
 
 
 def benchmark_torchsave_pickledump():
