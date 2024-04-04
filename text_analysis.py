@@ -39,7 +39,7 @@ model_settings = [
     ('eva_clip', 'EVA02-CLIP-L-14-336'),
     ('eva_clip', 'EVA02-CLIP-bigE-14-plus'),
 ]
-device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
+device = 'cuda:5' if torch.cuda.is_available() else 'cpu'
 
 
 def draw_text_similiarity(model_name, arch, datasets):
@@ -85,9 +85,16 @@ def draw_text_similiarity(model_name, arch, datasets):
                 # draw
                 plt.clf()
                 labels = [node.name for node in nodes]
-                heatmap = sns.heatmap(m, cmap='Blues', annot=len(nodes) <= 15, fmt='.2f')
-                heatmap.set_xticklabels(labels, rotation=-45, ha='right')
-                heatmap.set_yticklabels(labels, rotation=-45, ha='right')
+                heatmap = sns.heatmap(
+                    m, cmap='Blues', annot=len(nodes) <= 15, fmt='.2f', xticklabels=labels, yticklabels=labels
+                )
+                # heatmap.set_xticklabels(labels, rotation=-45, ha='right')
+                # heatmap.set_yticklabels(labels, rotation=-45, ha='right')
+
+                if len(labels) > 40:
+                    heatmap.set_xticks([])
+                    heatmap.set_yticks([])
+
                 heatmap.set_title(f'Label similarity between {h.layer2name[cur]} and {h.layer2name[next]}')
                 plt.savefig(f'pic/text/{dataset}_{model_name}_{arch}_{h.layer2name[cur]}_{h.layer2name[next]}.png', dpi=300)
 

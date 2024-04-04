@@ -20,8 +20,8 @@ from itertools import accumulate
 from matplotlib import pyplot as plt
 from torch.utils.data import DataLoader
 from torchvision.transforms import Compose
-from typing import Counter, List, Tuple, Any, Iterable
 from sklearn.metrics import classification_report
+from typing import Counter, List, Tuple, Any, Iterable
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 from models import get_model
@@ -40,7 +40,7 @@ model_name, arch = 'openai_clip', 'ViT-L/14@336px'
 
 # EVA-CLIP-8B
 # model_name, arch = 'eva_clip_8B', 'BAAI/EVA-CLIP-8B'
-device = 'cuda:5' if torch.cuda.is_available() else 'cpu'
+device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
 
 # datasets = {'imagenet1k': ['val']}
 datasets = {'iwildcam36': ['test'], 'aircraft': ['test'], 'animal90': ['test']}
@@ -194,9 +194,12 @@ def collect_clip_logits(tokenizer, text_fusion=False, only: int = None, dump=Fal
                 pickle.dump(obj=data, file=file)
 
 
-def hierarchical_inference(tokenizer, dataset, selected_layers=None, n_thought_path=1, detailed=False):
+def hierarchical_inference(
+    tokenizer, dataset, selected_layers=None, n_thought_path=1, detailed=False, temperature=0.5, path_correct=False
+):
     # soft_decision = True
     soft_decision = n_thought_path > 1
+    HI = True if selected_layers else False
 
     feat_output_dir = f'{output_dir}/{model_name}/{arch.replace("/", "-")}'
     os.makedirs(feat_output_dir, exist_ok=True)
@@ -214,7 +217,7 @@ def hierarchical_inference(tokenizer, dataset, selected_layers=None, n_thought_p
     flat_classnames = [item for sublist in classnames for item in sublist]
     layer_offset = [0] + list(accumulate(layer_cnt))
 
-    row = arch[:-2] + (' HI' if selected_layers else ' ZS') + '     &' + '&'.join(['{:^9}'] * len(layer_cnt)) + '\\\\'
+    row = arch[:-2] + (' HI' if HI else ' ZS') + '     &' + '&'.join(['{:^9}'] * len(layer_cnt)) + '\\\\'
 
     for i, texts in enumerate(text_inputs):
         print(f'for prompts {i}#')
@@ -222,6 +225,9 @@ def hierarchical_inference(tokenizer, dataset, selected_layers=None, n_thought_p
         text_features = encode_text_batch(
             model, tokenizer, texts=texts, n_classes=layer_offset[-1], text_fusion=False, device=device
         )
+
+        if not HI:
+            selected_layers = [list(range(len(layer_cnt)))]
 
         # collect all results
         if not selected_layers:
@@ -247,20 +253,19 @@ def hierarchical_inference(tokenizer, dataset, selected_layers=None, n_thought_p
                 image_features: torch.Tensor = images.to(device)
                 image_features /= image_features.norm(dim=-1, keepdim=True)
                 logits = image_features @ text_features.T
-                similarity = (100.0 * logits).softmax(dim=-1)
-                similarity += 1e-6  # for logic consistency, considered all zero logits
+                # similarity = (100.0 * logits).softmax(dim=-1)
+                # similarity = (temperature * logits).softmax(dim=-1)
+                similarity = logits
+                similarity += 1e-8  # for logic consistency, considered all zero logits
                 # for path, target, _logits, in zip(paths, targets, logits):
                 #     sample_logits.append((path[path_prefix_len:], target.item(), _logits.cpu().numpy()))
 
                 # thinking in hierarchy
-                if selected_layers:
+                if HI:
                     for i, selected_layer in enumerate(selected_layers):
                         consistent = True  # for soft decision only
                         topk, predicts, last_pred = None, None, None  # satisfies the code analyzer
                         for layer in selected_layer:
-                            # if i == 13:
-                            #     print('debug')
-
                             if layer == selected_layer[0]:  # the first thinking at 1st layer
                                 mask = layer_mask[layer]
                             else:  # thoughts based on last thought
@@ -268,8 +273,8 @@ def hierarchical_inference(tokenizer, dataset, selected_layers=None, n_thought_p
                                     # TODO: score scaling/processing
                                     # 归一化topk.values 或者该层的logits，温度可以由均值决定。
                                     # scores = torch.softmax(topk.values / topk.values.mean(), dim=-1)
-                                    scores = topk.values / topk.values.mean()
-                                    scores = torch.softmax(scores / 0.5, dim=-1)  # 小值尖锐，大值平滑
+                                    scores = (topk.values + 1e-8) / topk.values.mean()  # 不除以均值，一致性严重降低，和直接最后一层预测没啥区别
+                                    scores = torch.softmax(scores * temperature, dim=-1)  # 小值尖锐，大值平滑
                                     # TODO: 先进行缩放，再调整温度
                                     mask = 0
                                     for pred, score in zip(topk.indices, scores):
@@ -287,34 +292,100 @@ def hierarchical_inference(tokenizer, dataset, selected_layers=None, n_thought_p
                                 # print(f'{paths}: {flat_classnames[last_pred[0]]}/{last_pred[0]}=>{flat_classnames[predicts[0]]}/{predicts[0]}')
                             correct[i][layer] += sum(torch.eq(targets[layer], predicts[0])).item()
 
-                            preds[i][layer].append(predicts[0] - layer_offset[layer])
+                            preds[i][layer].append(predicts[0].item() - layer_offset[layer])
                             labels[i][layer].append(targets[layer].item() - layer_offset[layer])
 
                         # compute hiearchical consistency for soft decision
                         consistency[i] += consistent
 
                 else:
-                    for layer in range(0, len(layer_cnt)):
+                    consistent = True
+                    for layer in selected_layers[0]:
                         masked_similarity = similarity * layer_mask[layer]
                         predicts = masked_similarity.topk(1, dim=-1).indices
-                        correct[layer] += sum(torch.eq(targets[layer], predicts)).item()
+                        correct[0][layer] += sum(torch.eq(targets[layer], predicts)).item()
 
-                        preds[layer].append(predicts.item() - layer_offset[layer])
-                        labels[layer].append(targets[layer].item() - layer_offset[layer])
+                        if layer != selected_layers[0][0]:  # 非第一层
+                            consistent = isa_mask[last_pred.item()][predicts.item()]
+                        preds[0][layer].append(predicts.item() - layer_offset[layer])
+                        labels[0][layer].append(targets[layer].item() - layer_offset[layer])
+                        last_pred = predicts
+                    consistency[i] += consistent
+
         end_time = timeit.default_timer()
         print(f'{dataset.dataset_name} hiearchical inference time: {end_time - start_time :.2f}s')
 
-        # latex accuracy output
-        if selected_layers:
+        # recover Path Correct
+        # 对preds进行路径矫正重新和 labels 计算准确率和一致性
+        if selected_layers and soft_decision and path_correct:
             for i, selected_layer in enumerate(selected_layers):
-                res = [
-                    '{:.2f}'.format(correct[i][idx] * 100 / len(dataset)) if idx in selected_layer else '-'
-                    for idx in range(len(layer_cnt))
-                ]
-                print(row.format(*res) + (f' consistency: {consistency[i] * 100 / len(dataset): .2f}' if soft_decision else ''))
-        else:
-            res = ['{:.2f}'.format(correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
-            print(row.format(*res))
+                selected_layer = selected_layer[::-1]  # 自下而上更新
+                last_pred_layer = selected_layer[0]
+                for sample in range(len(dataset)):
+                    last_pred = preds[i][last_pred_layer][sample] + layer_offset[last_pred_layer]  # gloabl index
+                    for layer in selected_layer[1:]:
+                        preds[i][layer][sample] = h.get_node(id=last_pred).get_path()[0][layer].inlayer_idx  # correction
+                        last_pred = preds[i][layer][sample] + layer_offset[layer]  # gloabl index
+                for layer in selected_layer:
+                    correct[i][layer] = sum(np.equal(preds[i][layer], labels[i][layer]))
+                consistency[i] = len(dataset)
+
+        ## 评估错误严重程度，用最近公共祖先高度
+        # 最深层级版本
+        mistake_severity = [[] for _ in selected_layers]
+        for i, selected_layer in enumerate(selected_layers):
+            species_layer = selected_layer[-1]
+            for sample in range(len(preds[i][species_layer])):
+                pred = preds[i][species_layer][sample] + layer_offset[species_layer]
+                label = labels[i][species_layer][sample] + layer_offset[species_layer]
+                # lca = h.get_LCA(pred, label)  # TODO: get_LCA
+                # height = h.n_layer - lca.layer if lca else h.n_layer + 1
+                if pred == label:
+                    height = 1
+                    continue  # 跳过正确样本
+                else:
+                    for node in h.get_node(id=pred).get_path()[0][::-1]:
+                        if isa_mask[node.id][label]:
+                            height = h.n_layer - node.layer
+                            break
+                        else:
+                            height = h.n_layer + 1  # 没找到，LCA为虚拟根节点
+                mistake_severity[i].append(height)
+
+        # 各个层级版本
+        # mistake_severity = [[[] for _ in range(len(layer_cnt))] for _ in range(len(selected_layers))]
+        # for i, selected_layer in enumerate(selected_layers):
+        #     for sample in range(len(preds[i][species_layer])):
+        #         for layer in selected_layer:
+        #             pred = preds[i][layer][sample] + layer_offset[layer]
+        #             label = labels[i][layer][sample] + layer_offset[layer]
+        #             # lca = h.get_LCA(pred, label)  # TODO: get_LCA
+        #             # height = h.n_layer - lca.layer if lca else h.n_layer + 1
+        #             if pred == label:
+        #                 height = 1
+        #                 continue  # 跳过正确样本
+        #             else:
+        #                 for node in h.get_node(id=pred).get_path()[0][::-1]:
+        #                     if isa_mask[node.id][label]:
+        #                         height = h.n_layer - node.layer  # 应不应该用相对高度（可以不用）
+        #                         break
+        #                 else:
+        #                     height = h.n_layer + 1
+        #             mistake_severity[i][layer].append(height)
+
+        # latex accuracy output
+        # if HI:
+        for i, selected_layer in enumerate(selected_layers):
+            res = [
+                '{:.2f}'.format(correct[i][idx] * 100 / len(dataset)) if idx in selected_layer else '-'
+                for idx in range(len(layer_cnt))
+            ]
+            consistency_report = f'consistency: {consistency[i] * 100 / len(dataset): .2f}'  # if soft_decision else ''
+            mistake_severity_report = f'mistake serverity: {np.mean(mistake_severity[i]) / h.n_layer * 100:.2f}'
+            print(f'{row.format(*res)} {consistency_report:>25} {mistake_severity_report:>27}')
+        # else:
+        # res = ['{:.2f}'.format(correct[idx] * 100 / len(dataset)) for idx in range(len(layer_cnt))]
+        # print(row.format(*res))
 
         # detailed results
         if detailed:
@@ -360,6 +431,8 @@ if __name__ == '__main__':
         print(f'loading {dataset.dataset_name} {dataset.split} feature...')
 
         hierarchical_inference(tokenizer, dataset)
+
+        print('hard decision')
         hierarchical_inference(
             tokenizer,
             dataset=dataset,
@@ -380,6 +453,86 @@ if __name__ == '__main__':
                 [4],
             ],
         )
+
+        print('soft decision')
+        hierarchical_inference(
+            tokenizer,
+            dataset=dataset,
+            selected_layers=[
+                [0, 1, 2, 3, 4],
+                [1, 2, 3, 4],
+                [0, 2, 3, 4],
+                [0, 1, 3, 4],
+                [0, 1, 2, 4],
+                [0, 1, 4],
+                [0, 2, 4],
+                [0, 3, 4],
+                [2, 3, 4],
+                [0, 4],
+                [1, 4],
+                [2, 4],
+                [3, 4],
+                [4],
+            ],
+            n_thought_path=1000,
+        )
+
+        print('path correct')
+        hierarchical_inference(
+            tokenizer,
+            dataset=dataset,
+            selected_layers=[
+                [0, 1, 2, 3, 4],
+                [1, 2, 3, 4],
+                [0, 2, 3, 4],
+                [0, 1, 3, 4],
+                [0, 1, 2, 4],
+                [0, 1, 4],
+                [0, 2, 4],
+                [0, 3, 4],
+                [2, 3, 4],
+                [0, 4],
+                [1, 4],
+                [2, 4],
+                [3, 4],
+                [4],
+            ],
+            n_thought_path=1000,
+            path_correct=True,
+        )
+
+    def iwildcam36_temperature():
+        dataset = get_feature_dataset(dataset_name='iwildcam36', split='test', model=model_name, arch=arch)
+        print(f'loading {dataset.dataset_name} {dataset.split} feature...')
+
+        hierarchical_inference(tokenizer, dataset)
+
+        for t in range(1, 10):
+            t = 1 / t
+            # t = t / 10
+            print(f'temperature: {t}')
+            hierarchical_inference(
+                tokenizer,
+                dataset=dataset,
+                selected_layers=[
+                    [0, 1, 2, 3, 4],
+                    [1, 2, 3, 4],
+                    [0, 2, 3, 4],
+                    [0, 1, 3, 4],
+                    [0, 1, 2, 4],
+                    [0, 1, 4],
+                    [0, 2, 4],
+                    [0, 3, 4],
+                    [2, 3, 4],
+                    [0, 4],
+                    [1, 4],
+                    [2, 4],
+                    [3, 4],
+                    [4],
+                ],
+                n_thought_path=1000,
+                temperature=t,
+            )
 
     def test_animal90():
         dataset = get_feature_dataset(
@@ -419,8 +572,8 @@ if __name__ == '__main__':
         )
 
     test_iwildcam36()
-    test_aircraft()
-    test_animal90()
+    # test_aircraft()
+    # test_animal90()
 
 
 def benchmark_torchsave_pickledump():

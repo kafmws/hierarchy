@@ -200,12 +200,12 @@ class Hierarchy(Generic[NodeClass]):
             nodes and edges (tuple): Tuple of list of nodes and edges of each layer, each edge is tuple(parent, child), note that last edge list is always empty.
         """
         nodes: List[Set[NodeClass]] = list()
-        edges: List[Set[Tuple(NodeClass, NodeClass)]] = list()
+        edges: List[Set[Tuple[NodeClass, NodeClass]]] = list()
 
         cur = set([root])
         while len(cur):
             todo: Set[NodeClass] = set()
-            curedges: Set[Tuple(NodeClass, NodeClass)] = set()
+            curedges: Set[Tuple[NodeClass, NodeClass]] = set()
             nodes.append(cur)
             for node in cur:
                 for child in node.children:
@@ -219,6 +219,13 @@ class Hierarchy(Generic[NodeClass]):
         assert layer >= 0 and layer < self.n_layer, f'`layer` {layer} must in [0, {self.n_layer}) of the hierarchy.'
         layernodes = [node for id, node in self.nodes.items() if node.layer == layer]
         return sorted(layernodes, key=lambda node: node.inlayer_idx)
+
+    def get_LCA(self, a, b):
+        assert 0  # TODO
+        if not isinstance(a, Node):
+            a = self.get_node(id=a)
+        if not isinstance(b, Node):
+            b = self.get_node(id=b)
 
     def _export_graphviz(self, roots: NodeClass | List[NodeClass] = None, dotfile='tree.dot', dotname: Callable = None):
         if roots is None:

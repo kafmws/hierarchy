@@ -2,7 +2,7 @@ import os
 import torch
 import numpy as np
 import pandas as pd
-from hierarchical.hierarchy import Hierarchy, get_hierarchy
+from hierarchical.hierarchy import Hierarchy, get_hierarchy, Node
 
 from dataset.imagenet1k import imagenet_classes, imagenet_templates, imagenet_templates_subset
 
@@ -100,20 +100,44 @@ def iwildcam36_prompts(h: Hierarchy):
 
             # """hiearchical prompt"""
             if root.is_leaf():
-                prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name}, in the wild.')
-            elif root.is_root():
-                # prompts.append(f'a photo of a {root.name}.')
+                # prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name}, in the wild.') # 55.67 & 56.00
 
-                # describe next layer.
-                # desp = ', or '.join(c.name for c in root.children)
+                # # prompt engineering baseline
+                # prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal.')
+
+                # best
+                prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal in the wild.')  # 56.86 & 57.14
+
+                # new
+                # prompts.append(f'a camera trap image of a {root.english_name}, a kind of {root.get_root().name}, a kind of animal.')
+                # prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal.') # 56.36
+                # prompts.append(f'a camera trap image of a {root.english_name}, a kind of wildlife.') # 56.28
+                # prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name}.') # 52.83
+            elif root.is_root():
+                # describe next layer. (best)
                 desp = ', '.join(c.name for c in root.children)
                 prompts.append(f'a photo of a {root.name} such as {desp}.')
+
+                # # prompt engineering baseline
+                # prompts.append(f'a camera trap image of a {root.name}, a kind of animal.')
+
+                # new
+                # desp = ', '.join(c.name for c in root.children)
+                # prompts.append(f'a camera trap image of a {root.name}, a kind of animal, such as {desp}.')
+                # prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal.')
+
             else:
-                # describe next layer.
+                # describe next layer. (best)
                 desp = ', '.join(c.name for c in root.children)
                 # describe prev layer.
                 parent = root.parents[0]
                 prompts.append(f'a photo of a {root.name}, a kind of {parent.name}, such as {desp}.')
+
+                # # prompt engineering baseline
+                # prompts.append(f'a camera trap image of a {root.name}, a kind of animal.')
+
+                # new
+                # prompts.append(f'a camera trap image of a {root.name}, a kind of {parent.name}, such as {desp}.')
 
             # convert List[List[Node]] to List[List[global index]]
             descendants = root.hierarchical_descendants()
@@ -410,4 +434,35 @@ def clsname2prompt(dataset, classnames):
 
 if __name__ == '__main__':
     # h = get_hierarchy('animal90')
-    prompts, pointers, layer_mask, hierarchical_targets, classnames, h = hierarchical_prompt('animal90')
+    # prompts, pointers, layer_mask, hierarchical_targets, classnames, h = hierarchical_prompt('animal90')
+    prompts, layer_mask, hierarchical_targets, classnames, h = hierarchical_prompt('iwildcam36')
+    h: Hierarchy = h
+
+    with open('/root/projects/readings/vis/tree_vis/h.txt', 'w') as htxt, open(
+        '/root/projects/readings/vis/tree_vis/decorate.txt', 'w'
+    ) as decoratetxt:
+        roots = h.get_roots()
+        colors = 'rbg'
+        colormap = dict(zip(roots, colors))
+        print(colormap)
+
+        for leaf in h.get_leaves():
+            leaf: Node = leaf
+            path = leaf.get_path()
+
+            textpath = ''
+            for node in path[0]:
+                # if node.is_leaf():
+                #     textpath += node.english_name
+                # else:
+                name = node.name
+                name = name[0].upper() + name[1:]
+                textpath += name.replace(' ', '_')
+                textpath += '.'
+
+                if not node.is_leaf():
+                    print(f'{name}	annotation	{name}', file=decoratetxt)
+                    if node.layer == 1:
+                        print(f'{name}	annotation_background_color	{colormap[node.get_root()]}', file=decoratetxt)
+
+            print(textpath[:-1], file=htxt)
