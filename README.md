@@ -42,4 +42,7 @@ nvidia-cuda-runtime-cu11  11.7.99
 
 
 ## Reproduction
+```
 python clip_analysis.py   # for all experiments in the paper, read the code
+```
+
