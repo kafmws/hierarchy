@@ -105,8 +105,11 @@ def iwildcam36_prompts(h: Hierarchy):
                 # # prompt engineering baseline
                 # prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal.')
 
-                # best
-                prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal in the wild.')  # 56.86 & 57.14
+                # EVA-CLIP prompt
+                prompts.append(f'a photo of a {root.english_name}.')
+
+                # # best
+                # prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal in the wild.')  # 56.86 & 57.14
 
                 # new
                 # prompts.append(f'a camera trap image of a {root.english_name}, a kind of {root.get_root().name}, a kind of animal.')
@@ -114,12 +117,15 @@ def iwildcam36_prompts(h: Hierarchy):
                 # prompts.append(f'a camera trap image of a {root.english_name}, a kind of wildlife.') # 56.28
                 # prompts.append(f'a photo of a {root.english_name}, a kind of {root.get_root().name}.') # 52.83
             elif root.is_root():
-                # describe next layer. (best)
-                desp = ', '.join(c.name for c in root.children)
-                prompts.append(f'a photo of a {root.name} such as {desp}.')
+                # # describe next layer. (best)
+                # desp = ', '.join(c.name for c in root.children)
+                # prompts.append(f'a photo of a {root.name} such as {desp}.')
 
                 # # prompt engineering baseline
                 # prompts.append(f'a camera trap image of a {root.name}, a kind of animal.')
+
+                # EVA-CLIP prompt
+                prompts.append(f'a photo of a {root.name}.')
 
                 # new
                 # desp = ', '.join(c.name for c in root.children)
@@ -127,14 +133,17 @@ def iwildcam36_prompts(h: Hierarchy):
                 # prompts.append(f'a camera trap image of a {root.english_name}, a kind of animal.')
 
             else:
-                # describe next layer. (best)
-                desp = ', '.join(c.name for c in root.children)
-                # describe prev layer.
-                parent = root.parents[0]
-                prompts.append(f'a photo of a {root.name}, a kind of {parent.name}, such as {desp}.')
+                # # describe next layer. (best)
+                # desp = ', '.join(c.name for c in root.children)
+                # # describe prev layer.
+                # parent = root.parents[0]
+                # prompts.append(f'a photo of a {root.name}, a kind of {parent.name}, such as {desp}.')
 
                 # # prompt engineering baseline
                 # prompts.append(f'a camera trap image of a {root.name}, a kind of animal.')
+
+                # EVA-CLIP prompt
+                prompts.append(f'a photo of a {root.name}.')
 
                 # new
                 # prompts.append(f'a camera trap image of a {root.name}, a kind of {parent.name}, such as {desp}.')

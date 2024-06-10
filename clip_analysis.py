@@ -31,16 +31,16 @@ from prompts import clsname2prompt, hierarchical_prompt
 
 # config
 # OPENAI-CLIP
-model_name, arch = 'openai_clip', 'ViT-L/14@336px'
+# model_name, arch = 'openai_clip', 'ViT-L/14@336px'
 
 # EVA-CLIP  大小写敏感
 # model_name, arch = 'eva_clip', 'EVA01-CLIP-g-14'
-# model_name, arch = 'eva_clip', 'EVA02-CLIP-L-14-336'
+model_name, arch = 'eva_clip', 'EVA02-CLIP-L-14-336'
 # model_name, arch = 'eva_clip', 'EVA02-CLIP-bigE-14-plus'
 
 # EVA-CLIP-8B
 # model_name, arch = 'eva_clip_8B', 'BAAI/EVA-CLIP-8B'
-device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
+device = 'cuda:1' if torch.cuda.is_available() else 'cpu'
 
 # datasets = {'imagenet1k': ['val']}
 datasets = {'iwildcam36': ['test'], 'aircraft': ['test'], 'animal90': ['test']}
@@ -195,7 +195,7 @@ def collect_clip_logits(tokenizer, text_fusion=False, only: int = None, dump=Fal
 
 
 def hierarchical_inference(
-    tokenizer, dataset, selected_layers=None, n_thought_path=1, detailed=False, temperature=0.5, path_correct=False
+    tokenizer, dataset, selected_layers=None, n_thought_path=1, detailed=False, temperature=0.04, path_correct=False
 ):
     # soft_decision = True
     soft_decision = n_thought_path > 1
@@ -317,7 +317,7 @@ def hierarchical_inference(
 
         # recover Path Correct
         # 对preds进行路径矫正重新和 labels 计算准确率和一致性
-        if selected_layers and soft_decision and path_correct:
+        if selected_layers and path_correct:
             for i, selected_layer in enumerate(selected_layers):
                 selected_layer = selected_layer[::-1]  # 自下而上更新
                 last_pred_layer = selected_layer[0]
@@ -341,15 +341,15 @@ def hierarchical_inference(
                 # lca = h.get_LCA(pred, label)  # TODO: get_LCA
                 # height = h.n_layer - lca.layer if lca else h.n_layer + 1
                 if pred == label:
-                    height = 1
+                    height = 0
                     continue  # 跳过正确样本
                 else:
                     for node in h.get_node(id=pred).get_path()[0][::-1]:
                         if isa_mask[node.id][label]:
-                            height = h.n_layer - node.layer
+                            height = h.n_layer - node.layer - 1
                             break
                         else:
-                            height = h.n_layer + 1  # 没找到，LCA为虚拟根节点
+                            height = h.n_layer  # 没找到，LCA为虚拟根节点
                 mistake_severity[i].append(height)
 
         # 各个层级版本
@@ -431,6 +431,12 @@ if __name__ == '__main__':
         print(f'loading {dataset.dataset_name} {dataset.split} feature...')
 
         hierarchical_inference(tokenizer, dataset)
+        print('path correct with ZS')
+        hierarchical_inference(
+            tokenizer,
+            dataset=dataset,
+            path_correct=True,
+        )
 
         print('hard decision')
         hierarchical_inference(
@@ -507,9 +513,15 @@ if __name__ == '__main__':
 
         hierarchical_inference(tokenizer, dataset)
 
-        for t in range(1, 10):
-            t = 1 / t
-            # t = t / 10
+        # for t in range(1, 11):
+        #     # t = 1 / t
+        #     if t == 10:
+        #         t = 1
+        #     else:
+        #         t = eval(f'0.{t}')
+
+        # t = t / 10
+        for t in [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2]:
             print(f'temperature: {t}')
             hierarchical_inference(
                 tokenizer,
@@ -532,6 +544,7 @@ if __name__ == '__main__':
                 ],
                 n_thought_path=1000,
                 temperature=t,
+                path_correct=True,
             )
 
     def test_animal90():
@@ -571,7 +584,8 @@ if __name__ == '__main__':
             ],
         )
 
-    test_iwildcam36()
+    # test_iwildcam36()
+    iwildcam36_temperature()
     # test_aircraft()
     # test_animal90()
 
