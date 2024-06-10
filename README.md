@@ -1,23 +1,14 @@
 # Readme
 ## Preparation
 
-pull CLIP and EVA-CLIP repo.
+pull CLIP repo.
 
 ```
 .
 ├── clip -> ../CLIP/clip                           # git clone https://github.com/openai/CLIP.git
 ├── dataset
 │   └── iwildcam36
-├── doc
-├── eva_clip -> ../EVA/EVA-CLIP/rei/eva_clip       # git clone https://github.com/baaivision/EVA.git
 ├── feature_dataset
-│   ├── eva_clip
-│   │   ├── EVA01-CLIP-g-14
-│   │   ├── EVA02-CLIP-bigE-14-plus
-│   │   ├── EVA02-CLIP-g-14
-│   │   └── EVA02-CLIP-L-14-336
-│   ├── eva_clip_8B
-│   │   └── BAAI-EVA-CLIP-8B
 │   └── openai_clip
 │       └── ViT-L-14@336px
 └── hierarchical
