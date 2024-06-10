@@ -1,4 +1,5 @@
-# Preparation
+# Readme
+## Preparation
 
 pull CLIP and EVA-CLIP repo.
 
@@ -23,11 +24,13 @@ pull CLIP and EVA-CLIP repo.
     └── iwildcam36
 ```
 
-# download dataset
+## Dataset
 
 https://drive.google.com/file/d/1qj2OQxumv7lv8KBQRdxGG3lRZ6CFJ3ES/view?usp=sharing
 
-# environment
+## Environment
+
+```
 python                    3.11
 CUDA                      11.7
 torch                     2.0.0
@@ -35,6 +38,8 @@ transformers              4.35.2
 nvidia-cuda-cupti-cu11    11.7.101
 nvidia-cuda-nvrtc-cu11    11.7.99
 nvidia-cuda-runtime-cu11  11.7.99
+```
 
-# run
-python clip_analysis.py   # for all experiments in the paper
+
+## Reproduction
+python clip_analysis.py   # for all experiments in the paper, read the code
